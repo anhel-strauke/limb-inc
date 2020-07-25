@@ -129,10 +129,10 @@ dmypy.json
 *.rpymc
 *.rpyb
 cache/
-/limb_inc/log.txt
-/limb_inc/errors.txt
-/limb_inc-*-dists
-/limb_inc/game/saves
-/limb_inc/game/saves/*.json
-/limb_inc/game/saves/*.save
-/limb_inc/game/saves/persistent
+limb_inc/log.txt
+limb_inc/errors.txt
+limb_inc-*-dists
+limb_inc/game/saves
+limb_inc/game/saves/*.save
+limb_inc/game/saves/navigation.json
+limb_inc/game/saves/persistent
