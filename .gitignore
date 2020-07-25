@@ -126,3 +126,7 @@ dmypy.json
 
 # RenPy bytecode cache
 *.rpyc
+*.rpymc
+*.rpyb
+cache/
+/limb_inc/log.txt
