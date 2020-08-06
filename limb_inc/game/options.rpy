@@ -92,6 +92,8 @@ define config.after_load_transition = None
 
 define config.end_game_transition = None
 
+## Screen layers
+define config.layers = [ 'master', 'transient', 'screens', 'tablet_frame', 'overlay' ]
 
 ## A variable to set the transition used when the game starts does not exist.
 ## Instead, use a with statement after showing the initial scene.
@@ -107,7 +109,7 @@ define config.end_game_transition = None
 ## After the game has started, this can be changed with the "window show",
 ## "window hide", and "window auto" statements.
 
-define config.window = "auto"
+define config.window = "hide"
 
 
 ## Transitions used to show and hide the dialogue window
@@ -153,6 +155,13 @@ define config.save_directory = "limb_inc-1595676802"
 
 define config.window_icon = "gui/window_icon.png"
 
+
+## Fonts #######################################################################
+init python:
+    config.font_replacement_map["Exo2", False, False] = ("fonts/Exo2-VariableFont_wght.ttf", False, False)
+    config.font_replacement_map["Exo2", True, False] = ("fonts/Exo2-VariableFont_wght.ttf", True, False)
+    config.font_replacement_map["Exo2", False, True] = ("fonts/Exo2-Italic-VariableFont_wght.ttf", False, True)
+    config.font_replacement_map["Exo2", True, True] = ("fonts/Exo2-Italic-VariableFont_wght.ttf", True, True)
 
 ## Build configuration #########################################################
 ##

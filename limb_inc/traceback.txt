@@ -1,0 +1,73 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 80, in script
+    pause 1.0
+  File "renpy/common/000statements.rpy", line 414, in execute_pause
+    renpy.with_statement(Pause(delay))
+  File "game/tablet.rpy", line 213, in execute
+    call_time = "%02d:%02d" % (mins, secs)
+  File "game/tablet.rpy", line 213, in execute
+    call_time = "%02d:%02d" % (mins, secs)
+  File "game/tablet.rpy", line 234, in execute
+    timer 1.0 repeat True action Function(increment_time)
+  File "game/tablet.rpy", line 234, in keywords
+    timer 1.0 repeat True action Function(increment_time)
+  File "game/tablet.rpy", line 207, in increment_time
+    python:
+NameError: global name 'call_time_int' is not defined
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 80, in script
+    pause 1.0
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1949, in execute
+    self.call("execute")
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1937, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\statements.py", line 277, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 414, in execute_pause
+    renpy.with_statement(Pause(delay))
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\exports.py", line 1601, in with_statement
+    return renpy.game.interface.do_with(trans, paired, clear=clear)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 2251, in do_with
+    clear=clear)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 2702, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 3094, in interact_core
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 541, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 541, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 541, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 541, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\screen.py", line 430, in visit_all
+    callback(self)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\core.py", line 3094, in <lambda>
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\screen.py", line 440, in per_interact
+    self.update()
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\display\screen.py", line 625, in update
+    self.screen.function(**self.scope)
+  File "game/tablet.rpy", line 213, in execute
+    call_time = "%02d:%02d" % (mins, secs)
+  File "game/tablet.rpy", line 213, in execute
+    call_time = "%02d:%02d" % (mins, secs)
+  File "game/tablet.rpy", line 234, in execute
+    timer 1.0 repeat True action Function(increment_time)
+  File "game/tablet.rpy", line 234, in keywords
+    timer 1.0 repeat True action Function(increment_time)
+  File "<screen language>", line 234, in <module>
+  File "game/tablet.rpy", line 207, in increment_time
+    python:
+NameError: global name 'call_time_int' is not defined
+
+Windows-8-6.2.9200
+Ren'Py 7.3.5.606
+Limb, inc. 1.0
+Fri Aug 07 00:54:20 2020
