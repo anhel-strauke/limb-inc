@@ -136,3 +136,5 @@ limb_inc/game/saves
 limb_inc/game/saves/*.save
 limb_inc/game/saves/navigation.json
 limb_inc/game/saves/persistent
+navigation.json
+persistent

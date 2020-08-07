@@ -41,38 +41,38 @@ screen tablet_base():
         use tablet_frame_image
         
         # Tablet can be closed by clicking outside it
-        button:
-            id "tab_close_1"
-            xpos 0
-            ypos 0
-            xsize 520
-            ysize 1080
-            keyboard_focus False
-            action Return(False)
-        button:
-            id "tab_close_2"
-            xpos 520
-            ypos 0
-            xsize 877
-            ysize 29
-            keyboard_focus False
-            action Return(False)
-        button:
-            id "tab_close_3"
-            xpos 520 + 877
-            ypos 0
-            xsize 1920 - 520 - 877
-            ysize 1080
-            keyboard_focus False
-            action Return(False)
-        button:
-            id "tab_close_4"
-            xpos 520
-            ypos 29 + 1016
-            xsize 877
-            ysize 1080 - 29 - 1016
-            keyboard_focus False
-            action Return(False) 
+        # button:
+        #     id "tab_close_1"
+        #     xpos 0
+        #     ypos 0
+        #     xsize 520
+        #     ysize 1080
+        #     keyboard_focus False
+        #     action Return(False)
+        # button:
+        #     id "tab_close_2"
+        #     xpos 520
+        #     ypos 0
+        #     xsize 877
+        #     ysize 29
+        #     keyboard_focus False
+        #     action Return(False)
+        # button:
+        #     id "tab_close_3"
+        #     xpos 520 + 877
+        #     ypos 0
+        #     xsize 1920 - 520 - 877
+        #     ysize 1080
+        #     keyboard_focus False
+        #     action Return(False)
+        # button:
+        #     id "tab_close_4"
+        #     xpos 520
+        #     ypos 29 + 1016
+        #     xsize 877
+        #     ysize 1080 - 29 - 1016
+        #     keyboard_focus False
+        #     action Return(False) 
 
 
 style tablet_text:
@@ -139,10 +139,10 @@ screen tablet_login(prompt, input_val):
     vbox:
         at trans_login_ui            
         text prompt
-        input value input_val id "input_data" length 40 allow "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890-'_"
+        input value input_val id "input_data" length 11 allow "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890-'_"
         hbox:
             null width 375
-            textbutton _("Continue >>") action Return() text_xalign 1.0
+            textbutton _("Continue >>") action Return() text_xalign 1.0 xalign 1.0
 
 screen tablet_yesno(prompt):
     style_prefix "tablet_login"
@@ -209,14 +209,13 @@ default call_time_int = 0
 default call_time = "00:00"
 
 init python:
-    def increment_time():
+    def tablet_active_call_increment_time():
         store.call_time_int = store.call_time_int + 1
         secs = store.call_time_int % 60
         mins = store.call_time_int / 60
         store.call_time = "%02d:%02d" % (mins, secs)
-        #renpy.restart_interaction()
     
-    def reset_call_time():
+    def tablet_reset_call_time():
         store.call_time_int = 0
         store.call_time = "00:00"
 
@@ -237,4 +236,4 @@ screen tablet_iface_active_call(who, who_image):
             text _("Call Time: [call_time]") xalign 0.5 text_align 0.5 size 20
             null height 20
             text _("End Call") xalign 0.5 size 60
-    timer 1.0 repeat True action Function(increment_time)
+    timer 1.0 repeat True action Function(tablet_active_call_increment_time)

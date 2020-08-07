@@ -1,16 +1,10 @@
-﻿# The script of the game goes in this file.
-
-# Declare characters used by this game. The color argument colorizes the
-# name of the character.
-
-default FIRST_NAME = "Alex"
+﻿default FIRST_NAME = "Alex"
 default LAST_NAME = "Smith"
 
-init:
-    transform trans_bg_hero_house_1:
-        xalign 0.0 yalign 0.0 maxsize (1920, 1920)
-        1.0
-        ease 7.0 yalign 0.4
+transform trans_bg_hero_house_1:
+    xalign 0.0 yalign 0.0 maxsize (1920, 1920)
+    1.0
+    ease 7.0 yalign 0.4
 
 # The game starts here.
 
@@ -18,23 +12,16 @@ define bella = Character("Bella")
 define me = DynamicCharacter("FIRST_NAME", color="#333333")
 
 label start:
-
     scene black
-
     "{b}TO DO:{/b} Some bad nightmare is displayed here, waiting for the art"
     "{b}TO DO:{/b} Like “No, Kurt, NOOOOOOO!!!...” (or something like this, idk)"
     pause 1.0
     "{i}BZZZZZZZZ{/i}"
     pause 1.0
 
-    $ renpy.pause(delay=0.5, hard=True)
-
     scene bg hero_house at trans_bg_hero_house_1
     with dissolve
-
     $ renpy.pause(delay=2.0, hard=True)
-
-    pause 1.0
     "{i}BZZZZZZZZ{/i}"
     pause 1.0
     "Was it a nightmare...?"
@@ -45,8 +32,7 @@ label start:
     show screen tablet_base
     $ renpy.pause(delay=1.0, hard=True)
     show screen tablet_iface_login
-
-    $ renpy.pause(delay=1.2, hard=True)
+    $ renpy.pause(delay=1.0, hard=True)
 
     "This is my tablet."
     "I need to log in my name to get access to the corporate network."
@@ -67,13 +53,13 @@ label tablet_log_in:
     "Oh, a missed call from Bella, my boss. I guess something’s wrong."
 
     hide screen tablet_iface_missed_call
-
+    pause 0.3
     show screen tablet_iface_incoming_call(_("Bella Rabinovich"), "bella on tablet")
 
     "Here she is again."
     "I better answer that."
 
-    $ reset_call_time()
+    $ tablet_reset_call_time()
     show screen tablet_iface_active_call(_("Bella Rabinovich"), "bella on tablet")
 
     pause 1.0
@@ -120,13 +106,13 @@ label tablet_log_in:
 label end_of_dialog_1:
 
     hide screen tablet_iface_active_call
-
     $ renpy.pause(delay=0.7, hard=True)
-
     hide screen tablet_base
 
     pause 1.0
 
     "Time to go."
+
+
 
     return
