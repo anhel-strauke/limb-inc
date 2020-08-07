@@ -21,8 +21,8 @@ label start:
 
     scene black
 
-    "TODO: Some bad nightmare is displaying here"
-    "No, Kurth, NOOOOOOO!!!..."
+    "{b}TO DO:{/b} Some bad nightmare is displayed here, waiting for the art"
+    "{b}TO DO:{/b} Like “No, Kurt, NOOOOOOO!!!...” (or something like this, idk)"
     pause 1.0
     "{i}BZZZZZZZZ{/i}"
     pause 1.0
@@ -37,10 +37,10 @@ label start:
     pause 1.0
     "{i}BZZZZZZZZ{/i}"
     pause 1.0
-    "Was it a nightmare?.."
-    "It was Kurth. He's my old friend."
-    "I haven't seen him for couple of years."
-    "Have I heard a phone call?.."
+    "Was it a nightmare...?"
+    "I thought I saw Kurt, he needed help."
+    "Kurt’s an old friend, haven’t seen him for a while."
+    "I thought I heard the phone ring…?"
 
     show screen tablet_base
     $ renpy.pause(delay=1.0, hard=True)
@@ -49,7 +49,7 @@ label start:
     $ renpy.pause(delay=1.2, hard=True)
 
     "This is my tablet."
-    "I need to enter my first and last name to log into the corporate network."
+    "I need to log in my name to get access to the corporate network."
 
 label tablet_log_in:
     call screen tablet_login(_("Enter First Name:"), VariableInputValue("FIRST_NAME", returnable=True))
@@ -64,59 +64,58 @@ label tablet_log_in:
     $ renpy.restart_interaction()
     pause 0.5
 
-    "Whoa, Bella is my boss. Something had happened."
+    "Oh, a missed call from Bella, my boss. I guess something’s wrong."
 
     hide screen tablet_iface_missed_call
 
     show screen tablet_iface_incoming_call(_("Bella Rabinovich"), "bella on tablet")
 
-    "Oh, great. She's calling again."
-    "I should better answer the call."
+    "Here she is again."
+    "I better answer that."
 
     $ reset_call_time()
     show screen tablet_iface_active_call(_("Bella Rabinovich"), "bella on tablet")
 
     pause 1.0
 
-    bella "Woke up already, [FIRST_NAME]?" 
-    bella "No time for sleep, I have a mission for you."
+    bella "Awake, [FIRST_NAME]! Finally!" 
+    bella "No time to lose, you have an urgent case."
 
     menu:
-        "I don't know what happend, but I bet it will wait until I take my breakfast.":
-            bella "You'll take your breakfast in the train."
-        "I've seen a nightmare tonight.":
-            bella "Looks like you're a prophet, huh?"
-        "Some of our chiefs forgotten his safe password?":
-            bella "No. The things are pretty serious this time."
+        "I don’t know what it is but I think it can wait ‘til after breakfast.":
+            bella "You’ll eat on the express."
+        "I just had a horrible dream.":
+            bella "What are you, a psychic now?"
+        "Somebody from high command forgot their password again?":
+            bella "This time it’s serious."
     
-    bella "Do you know the name Bachovsky?"
-    bella "You should do, he's your classmate from the Academy."
-    bella "Couple of hours ago he performed a very bad Morpheus dive. He was moved into the Western Office, and he is very unstable."
-    bella "Go to the Western Office. I've mailed you his personal file, read it on the way."
-    bella "His assistant is making a complete report on this case. She should send it to you in a hour."
-    bella "I've ordered a train tickets, train leaves in 15 minutes. Hurry up."
+    bella "Does the name Bachowski ring a bell?"
+    bella "You should remember him from the Academy."
+    bella "He took a bad {i}dive{/i} a couple of hours ago, he’s in the West Branch now – very unstable."
+    bella "I want you to go there ASAP. I sent you his profile, you can look at it on the way."
+    bella "His assistant is already writing a full report on the incident. She’ll send it to you in a few minutes."
+    bella "I got you a pass for the express departing in 15 minutes. You better hurry. "
 
     menu:
-        "Yes, ma'am, affirmative, ma'am. Will send you a report upon arrival at the site.":
+        "Understood. I’ll call you when I get there.":
             jump end_of_dialog_1
-        "Looks like things are bad indeed. More instructions, ma'am?":
-            bella "Good that you asked. Our main priority is the information on this incident."
-            bella "Kurth's life is important, of course, he is a valuable employee. But..."
-            bella "If things will turn worse, you know the priorities."
-        "But why me? Western Office has good specialists, they are at the site.":
-            bella "Because he is our collegue, [FIRST_NAME]."
-            bella "There is no one in the Western Office with such experience as yours. They just can't break into his head."
-            bella "Also it's your chance to finally finish with that story on the Drake's case."
-            bella "Hope you'll not fail this time."
+        "This does sound serious. Any further instructions?":
+            bella "Since you asked – the priority here is to get information about the incident."
+            bella "Kurt’s life is important too, of course, he’s a valuable employee, but…"
+            bella "If something goes wrong… well, I think you understand."
+        "But why me? West Branch has its specialists and they’re already there.":
+            bella "Because he’s our colleague, [FIRST_NAME]."
+            bella "Nobody from West Branch is experienced enough to break into his head."
+            bella "And also, because this is an excellent chance to cover up that case with Drake."
+            bella "I hope you won’t screw up this time?"
     
-    me "It will depend on the circumstances. I will not betray my principles."
-    me "By the way, about the circumstances. Will I operate only with the personal file and the report?"
-    bella "I'm giving you the extended permissions to access the Archive for this mission. Use it."
-    bella "I will not be available until tomorrow, have to go to the Central Office for a meeting."
-    me "Good luck, ma'am. I will mail you my report upon arrival to the Western Office."
-    bella "Good luck, rather, you will need."
-    bella "Check The Cyber News, there are some interesting articles today."
-    bella "Bye."
+    me "It will all depend on the circumstances. In any case, I’ll stand by my principles."
+    me "Talking of circumstances – I’ll just have the profile and the report?"
+    bella "I gave you full access to the Archive for the duration of the investigation, use that."
+    bella "I’ll be out ‘til tomorrow, going to the Central Office for a meeting. I have to go now."
+    me "Good luck, ma’am! I’ll send you a report when I get to West Branch."
+    bella "You’re the one who will need luck!"
+    bella "If you’ll have the time, have a look at today’s “Cyber Herald” – couple of interesting articles there."
 
 label end_of_dialog_1:
 
@@ -128,6 +127,6 @@ label end_of_dialog_1:
 
     pause 1.0
 
-    "Whoa. Time to go."
+    "Time to go."
 
     return
