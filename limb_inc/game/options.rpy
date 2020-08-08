@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("Limb, inc.")
+define config.name = _("Limbus inc.")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -39,7 +39,7 @@ define gui.about = _p("""This game was created specially for I Can't Write But W
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
 ## or semicolons.
 
-define build.name = "limb_inc"
+define build.name = "limbus_inc"
 
 
 ## Sounds and music ############################################################

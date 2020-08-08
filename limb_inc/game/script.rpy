@@ -16,13 +16,13 @@ label start:
     "{b}TO DO:{/b} Some bad nightmare is displayed here, waiting for the art"
     "{b}TO DO:{/b} Like “No, Kurt, NOOOOOOO!!!...” (or something like this, idk)"
     pause 1.0
-    "{i}BZZZZZZZZ{/i}"
+    "{i}BZZZZZZZZ~~~~~~{/i}"
     pause 1.0
 
     scene bg hero_house at trans_bg_hero_house_1
     with dissolve
     $ renpy.pause(delay=2.0, hard=True)
-    "{i}BZZZZZZZZ{/i}"
+    "{i}BZZZZZZZZ~~~~~~{/i}"
     pause 1.0
     "Was it a nightmare...?"
     "I thought I saw Kurt, he needed help."
@@ -64,7 +64,7 @@ label tablet_log_in:
 
     pause 1.0
 
-    bella "Awake, [FIRST_NAME]! Finally!" 
+    bella "[FIRST_NAME], you're awake! Finally!" 
     bella "No time to lose, you have an urgent case."
 
     menu:
@@ -104,6 +104,8 @@ label tablet_log_in:
     bella "If you’ll have the time, have a look at today’s “Cyber Herald” – couple of interesting articles there."
 
 label end_of_dialog_1:
+    $ renpy.watch("TAB_EMAIL_READ")
+    $ TAB_EMAIL_RECEIVED.append("violet-1")
 
     hide screen tablet_iface_active_call
     $ renpy.pause(delay=0.7, hard=True)
@@ -113,6 +115,10 @@ label end_of_dialog_1:
 
     "Time to go."
 
+    show screen tablet_button
 
+    menu:
+        "Go to the express station":
+            return
 
     return
