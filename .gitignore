@@ -139,3 +139,4 @@ limb_inc/game/saves/navigation.json
 limb_inc/game/saves/persistent
 navigation.json
 persistent
+*.bak
