@@ -10,6 +10,7 @@ transform trans_bg_hero_house_1:
 
 define bella = Character("Bella")
 define me = DynamicCharacter("FIRST_NAME", color="#333333")
+define narrator = Character(what_italic=True)
 
 label start:
     scene black
@@ -104,9 +105,6 @@ label tablet_log_in:
     bella "If you’ll have the time, have a look at today’s “Cyber Herald” – couple of interesting articles there."
 
 label end_of_dialog_1:
-    $ renpy.watch("TAB_EMAIL_READ")
-    $ TAB_EMAIL_RECEIVED.append("violet-1")
-
     hide screen tablet_iface_active_call
     $ renpy.pause(delay=0.7, hard=True)
     hide screen tablet_base
@@ -119,6 +117,7 @@ label end_of_dialog_1:
 
     menu:
         "Go to the express station":
-            return
-
+            hide screen tablet_button
+            jump chapter_2
+    
     return

@@ -1,34 +1,40 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/tablet_data_email.rpy", line 6, in script
-    init python:
-  File "game/tablet_data_email.rpy", line 7, in <module>
-    renpy.watch("TAB_EMAIL_READ")
-  File "renpy/common/00console.rpy", line 617, in renpy_watch
-    watch(l)
-  File "renpy/common/00console.rpy", line 601, in watch
-    traced_expressions.append(expr)
-NameError: global name 'traced_expressions' is not defined
+After initialization, but before game start.
+  File "renpy/common/00start.rpy", line 82, in _init_language
+    renpy.change_language(language)
+  File "game/tablet_ch2_cutcene_screens.rpy", line 264, in <module>
+    background bg_bar_left
+NameError: name 'bg_bar_left' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/tablet_data_email.rpy", line 6, in script
-    init python:
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 914, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2028, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/tablet_data_email.rpy", line 7, in <module>
-    renpy.watch("TAB_EMAIL_READ")
-  File "renpy/common/00console.rpy", line 617, in renpy_watch
-    watch(l)
-  File "renpy/common/00console.rpy", line 601, in watch
-    traced_expressions.append(expr)
-NameError: global name 'traced_expressions' is not defined
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\bootstrap.py", line 316, in bootstrap
+    renpy.main.main()
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\main.py", line 578, in main
+    run(restart)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\main.py", line 75, in run
+    renpy.translation.init_translation()
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\translation\__init__.py", line 558, in init_translation
+    renpy.store._init_language()  # @UndefinedVariable
+  File "renpy/common/00start.rpy", line 82, in _init_language
+    renpy.change_language(language)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\translation\__init__.py", line 638, in change_language
+    new_change_language(tl, language)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\translation\__init__.py", line 604, in new_change_language
+    i.apply()
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 2553, in apply
+    value = renpy.python.py_eval(expr)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2059, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2052, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/tablet_ch2_cutcene_screens.rpy", line 264, in <module>
+    background bg_bar_left
+NameError: name 'bg_bar_left' is not defined
 
 Windows-8-6.2.9200
 Ren'Py 7.3.5.606
 Limbus inc. 1.0
-Sat Aug 08 09:21:14 2020
+Sun Aug 09 07:12:56 2020
