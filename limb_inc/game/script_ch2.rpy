@@ -61,7 +61,7 @@ label chapter_2:
     pause 0.7
     $ TAB_EMAIL_RECEIVED.append("kurt-old")
 
-    call tablet_email_read("kurt-old")
+    call tablet_email_read("kurt-old") from _call_tablet_email_read
     $ tablet_run_app("tablet_app_email")
     announcement "Academy station! Stand clear of the closing doors please!"
 
@@ -101,7 +101,7 @@ label chapter_2:
     if _return:
         call screen tablet_receive_file_process
         call screen tablet_receive_file_process_complete
-        call tablet_doc_read("secret")
+        call tablet_doc_read("secret") from _call_tablet_doc_read
         hide screen tablet_app
         $ renpy.pause(delay=0.3, hard=True)
         hide screen tablet_base
@@ -118,6 +118,8 @@ label chapter_2:
         $ renpy.pause(delay=0.3, hard=True)
         $ TABLET_IS_DISABLED = False
         "What happened?"
+        pause 2.0
+        "Ah, nevermind. I have some time to rest or read something on a tablet."
     else:
         hide screen tablet_app
         $ renpy.pause(delay=0.3, hard=True)
@@ -125,9 +127,9 @@ label chapter_2:
         $ renpy.pause(delay=0.3, hard=True)
         $ TABLET_IS_DISABLED = False
         "He's gone! I bet he is a small fraud. Luckily I rejected downloading."
-    pause 1.0
+        pause 2.0
+        "All right. I have some time to rest or read something on a tablet."
 
-    "All right. I have some time to rest or read something on a tablet."
     show screen tablet_button
 
     menu:
