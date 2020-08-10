@@ -1,40 +1,22 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-  File "renpy/common/00start.rpy", line 82, in _init_language
-    renpy.change_language(language)
-  File "game/tablet_ch2_cutcene_screens.rpy", line 264, in <module>
-    background bg_bar_left
-NameError: name 'bg_bar_left' is not defined
+While running game code:
+  File "game/script_ch10.rpy", line 94, in script
+    jump chapter_11
+ScriptError: could not find label 'chapter_11'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\bootstrap.py", line 316, in bootstrap
-    renpy.main.main()
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\main.py", line 578, in main
-    run(restart)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\main.py", line 75, in run
-    renpy.translation.init_translation()
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\translation\__init__.py", line 558, in init_translation
-    renpy.store._init_language()  # @UndefinedVariable
-  File "renpy/common/00start.rpy", line 82, in _init_language
-    renpy.change_language(language)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\translation\__init__.py", line 638, in change_language
-    new_change_language(tl, language)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\translation\__init__.py", line 604, in new_change_language
-    i.apply()
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 2553, in apply
-    value = renpy.python.py_eval(expr)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2059, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2052, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/tablet_ch2_cutcene_screens.rpy", line 264, in <module>
-    background bg_bar_left
-NameError: name 'bg_bar_left' is not defined
+  File "game/script_ch10.rpy", line 94, in script
+    jump chapter_11
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1697, in execute
+    rv = renpy.game.script.lookup(target)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\script.py", line 898, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'chapter_11'.
 
 Windows-8-6.2.9200
 Ren'Py 7.3.5.606
 Limbus inc. 1.0
-Sun Aug 09 07:12:56 2020
+Mon Aug 10 10:12:48 2020

@@ -334,7 +334,8 @@ init python:
         tablet_run_app(tablet_current_app)
 
     def tablet_run_app(app_name):
-        global tablet_current_app, tablet_current_site
+        global tablet_current_app, tablet_current_site, TAB_DIARY_CURRENT_LABEL
+        TAB_DIARY_CURRENT_LABEL = ""
         tablet_current_app = app_name
         if not app_name:
             renpy.show_screen("tablet_desktop")
@@ -650,7 +651,7 @@ screen tablet_app_browser_site_title(title):
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton ("<< %s" % title) action [SensitiveIf(not TABLET_IS_DISABLED), FunctionIfNoSay(tablet_return_to_browser)]
+            textbutton ("<< %s" % title) action FunctionIfNoSay(tablet_return_to_browser)
             null height 10
 
 screen tablet_app_browser_site():
@@ -726,10 +727,42 @@ screen tablet_app_docs_read(doc_id):
 
 ## Diary App ###############################################################################
 
+style tablet_diary_current_item is tablet_app_contacts_button_text
+style tablet_diary_current_item:
+    underline True
+    color gui.tablet_text_hover_color
+    xoffset 6
+    yoffset 6
+
+transform trans_tablet_diary_current_item:
+    alpha 1.0
+    ease 0.3 alpha 0.6
+    ease 0.3 alpha 1.0
+    repeat
+
+init python:
+    def tab_diary_play(lbl):
+        renpy.call("tablet_app_diary_play", lbl, from_current=True)
+
 screen tablet_app_diary():
     style_prefix "tablet"
     tag tablet_app
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton _("<< Diary") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)]
+            textbutton _("<< Diary") action FunctionIfNoSay(tablet_end_app)
+            null height 10
+            text ("%s %s" % (FIRST_NAME, LAST_NAME))
+            null height 10
+            grid 4 DIARY_GRID_SIZE:
+                xfill True
+                spacing 5
+                style_prefix "tablet_app_contacts"
+                for item in TAB_DIARY:
+                    if item["label"] == TAB_DIARY_CURRENT_LABEL:
+                        text item["date"] style "tablet_diary_current_item" at trans_tablet_diary_current_item
+                    else:
+                        textbutton item["date"] action FunctionIfNoSay(tab_diary_play, item["label"])
+
+                for i in range(4 - len(TAB_DIARY) % 4):
+                    null

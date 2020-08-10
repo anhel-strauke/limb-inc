@@ -70,9 +70,9 @@ label doc_report:
 label doc_secret:
     doc "You're already familiar with the case?"
     doc "Take a closer look at the suspected one."
-    doc "Hans Fry. Hans that does not exist at all, if you translate from German."
+    doc "Hans Nicht. Hans that does not exist at all, if you translate from German."
     doc "Look where he still figured, I think you will find a lot of interesting."
-    me "Kid, who do you think you..."
+    me "Kid, who do you think you…?"
     return
 
 label doc_contract:

@@ -1,8 +1,5 @@
-
-define announcement = Character("Announcement", color="#3a539b")
-define kz = Character("Kid", color="#5c97bf")
-
 label chapter_2:
+
     scene bg express
     with fade
 
@@ -11,8 +8,9 @@ label chapter_2:
     $ add_doc("kurt_profile")
     pause 1.0
 
-    "A message? Oh yeah, it must be a report on the incident. I better read it."
-    "And Bella told me about some news on the Cyber Herald website. Where is my tablet?.."
+    "A message? Ah, yes, that must be the incident report. I should have a look at that."
+    if BELLA_TOLD_ABOUT_CYBER_HERALD:
+        "And articles in the “Herald”, Bella said, on their website. Let’s see, where’s my tablet…?"
 
     $ show_tablet_modal()
 
@@ -20,12 +18,12 @@ label chapter_2:
 
     pause 1.0
     "Kurt…"
-    "How long we haven't seen each other? Three years, five? Time flies too fast now."
-    "It seems that only yesterday we were celebrating our exams in the Academy. We discussed the limbo and the Diving Theory."
-    "Too bad we lost each other when he moved into the North-West Branch."
-    "I'm not a pro in the relationships on the long distance. Looks like Kurt too."
-    "I remember that during all this time he sent me two mails. The last one was three years ago."
-    "I think is should be stored in the Mail Server Archive. May be I should restore it?"
+    "How long has it been? Three years? Five? Time flies so fast these days."
+    "Feels like only yesterday we celebrated passing the exams, discussing and arguing about Limbo and Dive theory."
+    "It’s a shame we didn’t stay in touch after his transfer to the North-West Branch."
+    "But what can you do – I’m not good with long distance relationships. Looks like neither is Kurt."
+    "In all this time, I think he only wrote me twice, last time – three years ago."
+    "Maybe it’s still somewhere in the mailing archives. I’ll see if I can find that letter."
     
     $ TABLET_IS_DISABLED = True
     show screen tablet_base
@@ -35,8 +33,8 @@ label chapter_2:
 
     $ tablet_run_app("tablet_app_email")
 
-    "Okay, to access Mail Archive I need to issue a voice command."
-    me "Access to the Mail Server Archive. [FIRST_NAME] [LAST_NAME]. Confirmation."
+    "Okay, to get to the archives I need a voice command."
+    me "Access to the Mail Server Archive. [FIRST_NAME]. [LAST_NAME]. Confirm."
     pause 0.5
     show screen tablet_mail_archive_entrance
     pause 1.0
@@ -44,7 +42,7 @@ label chapter_2:
     pause 0.7
     show screen tablet_mail_archive_home
 
-    "I can search the archive."
+    "I should use the search."
 
     show screen tablet_mail_archive_home_search
     pause 0.7
@@ -54,7 +52,7 @@ label chapter_2:
     call screen tablet_mail_archive_searching
     show screen tablet_mail_archive_search_result
 
-    "That's it. A message from Kurt."
+    "Aha, here it is. Kurt’s letter."
 
     show screen tablet_mail_archive_search_result_yes
 
@@ -63,7 +61,7 @@ label chapter_2:
 
     call tablet_email_read("kurt-old") from _call_tablet_email_read
     $ tablet_run_app("tablet_app_email")
-    announcement "Academy station! Stand clear of the closing doors please!"
+    announcement "This station is “Academy”. The next station is “West Branch”. Please mind the closing doors!"
 
     show kazimir ok at center
 
@@ -75,23 +73,22 @@ label chapter_2:
 
     pause 1.0
 
-    "A kid?"
+    "Kid?"
 
-    kz "So? What are you reading?"
+    kid "Hey, how’s it going? What’s new?"
 
     menu:
         "Are you talking to me?":
-            kz "Oh, sorry! I seem to be mistaken."
-            kz "And now there are no another seat for me. I have a fresh Pop Mech issue. I can share it to you as an apologize."
-        "Nothing new. That dump landfill story." if "landfill" in CYBERHERALD_VISITED:
-            kz "This is hot! By the way, my friend from the Math faculty made a statistical investigation about that landfill future."
-            kz "Results are pretty interesting. I can share it to you, if you want!"
-        "New cyberdog model released recently. Kid, have you ever seen a real dog?" if "cyberdog" in CYBERHERALD_VISITED:
-            kz "Only in the videos. My father had one in his childhood. Wanna see? I can share it to you."
-        "Sorry, kid, I have no time to talk.":
-            kz "May be you interested in our commercial offer than? I can share it to you."
+            kid "Oh, sorry! I thought you were someone else."
+            kid "And there’re no other seats free now. I have the latest issue of “Popular Mechanics” I can share as an apology."
+        "Nothing new, another fight over the recycling landfill site." if "landfill" in CYBERHERALD_VISITED:
+            kid "Hot stuff! By the way, a friend of mine from Math Methods faculty did a statistic estimation on the future of the landfill. Wanna see? I can flick you the file."
+        "The new cyberdog model is out. Have you ever seen a real dog, kid?" if "cyberdog" in CYBERHERALD_VISITED:
+            kid "Only on video. Dad used to have one when he was a kid, he showed me. Do you wanna see?"
+        "Sorry, kid. Can’t talk right now.":
+            kid "Then maybe I can interest you with our commercial offer? I can flick it to your tablet, if you want."
 
-    "What a suspicious kid. May be he want to share me a virus?"
+    "What a suspicious kid. Hope he’s not trying to slip me a virus."
 
     $ TABLET_IS_DISABLED = True
     show screen tablet_base
@@ -106,35 +103,40 @@ label chapter_2:
         $ renpy.pause(delay=0.3, hard=True)
         hide screen tablet_base
         $ renpy.pause(delay=0.3, hard=True)
-        "Where did he go? What was it?"
+        "Where did he go? What the hell was that?"
         show screen tablet_base
         $ renpy.pause(delay=0.7, hard=True)
         show screen tablet_file_destroyed
         "What??? What do you mean “file deleted”?!"
-        "This is a tablet with corporation-class protection! Nobody can remotely delete files from it!"
+        "This tablet has corporate-class defence system, you can’t just delete a file in here!"
         hide screen tablet_app
         $ renpy.pause(delay=0.3, hard=True)
         hide screen tablet_base
         $ renpy.pause(delay=0.3, hard=True)
         $ TABLET_IS_DISABLED = False
-        "What happened?"
+        "What's going on?"
         pause 2.0
-        "Ah, nevermind. I have some time to rest or read something on a tablet."
+        "Oh, well. I still have a little time to read the files and rest."
     else:
         hide screen tablet_app
         $ renpy.pause(delay=0.3, hard=True)
         hide screen tablet_base
         $ renpy.pause(delay=0.3, hard=True)
         $ TABLET_IS_DISABLED = False
-        "He's gone! I bet he is a small fraud. Luckily I rejected downloading."
+        "He's already gone! Typical little rascal. Good thing I didn’t let him “flick” anything."
         pause 2.0
-        "All right. I have some time to rest or read something on a tablet."
+        "Excellent! I still have a little time to read the files and rest."
 
     show screen tablet_button
 
     menu:
         "Take a nap":
-            pass
-
+            hide screen tablet_button
+            scene black
+            with dissolve
+            pause 3.0
+            announcement "We will shortly be arriving at: “Western Branch”. This train terminates here. All change please!"
+            "So, here I am."
+            jump chapter_3
     return
 

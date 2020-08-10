@@ -1,5 +1,7 @@
-﻿default FIRST_NAME = "Alex"
+﻿default GAME_SCORE = 0
+default FIRST_NAME = "Alex"
 default LAST_NAME = "Smith"
+default BELLA_TOLD_ABOUT_CYBER_HERALD = False
 
 transform trans_bg_hero_house_1:
     xalign 0.0 yalign 0.0 maxsize (1920, 1920)
@@ -8,22 +10,18 @@ transform trans_bg_hero_house_1:
 
 # The game starts here.
 
-define bella = Character("Bella")
-define me = DynamicCharacter("FIRST_NAME", color="#333333")
-define narrator = Character(what_italic=True)
-
 label start:
     scene black
     "{b}TO DO:{/b} Some bad nightmare is displayed here, waiting for the art"
     "{b}TO DO:{/b} Like “No, Kurt, NOOOOOOO!!!...” (or something like this, idk)"
     pause 1.0
-    "{i}BZZZZZZZZ~~~~~~{/i}"
+    notif "BZZZZZZZZ~~~~~~"
     pause 1.0
 
     scene bg hero_house at trans_bg_hero_house_1
     with dissolve
     $ renpy.pause(delay=2.0, hard=True)
-    "{i}BZZZZZZZZ~~~~~~{/i}"
+    notif "BZZZZZZZZ~~~~~~"
     pause 1.0
     "Was it a nightmare...?"
     "I thought I saw Kurt, he needed help."
@@ -53,8 +51,8 @@ label tablet_log_in:
 
     "Oh, a missed call from Bella, my boss. I guess something’s wrong."
 
-    hide screen tablet_iface_missed_call
     pause 0.3
+    hide screen tablet_iface_missed_call
     show screen tablet_iface_incoming_call(_("Bella Rabinovich"), "bella on tablet")
 
     "Here she is again."
@@ -103,6 +101,7 @@ label tablet_log_in:
     me "Good luck, ma’am! I’ll send you a report when I get to West Branch."
     bella "You’re the one who will need luck!"
     bella "If you’ll have the time, have a look at today’s “Cyber Herald” – couple of interesting articles there."
+    $ BELLA_TOLD_ABOUT_CYBER_HERALD = True
 
 label end_of_dialog_1:
     hide screen tablet_iface_active_call
@@ -116,7 +115,7 @@ label end_of_dialog_1:
     show screen tablet_button
 
     menu:
-        "Go to the express station":
+        "Move to the express station":
             hide screen tablet_button
             jump chapter_2
     

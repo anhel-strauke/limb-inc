@@ -143,7 +143,9 @@ init python:
             else:
                 search_text_pos += 1
                 search_text = search_txt[:search_text_pos] + "|"
-        if search_phase == 5:
+        elif search_phase < 8:
+            search_phase += 1
+        else:
             return True
         renpy.restart_interaction()
 
