@@ -10,7 +10,7 @@ transform trans_limb2_bg_appear:
 
 
 transform trans_limb2_bg_moving:
-    ease 0.1 alpha 1.0 rotate_pad False
+    rotate_pad False
     ease 3.0 rotate 9.6
     block:
         ease 6.0 rotate -9.6
@@ -61,11 +61,13 @@ transform trans_kurt_sliding_wall:
 
 init:
     default LIMBO_2_SCORE = 3
+    default LIMBO_2_SUCCESS = False
 
 label chapter_9:
     scene black
     with dissolve
     hide screen tablet_button
+    $ LIMBO_2_SCORE = 3
 
     show bg limb2 at trans_limb2_bg_appear
 
@@ -110,10 +112,9 @@ label chapter_9:
         "Seasons?":
             $ LIMBO_2_SCORE -= 1
             ahans "WRONG"
-        "Star":
-            $ LIMBO_2_SCORE += 1
+        "Star?":
             ahans "RIGHT"
-        "Human consciousness":
+        "Human consciousness?":
             $ LIMBO_2_SCORE -= 1
             ahans "WRONG"
     
@@ -155,7 +156,6 @@ label chapter_9:
             $ LIMBO_2_SCORE -= 1
             ahans "WRONG"
         "The dream?":
-            $ LIMBO_2_SCORE += 1
             ahans "RIGHT"
     
     ahans "You people cannot learn to control the dreams. This makes you helpless in the world of illusions."
@@ -182,7 +182,6 @@ label chapter_9:
             $ LIMBO_2_SCORE -= 1
             ahans "WRONG"
         "The darkness?":
-            $ LIMBO_2_SCORE += 1
             ahans "RIGHT"
     if LIMBO_2_SCORE <= 0:
         jump limb2_dropout
@@ -224,16 +223,16 @@ label chapter_9:
     show white at trans_limb2_white
     $ renpy.pause(delay=3.5, hard=True)
 
-    $ GAME_SCORE += 1
+    $ LIMBO_2_SUCCESS = True
 
     jump chapter_10
 
 
 label limb2_dropout:
-    $ GAME_SCORE -= 1
+    $ LIMBO_2_SUCCESS = False
     scene darkred
     with dissolve
-    "Damn! I've destabilized him! Emergency eject triggered."
+    kurt "[FIRST_NAME], where are you? [FIRST_NAME]!…"
     jump chapter_10
 
 

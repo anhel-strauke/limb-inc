@@ -70,4 +70,14 @@ label chapter_6:
     "Nice idea, a cup of strong coffee and a sweet bar is exactly what I need right now."
     me "Thanks Layla, I think I’ll follow your advice."
     
-    jump chapter_7
+    show screen tablet_button
+
+    if WAITING_FOR_BORIS_RESPONSE:
+        $ add_email("boris_hans_nicht")
+        $ WAITING_FOR_BORIS_RESPONSE = False
+        pause 0.5
+        "Oh, looks like Boris sent me a data on my request. I should check it out."
+
+    menu:
+        "Move to the lobby":
+            jump chapter_7

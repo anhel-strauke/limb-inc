@@ -4,7 +4,6 @@
 
 init offset = -1
 
-
 ################################################################################
 ## Styles
 ################################################################################
@@ -373,7 +372,7 @@ screen main_menu():
     if gui.show_name:
 
         vbox:
-            text "[config.name!t]":
+            text "{b}%s{/b}" % config.name.upper():
                 style "main_menu_title"
 
             text "[config.version]":
@@ -404,9 +403,11 @@ style main_menu_text:
 
 style main_menu_title:
     properties gui.text_properties("title")
+    #outlines [(1, "#ffffff", 0, 0)]
 
 style main_menu_version:
     properties gui.text_properties("version")
+    size 20
 
 
 ## Game Menu screen ############################################################
@@ -558,13 +559,23 @@ screen about():
         vbox:
 
             label "[config.name!t]"
-            text _("Version [config.version!t]\n")
-
+            null height 30
             ## gui.about is usually set in options.rpy.
             if gui.about:
                 text "[gui.about!t]\n"
 
-            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+            textbutton _("View Credits") action Start("menu_credits")
+
+            null height 100
+
+            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n{size=20}[renpy.license!t]{/size}\n\n"
+                   "{size=20}This game uses Exo 2 font by Natanael Gama from {a=https://fonts.google.com/specimen/Exo+2}Google Fonts{/a} "
+                   "({a=https://scripts.sil.org/OFL}license{/a}). This game uses “technological sense png” designed by"
+                   " {image=qian_tu_wang.png} from {a=https://pngtree.com/}pngtree.com{/a} ({a=https://pngtree.com/legal/license-terms}license{/a})."
+                   "This game uses icons made by {a=https://www.flaticon.com/authors/freepik}Freepik{/a} from "
+                   "{a=https://www.flaticon.com/}www.flaticon.com{/a} ({a=https://www.freepikcompany.com/legal#nav-flaticon-agreement}license{/a})."
+                   "This game uses image by {a=https://www.pexels.com/@pixabay}Pixabay{/a} from {a=https://www.pexels.com/}Pexels.com{/a} "
+                   "({a=https://www.pexels.com/creative-commons-images/}license{/a}).{/size}")
 
 
 ## This is redefined in options.rpy to add text to the about screen.
@@ -576,7 +587,7 @@ style about_label_text is gui_label_text
 style about_text is gui_text
 
 style about_label_text:
-    size gui.label_text_size
+    size (gui.label_text_size * 1.5)
 
 
 ## Load and Save screens #######################################################
@@ -1266,13 +1277,18 @@ screen notify(message):
     frame at notify_appear:
         text "[message!tq]"
 
-    timer 3.25 action Hide('notify')
+    timer 4.25 action Hide('notify')
 
 
 transform notify_appear:
     on show:
         alpha 0
         linear .25 alpha 1.0
+        block:
+            linear 0.25 alpha 0.6
+            linear 0.25 alpha 1.0
+            repeat 3
+        
     on hide:
         linear .5 alpha 0.0
 

@@ -1,7 +1,7 @@
 init:
     default TAB_DIARY_CURRENT_LABEL = ""
     default TAB_DIARY_CURRENT_DATE = ""
-    define diary = DynamicCharacter("TAB_DIARY_CURRENT_DATE", color="#e0e0e0")
+    define diary = DynamicCharacter("TAB_DIARY_CURRENT_DATE", color="#707070")
 
 init python:
     TAB_DIARY = [
@@ -62,6 +62,10 @@ init python:
             "label": "diary_0905",
         },
         {
+            "date": _("May 09"),
+            "label": "diary_0905e"
+        },
+        {
             "date": _("May 10"),
             "label": "diary_1005"
         },
@@ -87,146 +91,145 @@ label tablet_app_diary_play(lbl):
 ## Diary Records ##########################################################################
 
 label diary_2504:
-    diary "Despite all appearances, I cannot call today’s dive successful."
-    diary "Indeed, our team has worked as smoothly as always. We have completed our task; our managemet was satisfied. We’ll have a bonus."
+    diary "Can’t say today’s dive was successful."
+    diary "Our team works great as always. We accomplished the goal, upstairs are approving, and there gonna be bonuses."
     diary "But…"
-    diary "Something feels wrong, a strange and unusual anxiety. Stranger than ever."
-    diary "And everything that the diver sees, all the sensations, all the echoes of emotions, no matter how unimportant or uneventful they seem… everything has some basis under it."
-    diary "They resonate deep in the subconscious, and it notices more than rational perception."
-    diary "In Limbo, nothing happens randomly. And this time nothing special happened. At least Kurt said that, and he's a reliable man."
-    diary "And yet, I was haunted by the feeling that I was missing something important."
-    diary "It feels like if I was looking in the wrong place — like in children’s pictures, where you need to search for a face in a jumble of leaves."
-    diary "From now on, I will record my feelings."
-    diary "This is a violation of company rules (No. 337, paragraph B, personal responsibility for concealing thoughts and No. 545, storing information related to work on a personal server),"
-    diary "but I need to understand what stirred something within myself today."
+    diary "The problem is there’s that weird anxiety. I mean – more weird than usual."
+    diary "Everything the “diver” sees, feels, every slightest shade of emotion are all based on something and has a cause."
+    diary "The uncinscious sometimes notices more than our mind."
+    diary "Nothing in limbo happens without reason. But this time nothing special even happened. At least Kurt says so, and he’s a reliable man."
+    diary "And yet I felt like I’m missing something important. Like I’m staring at the wrong direction or can’t solve an optical illusion game for kids."
+    diary "I’m gonna write down all my experiences."
+    diary "It violates the company rules (№337, §B, personal responsibility for the withholding of thoughts, and №545, storing work-related information on a personal server), but I need to understand my own thought."
     return
 
 label diary_2604:
-    diary "It was very difficult for me to sleep. I don’t understand why."
-    diary "I’ve used my daily tranquilizers prescribed by a reliable doctor, they worked flawlessly until this night."
-    diary "Perhaps I need to visit my doctor again."
-    diary "Tiredness clouds my mind; I feel terribly sleepy."
-    diary "Today there is one more dive."
-    diary "I’m not sure if I can handle the task, if it is more difficult than the previous one."
+    diary "It was hard to fall asleep tonight. Don’t know why."
+    diary "My tranquilizers are prescribed by a very good doctor and used to always work well. I think I’m gonna need another appointment."
+    diary "I’m sleepy as heck."
+    diary "Another dive today."
+    diary "If the case will be more complicated than the previous one, I’m not sure I’ll succeed."
     return
 
 label diary_2704:
-    diary "Yesterday’s dive went relatively well but I felt exhausted right after and fell asleep early in the evening."
-    diary "I feel … limber as a dishrag."
-    diary "I can't remember what I dreamed about."
+    diary "Yesterday’s dive went well, but I still felt exhausted and slept like a log afterwards."
+    diary "Feeling like… a crumpled draft."
+    diary "Can’t recall what my dreams were."
     return
 
 label diary_2804:
-    diary "I have got a new dive schedule — and I got three vacation days, hurray!"
-    diary "I will deal with the routine, taking a break from thinking about these strange hidden worlds."
-    diary "If I develop a fear of Limbo, it will affect my career in the worst possible way."
-    diary "I need a break and good thing is, I wasn't have to ask for it."
+    diary "Saw a next week diving schedule – three days off, yay!"
+    diary "Gonna do papers and stuff and take a rest from all these thoughts. If I develop a limbo phobia, it’ll affect my career like somebody shat on it."
+    diary "I really need a break and it’s fortunate that I didn’t need to ask for it."
     return
     
 label diary_3004:
-    diary "This is my second day of the vacations and I can’t think about anything but Limbo."
-    diary "I can’t stop replaying everything that happened to me there in my head looking for clues."
-    diary "To be honest, this is starting to become a manic obsession."
+    diary "For the second day now all I’m thinking about is limbo."
+    diary "Revising and rethinking my experiences, looking for the clues."
+    diary "Honestly, it feels like a manic obsession or something."
     return
 
 label diary_0105:
-    diary "Today was a dive."
-    diary "Based on the results, I can say that everything was pretty well."
-    diary "However, while in Limbo, I was eaten by gloomy forebodings."
-    diary "I felt that if I would turn around or look back, there would be something…"
-    diary "Or something should appear just in front of my face."
-    diary "Several times I wanted to scream and run away aimlessly."
-    diary "The only thing that stopped me was a safety technique that was firmly embedded in my brain. Thanks to Kurt, he trained me."
-    diary "One of Limbo's rules: if you lose self-control for half of a second, then you’ll never ever get it back."
-    diary "Watch yourself. Always watch yourself first."
-    diary "It is exhausting."
-    diary "I should go to bed."
+    diary "I dived today."
+    diary "Results are fine I’d say."
+    diary "But all the time I was in limbo apprehensions were eating me up. It felt like if I turn around there will be SOMETHING looking at me."
+    diary "Or right in front of my face."
+    diary "A few moments I really wanted to scream and just run for the hills."
+    diary "The only thing stopping me was an instruction installed as a basic instinct – Kurt trained me well, kudos to him."
+    diary "One of limbo rules: you lose control for half a second – no hella way you get it back."
+    diary "Watch yourself, always watch yourself first."
+    diary "It’s exhausting."
+    diary "I’ll go get some sleep."
     return
 
 label diary_0205:
-    diary "I’ve never found myself awaken in the night in such fashion."
-    diary "My bedsheets are still disgustingly sticky and soaked with a sweat."
-    diary "It’s too hard to sleep now – I feel them constricting me."
-    diary "My temperature is normal."
-    diary "I can’t remember if I dreamed anything."
-    diary "It’s time to go to work, or it will be first time for me being late."
-    diary "A bad joke is in my head about the fact that nobody ever gets late to Limbo."
-    diary "Will Kurt laugh? He seemed kind of tense these days too. Unfortunately, we don’t communicate much recently - it’s a work, family, etc…"
+    diary "Never woke up in the middle of the night before."
+    diary "The sheets are disgustingly wet and sticky. It’s hard to fall asleep again – feels like they strangle, suffocate me."
+    diary "Temp is normal."
+    diary "Can’t recall if I saw something in my sleep."
+    diary "It’s time to go or I’ll be late to work for the first time ever."
+    diary "The dark joke is cruising around my head – you never ever can be late to limbo."
+    diary "Will Kurt find it funny? He’s also a little tense these days. Unfortunately we don’t communicate as much now as we used to - work, families, work…"
     return
 
 label diary_0305:
-    diary "Yesterday dive was worse one."
-    diary "The task was failed."
-    diary "Inside Limbo I was simply consumed by a feeling of overwhelming abomination."
-    diary "Everything was strange, very strange."
-    diary "It was as if my peripheral vision had gone crazy and was constantly blurred with flashes of something… something black."
-    diary "White spots furiously rushing in all directions clouded my sight."
-    diary "Or where they standing still? I can’t remember, my mind is still blurred."
-    diary "It shouldn’t happen. Not like this. Not with this patient. Not at this level of Limbo!"
-    diary "Even if the dive team made some mistakes while preparing the equipment, this should’t ever happen."
-    diary "The psychologists must be the ones who failed when giving us the “portrait” of this patient."
+    diary "Yesterday’s dive was the worst ever."
+    diary "I failed."
+    diary "In limbo the indescribably disgusting feeling was eating me up from the inside."
+    diary "Somehing was off, it really was. Out the corner of my eye I kept noticing something… something black."
+    diary "Some spots flashing by. Or just standing? I couldn’t understand even that."
+    diary "It was not suppose to be happening anyway. Not like this, not with this patient. Not on that level of limbo!"
+    diary "Even if our “swimming team” (dive operator, technicians, assistant and others) did something wrong with machine settings."
+    diary "Maybe our psychologists failed with the patient’s profile."
     return
 
 label diary_0405:
-    diary "For the first time in my life, I wake up from a nightmare."
-    diary "I remember almost nothing, except my own screams and attempts …to swim away? run away?"
-    diary "It felt like I had neither arms nor legs, only the feeling of my body, sluggish, swaddled with a too hot blanket."
-    diary "Pieces of darkness were chasing after me, devouring the whole world along the way."
-    diary "Or had they slid from all sides at once, my ridiculous twitching only helping them get to me faster?"
-    diary "Fortunately, today there is no Limbo diving! Just the usual routine."
+    diary "Woke up from a nightmare for the first time in my life."
+    diary "The only things I remember are my desperate attempts to… run away? Swim away?"
+    diary "It felt like I had no limbs, just a body, leaden, heavy, buried under hot, harsh blanket."
+    diary "The pieces of darkness were chasing me, devouring the reality along the way. Or maybe they were crippling towards me from every direction and my desperate movements just helped them find me faster?"
+    diary "What a relief – no limbo today. Just a normal, boring stuff."
     return
 
 label diary_0505:
-    diary "It’s good that I’m keeping a diary."
-    diary "I remember absolutely none of yesterday nightmares."
-    diary "My health is excellent, body temperature is normal."
-    diary "There is a scheduled dive today."
+    diary "It’s very useful to keep notes."
+    diary "I forgot absolutely everything about yesterday’s nightmares."
+    diary "Feeling great, the temp is normal."
+    diary "Another dive today."
     return
 
 label diary_0605:
-    diary "Yesterday's dive was smooth, we completed the task."
-    diary "Limbo was… suspiciously usual (if this adjective can be applied to it)."
-    diary "But my nightmares blossoms like never before."
-    diary "The panic attacks hit me at least a dozen times last night."
-    diary "After every awakening I fell asleep full of sticky, nauseous fear."
-    diary "The pieces of darkness that devoured me first became more and more anthropomorphic," 
-    diary "and then turned into huge strange insects endowed with a single will."
-    diary "I need a doctor."
-    diary "Interesting: if I ask my friends to advise a good somniologist on my webpage, in how many minutes will the management call me?"
-    diary "I don't like our corporate psychotherapist, and I probably need a more narrow specialist."
+    diary "Yesterday’s dive went well, the goal is accomplished."
+    diary "Limbo was… suspiciously normal, if this word is the right way to phrase it."
+    diary "My nightmares though flourished like ever. Some paroxysms very similar to panic attack happened about ten times this night."
+    diary "Every waking up was immediately followed by falling back into heavy sleeping full of sticky, sickening fear."
+    diary "Pieces of darkness devouring me, becoming more and more anthropomorphic, then turned into eerie giant insects with a hive mind."
+    diary "I think I need a medical appointment."
+    diary "Just wondering - if I post on my web page asking friends for a good somnologist’s contacts – how long will it take until I get a call from upstairs?"
+    diary "I don’t like our therapist that much and I also feel like I need a narrower specialist."
     return
 
 label diary_0705:
-    diary "Looks like this diary is becoming a medical history."
-    diary "I hardly remember yesterday dreams, but I remember myself writing them down."
-    diary "It’s scary to read my own records. I begin to feel like I will stuck in Limbo if I don’t hadle myself."
-    diary "I’m diving today. Again."
-    diary "Maybe I should take a vacation at my own expense?"
+    diary "Maybe these notes will become my medical history."
+    diary "I almost completly forgot yesterday’s dreams but I recall writing them down."
+    diary "It creep me out to read these notes – I seems to me that I’ll get stuck in limbo if I don’t cope with my shit."
+    diary "Another dive today."
+    diary "Should I ask for unpaid leave?"
     return
 
 label diary_0805:
-    diary "The last level of Limbo almost finished me. Damn it, I love my job, and I’m proud of how good am I in it!"
-    diary "But now something is happening, unknown, incomprehensible even to me."
-    diary "Some strange black spots in Limbo began to replace what Limbo replaces reality with."
-    diary "They seem alive to me. Or, at least, they have some strange goals."
-    diary "This is probably like a child’s imagination that turns the darkness under the bed into a monster that will certainly grab your leg."
-    diary "I wonder what will I dream about tonight?"
+    diary "The last level of limbo took everything out of me. Damn, I love my job, I’m proud of my competence!"
+    diary "But what happens now is something new and unexplainable."
+    diary "Weird black spots started to replace the objects that limbo replaces the reality with."
+    diary "They seem alive. Or having some sort of a goal at least."
+    diary "Maybe it’s like the child’s imagination creates the monster under the bad out of darkness that’s always ready to grab your ancle."
+    diary "What will be my dreams about today?"
     return
 
 label diary_0905:
-    diary "There are questions that should be leaved without the answers."
-    diary "I hope I will forget this dreams."
-    diary "I’m taking a day off."
-    diary "RECORD CONTINUED"
-    diary "Evening."
-    diary "I wanted to walk in my favorite park on the top of Elite Plaza."
-    diary ".... RECORD ERROR"
+    diary "Some questions better left unanswered."
+    diary "I just hope I’ll forget these by tomorrow."
+    diary "Taking a day off."
+    return
+
+label diary_0905e:
+    diary "Late evening."
+    diary "I wanted to take a walk in my favorite park on the roof of Elite-Plasa, a giant entertainment center."
+    diary "Eighteen floors up, only non-modified flowers and trees, four fountains and benches made from the real wood – a treat for those who understand."
+    diary "The closest and most reliable path to appeasement is to rejoin with the nature at least for the paid hour, not the tai-tzu or morning yoga with personal instructor like people think these days."
+    diary "Today this path failed me."
+    diary "Every moment I stared into a distance, all the plants were moving."
+    diary "I mean, not the way they always tremble a little in the under-dome air conditioning flow, but… moving towards me."
+    diary "Every leaf and stalk of grass seemed to hide the darkness underneath."
+    diary "I don’t even know how to describe it – it’s like something alien was hiding underneath the thin layer of reality, using every object like a paper screen."
+    diary "Time to admit – I have a problem."
+    diary "I need help. I’m booking an appointment tomorrow."
     return
 
 label diary_1005:
-    diary "I think my nightmares are some strange kind of the dive. Too many overlaps between my dreams, Limbo, and reality."
-    diary "Maybe I’m stuck? Maybe I’m in Limbo right now?"
-    diary "No, I must not think about it in this way. It knocks me out."
-    diary "There are no therapists in Limbo, and I have one. Appointment in a few hours."
-    diary "Hope I will not end my day in the asylum."
+    diary "Seems like my nightmares are some weird kind of dive. Too much in common there, in limbo and in reality."
+    diary "What if I’m stuck? Stuck in limbo?"
+    diary "No, don’t think, don’t think that."
+    diary "There are no therapists in limbo, and I’m seeing one in just few hours."
+    diary "Hope I won’t get sent to a nuthouse."
     return

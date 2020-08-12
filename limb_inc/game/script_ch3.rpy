@@ -1,14 +1,16 @@
+init:
+    default WAITING_FOR_BORIS_RESPONSE = False
 label chapter_3:
     hide screen tablet_button
     scene bg corp_hall
     with dissolve
 
     pause 1.0
-    "This is the Western Branch central building hall."
+    "This is the Western Branch neural research department lobby."
     "Why, it’s Miriam."
 
     show miriam ok at center with dissolve
-    mir "My goodness, …, is it really you? They said they would send someone to take care of Kurt!"
+    mir "My goodness, [FIRST_NAME], is it really you? They said they would send someone to take care of Kurt!"
     mir "I’m so glad it’s you! You can bring him back out, can’t you?"
 
     menu:
@@ -22,6 +24,7 @@ label chapter_3:
             jump chapter_2_continue_with_miriam
         "Hello, Mrs. Bachowski. Unfortunately, my priority is to get the information…":
             me "…Although I will of course try to save the patient’s life. I have a few questions for you."
+            show miriam angry with dissolve
             mir "Are you really going use that tone with me?"
             mir "You can list your questions and send in an official request."
             mir "I have no wish to continue this conversation."
@@ -54,7 +57,7 @@ label chapter_2_continue_with_miriam:
             "Talk about Kurt's bad memories" if "memories" not in miriam_questions_asked:
                 me "Do you think Kurt has any memories he doesn’t like?"
                 mir "I think he doesn’t like that part of your work – with criminals. Where you completely erase their personality using Morpheus."
-                mir "I think it’s called “the reset”. He’s always looks very glum after these assignments."
+                mir "I think it’s called “the nullifying”. He’s always looks very glum after these assignments."
                 $ miriam_questions_asked.add("memories")
                 jump chapter_2_continue_with_miriam
     else:
@@ -84,10 +87,11 @@ label chapter_2_boris_calling:
         "Sorry, Boris, I was too busy to get my hands on the Archive.":
             boris "This statement is incorrect. You can send a request by voice command."
             me "Here we go again! I’ll send you a couple of requests later. Bye!"
-        "I do have a request for you actually.":
+        "I do have a request for you actually." if "secret" in TAB_DOCS_READ:
             me "Can you give me all information on a perpetrator Hans Nicht? ID unknown."
             boris "Request received. Estimated time to answer: 12 minutes 47 seconds."
             boris "The answer will be sent to “Documents” app on your tablet."
+            $ WAITING_FOR_BORIS_RESPONSE = True
             me "Thanks, Boris. Bye."
     hide screen tablet_iface_active_call
     $ renpy.pause(delay=0.7, hard=True)
@@ -95,5 +99,5 @@ label chapter_2_boris_calling:
     $ TABLET_IS_DISABLED = False
     show screen tablet_button
     menu:
-        "Move to the patient room":
+        "Move to the patient’s room":
             jump chapter_4

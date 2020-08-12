@@ -5,7 +5,6 @@ label chapter_2:
 
     pause 2.0
     $ add_email("violet-1")
-    $ add_doc("kurt_profile")
     pause 1.0
 
     "A message? Ah, yes, that must be the incident report. I should have a look at that."
@@ -136,7 +135,7 @@ label chapter_2:
             with dissolve
             pause 3.0
             announcement "We will shortly be arriving at: “Western Branch”. This train terminates here. All change please!"
-            "So, here I am."
+            scene bg express
+            with dissolve
+            pause 1.0
             jump chapter_3
-    return
-

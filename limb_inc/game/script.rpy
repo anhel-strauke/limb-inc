@@ -12,8 +12,12 @@ transform trans_bg_hero_house_1:
 
 label start:
     scene black
-    "{b}TO DO:{/b} Some bad nightmare is displayed here, waiting for the art"
-    "{b}TO DO:{/b} Like “No, Kurt, NOOOOOOO!!!...” (or something like this, idk)"
+    pause 2.0
+    "What is it?"
+    pause 1.0
+    "Kurt, is it you?"
+    pause 1.0
+    "Kurt, I’m coming! Kurt!…"
     pause 1.0
     notif "BZZZZZZZZ~~~~~~"
     pause 1.0
@@ -114,6 +118,7 @@ label end_of_dialog_1:
 
     show screen tablet_button
 
+    $ add_doc("kurt_profile")
     menu:
         "Move to the express station":
             hide screen tablet_button

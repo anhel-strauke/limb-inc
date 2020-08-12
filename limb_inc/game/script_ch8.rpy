@@ -5,15 +5,18 @@ label chapter_8:
 
     show leyla ok at center with dissolve
 
-    "This scene is not translated. Here we just go to the limbo again."
+    layla "Hey, turned your engine back on?"
+    me "I don’t even know what affects the engine more — coffee or aggressive ladies?"
+    layla "You’re not talking about me, right?"
+    me "Sure not! Have you met Violet Sharp? Is she aways such… a…"
+    layla "Bitch? Yeah, always! Don’t even want to think about her more than needed."
+    me "Well, if you don’t, then let’s start."
 
-    layla "Tell me when you are ready to start."
+    layla "Tell me when you are ready."
     show screen tablet_button
     menu:
         "Okay, I’m ready":
             hide screen tablet_button
-    
-    hide screen tablet_button
 
     layla "We’re starting. Connecting you to the Morpheus."
     show leyla ok at right

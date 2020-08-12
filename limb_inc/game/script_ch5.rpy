@@ -1,5 +1,6 @@
 init:
     default LIMBO_1_SCORE = 3
+    default LIMBO_1_SUCCESS = False
     image darkred = "#96281b"
     image white = "#ffffff"
 
@@ -105,6 +106,7 @@ label chapter_5:
     scene black
     with dissolve
     hide screen tablet_button
+    $ LIMBO_1_SCORE = 3
 
     show bg limb1 at trans_limb1_bg_appear
 
@@ -142,7 +144,6 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, center
             kurtboy "If you’re telling the truth, Ghost, then I am beyond help…"
         "It’s just a dream, my friend.":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, center
             kurtboy "I’m in a dream? Cool!"
     # 2 scores left at this point
@@ -170,11 +171,9 @@ label chapter_5:
 
     menu:
         "Remember Casper? I’m just like that!":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "Wow! Cool!"
         "I’m the keeper of nice dreams. I only come to good boys.":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "Like Cyber Santa?"
         "Does it matter? Just trust me!":
@@ -194,7 +193,6 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "I don’t remember my brother at all…"
         "Father?":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, center
             kurtboy "Yes! Dad was there!"
         "Friends?":
@@ -220,7 +218,6 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, almost_left
             kurtboy "I never even saw a forest cabin!"
         "On a farm?":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink2, center
             kurtboy "We live on a farm!"
         "In a small village?":
@@ -251,7 +248,6 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, almost_left
             kurtboy "No… I had enough work at the farm…"
         "Hunting?":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, center
             kurtboy "Yes. He told me: “Come, Kurt. Today you’re gonna become a man”"
     if LIMBO_1_SCORE <= 0:
@@ -294,7 +290,6 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "Noooo!"
         "I SAID – SHOOT!":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "{i}*sob*{/i} Okay…"
             $ renpy.pause(delay=0.5, hard=True)
@@ -304,7 +299,6 @@ label chapter_5:
             hide white
             hide window
         "BE A MAN, KURT. TAKE THE GUN AND PULL THE TRIGGER!":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "Dad…"
             $ renpy.pause(delay=0.5, hard=True)
@@ -326,7 +320,6 @@ label chapter_5:
 
     menu:
         "I know what you must feel. I’m really sorry.":
-            $ LIMBO_1_SCORE += 1
             show kurt boy at trans_limb1_kurt_blink, center
             kurtboy "Thanks, Ghost…"
         "Come on! There’ll be other deer!":
@@ -345,7 +338,7 @@ label chapter_5:
     me "It’ll be alright, I’m here."
     pause 1.0
     "Sometimes you can’t do anything to help. But sometimes it’s enough to just be there and listen."
-    $ GAME_SCORE += 1
+    $ LIMBO_1_SUCCESS = True
     scene black
     with dissolve
 
@@ -353,7 +346,7 @@ label chapter_5:
     jump chapter_6
 
 label limb1_dropout:
-    $ GAME_SCORE -= 1
+    $ LIMBO_1_SUCCESS = False
     hide kurt
     hide bg limb1 with dissolve
     scene darkred

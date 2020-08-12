@@ -89,8 +89,7 @@ label chapter_10:
     "But maybe this is exactly what that something from limbo wants?"
     "Thinks that I won’t come again, chicken out and leave it as it is? Well in this case it’s gonna be surprised."
 
-    pause 1.0
-
-    jump chapter_11
-
-
+    show screen tablet_button
+    menu:
+        "Move to the lobby":
+            jump chapter_11

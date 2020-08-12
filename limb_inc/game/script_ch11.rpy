@@ -1,37 +1,38 @@
 label chapter_11:
+    hide screen tablet_button
     scene bg corp_hall
     with dissolve
 
-    "I walk into the lobby of the neuro-research department. I focus on my movement and lean against the wall to keep from falling. My legs and arms are shaking."
+    "I walk into the lobby of the neural research department. I focus on my movement and lean against the wall to keep from falling. My legs and arms are shaking."
 
     akz "You do not understand!"
 
     "I am so focused on myself that at first I do not notice the quarrel that erupted in the center of the room."
 
-    miriam "Kaz, listen to me!"
+    mir "Kaz, listen to me!"
 
     "A young, strangely dressed guy snatches up with his mother. I look closely and find out…"
 
     me "You!"
 
-    show kazimir ok with dissolve
+    show kazimir ok at almost_right with dissolve
     show miriam ok at almost_left with dissolve
 
     me "You are that kid! From the train!"
     "I see a guy getting angry. It looks like he recognized me."
-    miriam "[FIRST_NAME], it’s Kazimir, our son."
+    mir "[FIRST_NAME], it’s Kazimir, our son."
     "Son? Kurt said he has a son? Surely he told in letters that I never read…"
-    me "Hello Kazimir. My name is username, I…"
+    me "Hello Kazimir. My name is [FIRST_NAME], I…"
     kz "You are dad’s friend. I know. I know that you also work for these slave owners."
     show miriam sad with dissolve
-    miriam "Kaz, stop it!"
+    mir "Kaz, stop it!"
     "Youthful maximalism… I miss this time."
     "But it’s time to end the concert. The security guards started throwing unkind glances in our direction."
-    me "Miriam, could you leave Kasimir and me for a minute?"
+    me "Miriam, could you leave Kazimir and me for a minute?"
     show miriam ok with dissolve
-    miriam "Okay. Be stricter with him."
+    mir "Okay. Be stricter with him."
     show miriam angry with dissolve
-    miriam "Kaz, if I find out you were rude with [FIRST_NAME]…"
+    mir "Kaz, if I find out you were rude with [FIRST_NAME]…"
     me "Everything will be all right, Miriam. I assure you."
     hide miriam with dissolve
 
@@ -59,7 +60,7 @@ label chapter_11:
     me "I promise to bring your father back."
     kz "Yeah. Okay."
     kz "In short, all these dudes are associated with a certain place."
-    kz "Someone killed someone there, someone stole, but most of the Hans Nichts simply fled from there. It seems that everyone who escaped is found and, as my dad says, reset to zero."
+    kz "Someone killed someone there, someone stole, but most of the Hans Nichts simply fled from there. It seems that everyone who escaped is found and, as my dad says, nullified."
     me "Interesting…"
     me "What is known about this place?"
     kz "Almost nothing."
@@ -80,17 +81,19 @@ label chapter_11:
 
     "I drink my third glass of coffee at the machine. I digest information."
     "He said exactly “Homunculus” and Kaz remembered this word. Coincidence?…"
-    show violet interested at center
-    vio "Have you already talked to Casimir? That horrible family, right?"
-    "Violet ppeared so unexpectedly that I almost spilled coffee from a paper cup."
+    show violet interested at almost_right with dissolve
+    vio "Have you already talked to Kazimir? That horrible family, right?"
+    "Violet appeared so unexpectedly that I almost spilled coffee from a paper cup."
     me "And you know how to make an impression, Violet."
     vio "That’s not why I’m here, to be honest. I just wanted to tell you to ask limbo tech about Morpheus and her experiments with him."
     me "What do you have in mind? Can you be more specific?"
     vio "You will find out for yourself. Good luck."
+    hide violet with dissolve
 
     show screen tablet_button
+    $ add_email("boris_violet_file")
     menu:
-        "Move to the patient’s room":
+        "Return to the patient’s room":
             jump chapter_12
 
 

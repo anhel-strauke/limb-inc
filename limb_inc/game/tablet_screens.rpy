@@ -5,9 +5,6 @@
 define gui.tablet_text_color = "#c0c0c0"
 define gui.tablet_text_hover_color = "#ffffff"
 
-## Author of the source tablet image is „千图网”, free background photos from pngtree.com <https://pngtree.com/free-backgrounds>
-## <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-
 ##############################################################################
 ## Tablet button in the game UI
 
@@ -56,7 +53,7 @@ init python:
         renpy.log("After tablet: %s" % str(TAB_EMAIL_READ))
         renpy.show_screen("tablet_button")
     def tablet_needs_attenion():
-        return tab_email_attenion() or tab_browser_attenion()
+        return tab_email_attenion() or tab_browser_attenion() or tab_doc_attenion()
 
 screen tablet_button():
     style_prefix "tablet_icon"
@@ -529,9 +526,10 @@ screen tablet_iface_outgoing_call_no_answer(who, who_image):
 init python:
     def add_email(mail_id, silent=False):
         global TAB_EMAIL_RECEIVED
-        TAB_EMAIL_RECEIVED.append(mail_id)
-        if not silent:
-            renpy.notify(_("New message from %s") % TAB_EMAILS[mail_id]["from"])
+        if mail_id not in TAB_EMAIL_RECEIVED:
+            TAB_EMAIL_RECEIVED.append(mail_id)
+            if not silent:
+                renpy.notify(_("New message from %s") % TAB_EMAILS[mail_id]["from"])
 
 style mail_icon_base:
     xsize 32
@@ -671,9 +669,10 @@ screen tablet_app_browser_site():
 init python:
     def add_doc(doc_id, silent=True):
         global TAB_DOCS_AVAIL
-        TAB_DOCS_AVAIL.append(doc_id)
-        if not silent:
-            renpy.notify(_("New document available"))
+        if doc_id not in TAB_DOCS_AVAIL:
+            TAB_DOCS_AVAIL.append(doc_id)
+            if not silent:
+                renpy.notify(_("New document available: %s") % TAB_DOCS[doc_id]["name"])
 
 style document_icon:
     xsize 32
@@ -763,6 +762,6 @@ screen tablet_app_diary():
                         text item["date"] style "tablet_diary_current_item" at trans_tablet_diary_current_item
                     else:
                         textbutton item["date"] action FunctionIfNoSay(tab_diary_play, item["label"])
-
-                for i in range(4 - len(TAB_DIARY) % 4):
-                    null
+                if len(TAB_DIARY) % 4 > 0:
+                    for i in range(4 - len(TAB_DIARY) % 4):
+                        null

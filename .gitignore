@@ -140,3 +140,4 @@ limb_inc/game/saves/persistent
 navigation.json
 persistent
 *.bak
+limb_inc/traceback.txt

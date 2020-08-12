@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("Limbus inc.")
+define config.name = _("Limbus inc")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -29,9 +29,13 @@ define config.version = "1.0"
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
-define gui.about = _p("""This game was created specially for I Can't Write But Want To Tell A Story Game Jam.\n
-© 2020 Так Вышло\n
-© 2020 And Tak Soidet Games\n
+define gui.about = _p("""This game was created in two weeks of July and August 2020 specially for{p}“I Can't Write But Want To Tell A Story” game jam ({a=https://itch.io/jam/i-cant-write-but-want-to-tell-a-story}link{/a}).
+
+© 2020 IT Happens
+
+© 2020 {a=https://andtaksoidet.games/en/}And Tak Soidet Games{/a}
+
+P.S. This game {u}does have{/u} a duck content.
 """)
 
 
@@ -216,4 +220,4 @@ init python:
 ## The username and project name associated with an itch.io project, separated
 ## by a slash.
 
-# define build.itch_project = "renpytom/test-project"
+define build.itch_project = "dinajam/limbus-inc"

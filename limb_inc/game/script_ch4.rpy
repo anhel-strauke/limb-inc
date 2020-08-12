@@ -68,7 +68,9 @@ label chapter_4:
             layla "One second of a real time equals from 5 to 20 minutes of subjective time in limbo."
             layla "Specialists with standard biometric indicators deviations within more than 1.5\% are prohibited from diving."
             me "The instructions are clear and understood."
-    
+
+    $ add_doc("morpheus")
+
     layla "Tell me when you are ready to start."
     show screen tablet_button
     menu:

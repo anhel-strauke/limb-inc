@@ -50,7 +50,7 @@ init python:
         "cyberherald": {
             "order": 0,
             "name": _("The Cyber Herald"),
-            "descr": _("News and useful information"),
+            "descr": _("Today’s Hot News"),
             "icon": "ch",
             "label": "web_cyberherald"
         },
@@ -89,7 +89,7 @@ init python:
             "label": "ch_landfill",
         },
         "cyberdog": {
-            "title": _("New Cyberdog model"),
+            "title": _("New Cyberdog Model"),
             "text": _("Cyberdyne Systems announces a new model of the cyberdog."),
             "label": "ch_cyberdog"
         },
@@ -97,11 +97,26 @@ init python:
             "title": _("Corporate War"),
             "text": _("Some details on the ongoing war between corporations."),
             "label": "ch_corp_war"
+        },
+        "psychic": {
+            "title": _("Novel Antipsychotics"),
+            "text": _("A novelty on the market among approved antipsychotics!"),
+            "label": "ch_psychic"
+        },
+        "limbus_ai": {
+            "title": _(""),
+            "text": _(""),
+            "label": "ch_limbus_ai"
         }
     }
 
     TAB_SOCNET_PROFILES = {
+        "violet": {
 
+        },
+        "kaz": {
+
+        }
     }
 
 ## Web Site Icons ############################################################
@@ -154,7 +169,7 @@ screen website_cyberherald():
         vbox:
             xfill True
             text _("The Cyber Herald") xalign 0.5 size 60
-            text _("News and useful information") xalign 0.5 size 20
+            text _(":::::::::::::::::::::::::::::::::::: TODAY’S HOT NEWS ::::::::::::::::::::::::::::::::::::") xalign 0.5 size 20
             null height 20
             text _("Latest Articles")
             for art in reversed(CYBERHERALD_AVAIL):
@@ -175,7 +190,7 @@ screen website_cyberherald_read(title, txt):
         vbox:
             xfill True
             text _("The Cyber Herald") xalign 0.5 size 60
-            text _("News and useful information") xalign 0.5 size 20
+            text _(":::::::::::::::::::::::::::::::::::: TODAY’S HOT NEWS ::::::::::::::::::::::::::::::::::::") xalign 0.5 size 20
             null height 40
             text title size 60
             null height 20
@@ -192,6 +207,10 @@ label web_cyberherald_article(art_id):
     show screen website_cyberherald
     return
 
+
+
+## Cyber Herald Articles ############################################################################
+
 label ch_a1:
     w "New CPU was presented yesterday on the Consumers Electronics Show in the San Francisco."
     w "It has incredible speed and also a low power consumption."
@@ -199,20 +218,38 @@ label ch_a1:
     return
 
 label ch_landfill:
-    w "The construction of a new landfill is still causing fierce debate."
-    w "Environmentalists warn of serious problems associated with it."
-    w "The construction company, in turn, assures that they use the most modern technologies."
-    w "The Cyber Herald continues to monitor this debate."
+    w "Heading “Deadly Sin”: Four corporations are still fighting for the right to obtain a license to own a landfill in Zhilmassiv-City."
+    w "As a result of the redistribution of the territory, three industrial buildings and one residential structure were blown up."
+    w "The number of victims is currently being determined."
+    w "The head of security Robotics Inc. has been taken into custody on charges of reckless handling of explosives."
+    w "The commercial director of Somnium-N, accused of organizing spontaneous large-scale rallies among the residents of the district, was released on bail."
+    w "The chairman of the Natural Life League has announced his willingness to press charges on the warehouse owners on Sixteenth Avenue."
+    w "Will we have a place to dump our trash next year?"
+    w "Connect to the online broadcast to listen to the comments of the best lawyers in the city!"
     return
 
 label ch_cyberdog:
-    w "Cyberdyne Systems announced a new cyber dog model yesterday."
-    w "New model “Milo D12” will replace an old one called “Fido D8”."
-    w "Milo D12 has an advanced AI and sensors system."
-    w "Store delivery will begin next month."
+    w "Cyberdyne Systems announced the tenth version of ITerrier is on sale!"
+    w "A new faithful friend and the best we can offer to anyone wishing to upgrade from the ninth model!"
+    w "This cybernetic dog with an improved body and a brand-new operating system will become an excellent home companion for you and your children!"
+    w "The first thousand customers will receive models with eye lenses in a unique green shade."
     return
 
 label ch_corp_war:
     w "War. War never changes."
     w "{b}TO DO:{/b} The War between corporations? What?"
     return
+
+label ch_psychic:
+    w "Somnium-N Society has carried out the final set of clinical trials and launched its latest project on the market — TenebrioSTOP."
+    w "This medicine is a real breakthrough for those willing to balance their life and improve the reality they have to face every day."
+    w "A simple and reliable tool will guarantee mental peace and save you the pain of having to pay for psychiatric services."
+    w "Are you looking for restful sleep and less irritability?"
+    w "Are you suffering from alcoholism or drug delirium that you would not dare confessing, even to your best friend?"
+    w "Are you experiencing auditory or visual hallucinations?"
+    w "There is nothing to be ashamed of, the main thing is to start working on yourself!"
+    w "TenebrioSTOP will make your world simple and manageable again!"
+    w "TenebrioSTOP - the recommendation of the best psychiatrists! *\nAvailable without a prescription.\n{size=20}* based on the results of the evaluation carried by Vector-Blum company.{/size}"
+    return
+
+
