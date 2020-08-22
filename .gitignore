@@ -141,3 +141,4 @@ navigation.json
 persistent
 *.bak
 limb_inc/traceback.txt
+.DS_Store
