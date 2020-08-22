@@ -8,6 +8,8 @@ label chapter_3:
     pause 1.0
     "This is the Western Branch neural research department lobby."
     "Why, it’s Miriam."
+    play sound footsteps_alt
+    $ renpy.pause(delay=0.5, hard=True)
 
     show miriam ok at center with dissolve
     mir "My goodness, [FIRST_NAME], is it really you? They said they would send someone to take care of Kurt!"
@@ -28,8 +30,10 @@ label chapter_3:
             mir "Are you really going use that tone with me?"
             mir "You can list your questions and send in an official request."
             mir "I have no wish to continue this conversation."
+            play sound footsteps_out
             hide miriam with dissolve
             pause 2.0
+            play sound call_1 loop
             notif "BZZZZZZZZ~~~~~~"
             "Oh, a phone call."
             jump chapter_2_boris_calling
@@ -61,6 +65,7 @@ label chapter_2_continue_with_miriam:
                 $ miriam_questions_asked.add("memories")
                 jump chapter_2_continue_with_miriam
     else:
+        play sound call_1 loop
         notif "BZZZZZZZZ~~~~~~"
         mir "You have a call, must be important. And I only have a couple of minutes of visiting time left."
         mir "We can talk later."
@@ -73,6 +78,7 @@ label chapter_2_boris_calling:
     show screen tablet_iface_incoming_call(_("Boris (Archivist)"), "boris on tablet")
     $ renpy.pause(delay=1.0, hard=True)
     $ tablet_reset_call_time()
+    play sound call_answer
     show screen tablet_iface_active_call(_("Boris (Archivist)"), "boris on tablet")
     pause 1.0
     boris "You can lead a horse to water, but you can't make him drink, as they say!"
@@ -90,14 +96,21 @@ label chapter_2_boris_calling:
         "I do have a request for you actually." if "secret" in TAB_DOCS_READ:
             me "Can you give me all information on a perpetrator Hans Nicht? ID unknown."
             boris "Request received. Estimated time to answer: 12 minutes 47 seconds."
-            boris "The answer will be sent to “Documents” app on your tablet."
+            boris "The answer will be sent you by e-mail."
             $ WAITING_FOR_BORIS_RESPONSE = True
             me "Thanks, Boris. Bye."
+    play sound cancel
     hide screen tablet_iface_active_call
     $ renpy.pause(delay=0.7, hard=True)
+    play sound show_tablet
     hide screen tablet_base
     $ TABLET_IS_DISABLED = False
     show screen tablet_button
     menu:
         "Move to the patient’s room":
+            hide screen tablet_button
+            play sound footsteps
+            scene white
+            with dissolve
+            $ renpy.pause(delay=1.0, hard=True)
             jump chapter_4

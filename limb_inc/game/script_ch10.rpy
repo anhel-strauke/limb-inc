@@ -1,14 +1,55 @@
+transform trans_dark_shroud_1:
+    size (1920, 1080)
+    xalign 0.5 yalign 0.5
+    alpha 0.0
+    block:
+        linear 1.0 alpha 0.1
+        linear 1.0 alpha 0.0
+        repeat
+transform trans_dark_shroud_vomit:
+    linear 0.3 alpha 0.5
+    block:
+        linear 1.0 alpha 0.1
+        linear 1.0 alpha 0.0
+        repeat
+transform trans_dark_shroud_2:
+    linear 1.0 alpha 0.0
+    block:
+        linear 1.0 alpha 0.05
+        linear 1.0 alpha 0.0
+        repeat
+transform trans_dark_shrowd_end:
+    linear 1.0 alpha 0.0
+
+init:
+    image dark_shroud = "#ff0000"
+
 label chapter_10:
+    stop music
+    $ renpy.music.set_volume(0.0, delay=0, channel="fxloop1")
+    $ renpy.music.set_volume(0.0, delay=0, channel="fxloop2")
+    play fxloop1 medical_ovl_1
+    play fxloop2 medical_ovl_2
+    $ renpy.music.set_volume(0.7, delay=1.0, channel="fxloop1")
+    $ renpy.music.set_volume(0.7, delay=1.0, channel="fxloop2")
+    $ renpy.sound.set_volume(1.0, channel="fxloop3")
+    play fxloop3 heartbeat
+    $ renpy.music.set_volume(1.0)
     scene bg lab 
     with dissolve
+    show dark_shroud at trans_dark_shroud_1
+    $ renpy.pause(delay=0.5, hard=True)
+    play music corporation fadein 1.0
     hide screen tablet_button
 
-    show leyla ok at center with dissolve
+    show leyla ok behind dark_shroud at center with dissolve 
 
     layla "Are you okay? The system registered enormous indicators deviation! It’s like Morpheus went crazy!"
     "Even through the eyelids a lamp above the examination table blinds me. It does not help the dizziness."
     "The heart is pounding like a hammer. Hearing Layla shout, I lift my head…"
 
+    show dark_shroud at trans_dark_shroud_vomit
+    play sound vomit
     with hpunch
     notif "Gurrrrrrrrgle…"
     layla "Doctor…"
@@ -21,7 +62,10 @@ label chapter_10:
 
     "While Layla went to the lobby for water, I’m trying to collect my thoughts. Kurt and that… Homunculus? Is that what they called themselves?"
     "Who are they? What is it?"
+    show dark_shroud at trans_dark_shroud_2
+    $ renpy.sound.set_volume(0.5, delay=5.0, channel="fxloop3")
     "Some part of Kurt’s mind? A distinct personality? Maybe a result of Morpheus malfunctions?"
+    play sound call_1 loop
     notif "BZZZZZZZZ~~~~~~"
     "Damn… I hope it’s not her…"
 
@@ -30,6 +74,7 @@ label chapter_10:
     $ renpy.pause(delay=0.7, hard=True)
     show screen tablet_iface_incoming_call(_("Bella Rabinovich"), "bella on tablet")
     $ renpy.pause(delay=1.0, hard=True)
+    play sound call_answer
     $ tablet_reset_call_time()
     show screen tablet_iface_active_call(_("Bella Rabinovich"), "bella on tablet")
     pause 1.0
@@ -68,14 +113,18 @@ label chapter_10:
     bella "Collect all the info you can from the archive, Kurt’s friends and relatives. Maybe we’re missing something."
     bella "You are a professional; I believe you can work through this. Hanging up."
     me "Oooof…"
+    play sound cancel
     hide screen tablet_iface_active_call
     $ renpy.pause(delay=0.7, hard=True)
+    play sound show_tablet
     hide screen tablet_base
     $ TABLET_IS_DISABLED = False
 
     "I love this job."
 
+    $ renpy.sound.set_volume(0.0, delay=4.0, channel="fxloop3")
     pause 1.0
+    show dark_shroud at trans_dark_shrowd_end
     show leyla ok at center with move 
     layla "Here’s the water."
     me "Thanks, Layla."
@@ -92,4 +141,13 @@ label chapter_10:
     show screen tablet_button
     menu:
         "Move to the lobby":
+            hide screen tablet_button
+            $ renpy.music.set_volume(0.0, delay=0.5, channel="fxloop1")
+            $ renpy.music.set_volume(0.0, delay=0.5, channel="fxloop2")
+            play sound footsteps
+            scene white
+            with dissolve
+            $ renpy.pause(delay=0.5, hard=True)
+            $ renpy.music.stop(channel="fxloop1")
+            $ renpy.music.stop(channel="fxloop2")
             jump chapter_11

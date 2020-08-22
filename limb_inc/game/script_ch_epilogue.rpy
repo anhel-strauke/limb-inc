@@ -63,9 +63,12 @@ init:
         ease 1.0 alpha 1.0
 
 label epilogue:
+    $ renpy.music.set_volume(0.0)
+    play music main_menu
+    $ renpy.music.set_volume(1.0, delay=12.0)
     scene black
     with dissolve
-    pause 2.0
+    $ renpy.pause(delay=2.0, hard=True)
     show white at trans_epilogue_bg
     show kurt limb2 at trans_epilogue_kurt_reset_x
     show the31 ok at offscreenleft
@@ -123,6 +126,7 @@ label good_end:
     "An unusual sight, I guess."
     layla "I see! I see you both, doc!"
     layla "Initiating the return procedure. Follow my voice."
+    play sound blip
     kurt "Her voice is much nicer than Violet’s, I’ll tell you."
     # "Limb Technician ’s voice greets us in the real world, as if a wife meets her husband after a long shift."
     kurt "You know, I’ll probably quit…"
@@ -153,6 +157,7 @@ label good_end:
     scene white
     with dissolve
     layla "OPEN YOUR EYES."
+    play sound portal_out
     $ ENDING_UNLOCKED = "good"
     $ persistent.endings.add("good")
     jump the_end
@@ -174,6 +179,12 @@ label normal_end:
     "An unusual sight, I guess."
     layla "I see! I see you both, doc!"
     layla "Initiating the return procedure. Follow my voice."
+    play sound blip
+    pause 1.0
+    $ renpy.music.set_volume(0.0, channel="fxloopm1")
+    play fxloopm1 limbo_1
+    $ renpy.music.set_volume(0.0, delay=2.0)
+    $ renpy.music.set_volume(1.0, delay=2.0, channel="fxloopm1")
     kurt "No… I can’t do that…"
     "Kurt lowers his hand slowly. What is he doing ?!"
     kurt "You know, I seem to stay…"
@@ -205,10 +216,12 @@ label normal_end:
     "I don’t care what it takes. I’ll get my friend out of this bastard’s clutches."
     kurt "Tell Miriam that I love her…"
     layla "Return in ONE."
+    stop music
     hans "SEE YOU SOON."
     scene white
     with dissolve
     layla "OPEN YOUR EYES."
+    play sound portal_out
     $ ENDING_UNLOCKED = "norm"
     $ persistent.endings.add("norm")
     jump the_end
@@ -230,9 +243,17 @@ label bad_end:
     "An unusual sight, I guess."
     layla "I see! I see you both, doc!"
     layla "Initiating the return procedure. Follow my voice."
-    hans "NOT SO FAST."
+    play sound blip
+    $ renpy.pause(delay=1.0, hard=True)
+    stop music
+    play sound door_slam
     show kurt limb2 at trans_epilogue_kurt_shift
     show the31 ok at trans_epilogue_hans_appear
+    $ renpy.music.set_volume(1.0, channel="fxloopm1")
+    play music limbo_0
+    play fxloopm1 limbo_0_ol
+    with hpunch
+    hans "NOT SO FAST."
     $ renpy.pause(delay=0.5, hard=True)
     show kurt limb2 at trans_epilogue_kurt2
     show the31 ok at trans_epilogue_kurt2
@@ -246,17 +267,21 @@ label bad_end:
     me "How did you escape? You should have stayed in Limbo!"
     hans "I TOLD YOU. THIS IS MY WORLD."
     hans "THE WHOLE LIMB IS MY PRISON…"
+    $ renpy.sound.set_volume(0.3, channel="fxloop1")
+    play fxloop1 medical_alert
     layla "CANCEL! CANCEL RETURN PROCEDURE!"
     hans "AND YOU’RE GOING TO STAY HERE WITH ME!"
     "It can’t be! It just can’t be!"
     layla "Doctor, if you can hear me, give a SIGNAL!"
     layla "If Bachowski is next to you, let him also give a SIGNAL!"
+    $ renpy.sound.set_volume(0.0, delay=8.0, channel="fxloop1")
     "I try to raise my hand, but it is caught in the steel hand of the homunculus. Trying to do something else, but I’m paralyzed. The body is not responding."
     "Kurt is writhing in pain. I can hear Leila shouting out emergency instructions."
     "Is this really the end?"
     kurt "[FIRST_NAME]!"
     me "Resist, Kurt!"
     me "Don’t let him carry us away!"
+    stop fxloop1
     show white at trans_epilogue_bg_fade
     show kurt at trans_epilogue_stabilize
     show the31 at trans_epilogue_stabilize
@@ -265,20 +290,33 @@ label bad_end:
     me "Let us go, you bastard!"
     show black_overlay at trans_epilogue_ovl
     show black_overlay at trans_epilogue_ovl_alpha20
+    $ renpy.music.set_volume(0.8, delay=1.0)
+    $ renpy.music.set_volume(0.8, delay=1.0, channel="fxloopm1")
     hans "I WAS LONELY FOR SO LONG."
     show black_overlay at trans_epilogue_ovl_alpha40
+    $ renpy.music.set_volume(0.6, delay=1.0)
+    $ renpy.music.set_volume(0.6, delay=1.0, channel="fxloopm1")
     hans "NOW I HAVE YOU."
     show black_overlay at trans_epilogue_ovl_alpha60
+    $ renpy.music.set_volume(0.4, delay=1.0)
+    $ renpy.music.set_volume(0.4, delay=1.0, channel="fxloopm1")
     hans "WE WILL NOT BE BORED, YOU’LL SEE."
     show black_overlay at trans_epilogue_ovl_alpha80
     hans "I HAVE SO MUCH TO SHOW YOU."
     show black_overlay at trans_epilogue_ovl_alpha100
+    $ renpy.music.set_volume(0.0, delay=1.0, channel="fxloopm1")
     $ renpy.pause(delay=1.0, hard=True)
-    "Leila, get me out. Please…"
-    hans "CALM DOWN. THEY’LL SEND SOMEONE TO US SOON."
+    stop fxloopm1
+    narr_b "Leila, get me out. Please…"
+    hans_b "CALM DOWN. THEY’LL SEND SOMEONE TO US SOON."
     $ ENDING_UNLOCKED = "bad"
     $ persistent.endings.add("bad")
     jump the_end
 
 label the_end:
+    $ renpy.music.set_volume(0.0, delay=4.0)
+    $ renpy.music.set_volume(0.0, delay=4.0, channel="fxloopm1")
+    scene black
+    with dissolve
+    $ renpy.pause(delay=3.0, hard=True)
     jump credits

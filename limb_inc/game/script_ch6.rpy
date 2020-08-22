@@ -1,4 +1,11 @@
 label chapter_6:
+    play music corporation fadein 1.0
+    $ renpy.music.set_volume(0.0, delay=0, channel="fxloop1")
+    $ renpy.music.set_volume(0.0, delay=0, channel="fxloop2")
+    $ renpy.music.play("audio/medical_ovl_1.ogg", channel="fxloop1")
+    $ renpy.music.play("audio/medical_ovl_2.ogg", channel="fxloop2")
+    $ renpy.music.set_volume(0.7, delay=1.0, channel="fxloop1")
+    $ renpy.music.set_volume(0.7, delay=1.0, channel="fxloop2")
     scene bg lab 
     with dissolve
     hide screen tablet_button
@@ -26,6 +33,7 @@ label chapter_6:
         "I’m not ready to discuss the dive right now. I need some time to think over it!":
             pass
     
+    play sound call_1 loop
     notif "BZZZZZZZZZ~~~~~~~"
     me "Sorry, I have a call. I need to answer."
     layla "Sure, you can talk right here, I’ll reconfigure the machine."
@@ -37,6 +45,7 @@ label chapter_6:
     show screen tablet_iface_incoming_call(_("Bella Rabinovich"), "bella on tablet")
     "It’s Bella, like I thought. She probably wants to hear a report about the dive, don’t want to leave her waiting."
     $ renpy.pause(delay=0.5, hard=True)
+    play sound call_answer
     $ tablet_reset_call_time()
     show screen tablet_iface_active_call(_("Bella Rabinovich"), "bella on tablet")
     pause 1.0
@@ -51,15 +60,18 @@ label chapter_6:
         "As if something ever smelled good here…":
             pass
     bella "I’m expecting the results. Talk to you."
+    play sound cancel
     hide screen tablet_iface_active_call
     $ renpy.pause(delay=0.7, hard=True)
+    play sound show_tablet
     hide screen tablet_base
     $ TABLET_IS_DISABLED = False
 
     show leyla ok at center with move
     layla "She is stern, isn’t she? Where were we? Ah yes, your dive! Tell me about the colors, or maybe there were any quirky details?"
     me "Why are you interested?"
-    layla "Limbo is astonishing; it’s much brighter than the real world. There is everything a human can imagine there, millions of colours and shades, incredible pictures painted by subconscious. How is it not interesting?"
+    layla "Limbo is astonishing; it’s much brighter than the real world."
+    layla "There is everything a human can imagine there, millions of colours and shades, incredible pictures painted by subconscious. How is it not interesting?"
     me "You’ve only experienced training dives and heard somebody else’s stories and it shows."
     me "It is more like a nightmare, disgustingly colorful, feverish delirium made up by an inflamed brain."
     me "There’s nothing romantic about it, trust me!"
@@ -80,4 +92,13 @@ label chapter_6:
 
     menu:
         "Move to the lobby":
+            hide screen tablet_button
+            $ renpy.music.set_volume(0.0, delay=0.5, channel="fxloop1")
+            $ renpy.music.set_volume(0.0, delay=0.5, channel="fxloop2")
+            play sound footsteps
+            scene white
+            with dissolve
+            $ renpy.pause(delay=0.5, hard=True)
+            $ renpy.music.stop(channel="fxloop1")
+            $ renpy.music.stop(channel="fxloop2")
             jump chapter_7

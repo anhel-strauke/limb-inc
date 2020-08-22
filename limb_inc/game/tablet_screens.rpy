@@ -5,6 +5,11 @@
 define gui.tablet_text_color = "#c0c0c0"
 define gui.tablet_text_hover_color = "#ffffff"
 
+define snd_tab_click = "audio/ok.ogg"
+define snd_tab_back = "audio/cancel.ogg"
+define snd_tab_hover = "audio/browser.ogg"
+define snd_tab_notification = "audio/message.ogg"
+
 ##############################################################################
 ## Tablet button in the game UI
 
@@ -20,22 +25,24 @@ style tablet_icon_button:
     selected_idle_background "tablet/tablet_icon_hover.png"
     selected_hover_background "tablet/tablet_icon_hover.png"
     xsize 138
-    ysize (160 + 5 + 30)
+    ysize 160
+    hover_sound snd_tab_hover
+    activate_sound snd_tab_click
 
 style tablet_icon_button_text:
-    size 30
-    #font "Exo2"
+    size 20
+    font "Exo2"
     #outlines [(absolute(2), "#000000", absolute(2), absolute(2))]
-    color "#101010"
-    hover_color gui.accent_color
+    color gui.tablet_text_color
+    hover_color gui.opposite_color
     xalign 0.5
     yalign 1.0
     text_align 0.5
     xsize 138
-    yoffset 5
+    yoffset -12
 
 transform trans_tablet_button:
-    ypos (1080 - 49 - 160 - 5 - 30) # 160 is a tablet icon height, 30 is size of text label
+    ypos (1080 - 49 - 160)
     xpos 40
     on show:
         xpos (-138 - 10)
@@ -168,11 +175,18 @@ style tablet_login_input:
     color "#ffffff"
     font "Exo2"
     size 40
+style tablet_login_button:
+    hover_sound snd_tab_hover
+    activate_sound snd_tab_click
+style tablet_login_button_cancel is tablet_login_button
+style tablet_login_button_cancel:
+    activate_sound snd_tab_back
 style tablet_login_button_text:
     color gui.tablet_text_color
     text_align 0.5
     xalign 0.5
     hover_color gui.tablet_text_hover_color
+style tablet_login_button_cancel_text is tablet_login_button_text
 
 transform trans_login_ui:
     on show:
@@ -212,7 +226,7 @@ screen tablet_yesno(prompt):
             xalign 0.5
             textbutton _("Yes") xsize 350 text_align 0.5 action Return(True)
             null width 20
-            textbutton _("No") xsize 350 text_align 0.5 action Return(False)
+            textbutton _("No") xsize 350 text_align 0.5 action Return(False) style "tablet_login_button_cancel"
 
 screen tablet_iface_login_success():
     style_prefix "tablet"
@@ -235,7 +249,7 @@ screen tablet_iface_missed_call(who):
         vbox:
             pos (40, 40) xsize 700
             null height 40
-            text _("Hello, %s.") % FIRST_NAME text_align 0.5 xalign 0.5 size 60
+            text _("Hello, [FIRST_NAME].") text_align 0.5 xalign 0.5 size 60
             null height 40
             text _("You have a missed call from:\n\n[who]") text_align 0.5 xalign 0.5
 
@@ -364,10 +378,20 @@ style power_icon:
     ysize 24
     background "tablet/power_small.png"
     hover_background "tablet/power_small_hover.png"
+style tablet_button:
+    hover_sound snd_tab_hover
+    activate_sound snd_tab_click
+style tablet_button_back is tablet_button
+style tablet_button_back:
+    activate_sound snd_tab_back
+style tablet_button_back_text is tablet_button_text
 style power_icon_text is tablet_text
 style power_icon_text:
     size 20
     hover_color gui.tablet_text_hover_color 
+style tablet_close_area:
+    hover_sound None
+    activate_sound None
 
 screen tablet_desktop_base():
     style_prefix "tablet"
@@ -377,7 +401,7 @@ screen tablet_desktop_base():
             hbox:
                 xfill True
                 text _("LIMBUS INC NETWORK SYSTEM") size 20 xalign 0.0 xoffset 10
-                button action [SensitiveIf(not TABLET_IS_DISABLED), Return()] xalign 1.0 xoffset 8 yoffset 27 top_padding 0:
+                button action [SensitiveIfExpr(lambda: (not TABLET_IS_DISABLED and not renpy.get_screen("say"))), Return()] xalign 1.0 xoffset 28 yoffset 27 top_padding 0 style "tablet_button_back":
                     hbox:
                         window style "power_icon"
                         null width 6
@@ -386,7 +410,7 @@ screen tablet_desktop_base():
     fixed:
         if not TABLET_IS_DISABLED:
             # Tablet can be closed by clicking outside it
-            button action Return() pos (0, 0) xysize (1920, 1080) keyboard_focus False keysym "K_ESCAPE" focus_mask tablet_close_mask 
+            button action Return() pos (0, 0) xysize (1920, 1080) keyboard_focus False keysym "K_ESCAPE" focus_mask tablet_close_mask style "tablet_close_area"
 
 
 
@@ -418,6 +442,11 @@ style desktop_icon_diary:
     background "tablet/diary.png"
     hover_background "tablet/diary_hover.png"
 
+style tablet_desktop_button:
+    activate_sound snd_tab_click
+    hover_sound snd_tab_hover
+    xalign 0.5
+
 screen tablet_desktop():
     style_prefix "tablet"
     tag tablet_app
@@ -429,6 +458,7 @@ screen tablet_desktop():
             yoffset 30
             xspacing 10
             yspacing 30
+            xfill True
             button action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_run_app, "tablet_app_contacts")]:
                 vbox:
                     window style "desktop_icon_contacts"
@@ -467,6 +497,8 @@ screen tablet_desktop():
 style tablet_app_contacts_button_text is tablet_text
 style tablet_app_contacts_button_text:
     hover_color gui.tablet_text_hover_color
+style tablet_app_contacts_button is tablet_button
+    
 
 screen tablet_app_contacts():
     style_prefix "tablet"
@@ -474,13 +506,13 @@ screen tablet_app_contacts():
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton _("<< Contacts") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)]
+            textbutton _("<< Contacts") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)] style "tablet_button_back"
             null height 40
             vbox:
                 xoffset 20
                 style_prefix "tablet_app_contacts"
                 for name_id in sorted(list(TAB_CONTACTS_AVAIL)):
-                    button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_app_contacts_make_call", name_id, from_current=True)]:
+                    button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_app_contacts_make_call", name_id, from_current=True)] style "tablet_app_contacts_button":
                         style_prefix "tablet_app_contacts_button"
                         hbox:
                             add TAB_CONTACTS[name_id].get("image", "") xalign 0.0 size (90, 104) 
@@ -502,7 +534,7 @@ screen tablet_iface_outgoing_call(who, who_image):
             null height 40
             text who text_align 0.5 xalign 0.5 
             null height 40
-            textbutton _("Cancel") action [SensitiveIf(not TABLET_IS_DISABLED), Jump("tablet_app_call_cancelled")] text_size 60 xalign 0.5
+            textbutton _("Cancel") action [SensitiveIf(not TABLET_IS_DISABLED), Jump("tablet_app_call_cancelled")] text_size 60 xalign 0.5 style "tablet_button_back"
 
 screen tablet_iface_outgoing_call_no_answer(who, who_image):
     style_prefix "tablet"
@@ -529,6 +561,7 @@ init python:
         if mail_id not in TAB_EMAIL_RECEIVED:
             TAB_EMAIL_RECEIVED.append(mail_id)
             if not silent:
+                renpy.sound.play(snd_tab_notification)
                 renpy.notify(_("New message from %s") % TAB_EMAILS[mail_id]["from"])
 
 style mail_icon_base:
@@ -557,8 +590,8 @@ screen tablet_app_email():
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton _("<< E-Mail") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)]
-            text _("Inbox for %s %s") % (FIRST_NAME, LAST_NAME) size 26
+            textbutton _("<< E-Mail") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)] style "tablet_button_back"
+            text _("Inbox for [FIRST_NAME] [LAST_NAME]") size 26
             text _("%d unread") % (len(TAB_EMAIL_RECEIVED) - len(TAB_EMAIL_READ)) size 20
             null height 20
             viewport:
@@ -566,7 +599,7 @@ screen tablet_app_email():
                 mousewheel True
                 vbox:
                     for mail_id in reversed(TAB_EMAIL_RECEIVED):
-                        button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_email_read", mail_id, from_current=True)]:
+                        button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_email_read", mail_id, from_current=True)] style "tablet_app_contacts_button":
                             style_prefix "tablet_app_contacts_button"
                             hbox:
                                 if mail_id in TAB_EMAIL_READ:
@@ -604,11 +637,13 @@ init python:
         global CYBERHERALD_AVAIL
         CYBERHERALD_AVAIL.append(art_id)
         if not silent:
+            renpy.sound.play(snd_tab_notification)
             renpy.notify(_("New article in the Cyber Herald, take a look"))
     def add_cyberherald_articles(art_ids, silent=True):
         global CYBERHERALD_AVAIL
         CYBERHERALD_AVAIL.extend(art_ids)
         if not silent:
+            renpy.sound.play(snd_tab_notification)
             renpy.notify(_("New articles in the Cyber Herald, take a look"))
 
 style tab_web_site_title is tablet_text
@@ -624,7 +659,7 @@ screen tablet_app_browser():
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton _("<< Browser") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)]
+            textbutton _("<< Browser") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)] style "tablet_button_back"
             text _("Corporate firewall enabled. Registered websites access only.") size 20
             null height 20
             viewport:
@@ -649,7 +684,7 @@ screen tablet_app_browser_site_title(title):
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton ("<< %s" % title) action FunctionIfNoSay(tablet_return_to_browser)
+            textbutton ("<< %s" % title) action FunctionIfNoSay(tablet_return_to_browser) style "tablet_button_back"
             null height 10
 
 screen tablet_app_browser_site():
@@ -672,6 +707,7 @@ init python:
         if doc_id not in TAB_DOCS_AVAIL:
             TAB_DOCS_AVAIL.append(doc_id)
             if not silent:
+                renpy.sound.play(snd_tab_notification)
                 renpy.notify(_("New document available: %s") % TAB_DOCS[doc_id]["name"])
 
 style document_icon:
@@ -687,7 +723,7 @@ screen tablet_app_docs():
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton _("<< Documents") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)]
+            textbutton _("<< Documents") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)] style "tablet_button_back"
             if len(TAB_DOCS_AVAIL) == 0:
                 text _("%d documents") % 0 size 26
             elif len(TAB_DOCS_AVAIL) == 1:
@@ -700,9 +736,10 @@ screen tablet_app_docs():
                 ysize 700
                 mousewheel True
                 vbox:
+                    style_prefix "tablet"
                     xfill True
                     for doc_id in TAB_DOCS_AVAIL:
-                        button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_doc_read", doc_id, from_current=True)]:
+                        button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_doc_read", doc_id, from_current=True)] style "tablet_button":
                             style_prefix "tablet_app_contacts_button"
                             hbox:
                                 if doc_id not in TAB_DOCS_READ and TAB_DOCS[doc_id].get("important", False):
@@ -749,7 +786,7 @@ screen tablet_app_diary():
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton _("<< Diary") action FunctionIfNoSay(tablet_end_app)
+            textbutton _("<< Diary") action FunctionIfNoSay(tablet_end_app) style "tablet_button_back"
             null height 10
             text ("%s %s" % (FIRST_NAME, LAST_NAME))
             null height 10

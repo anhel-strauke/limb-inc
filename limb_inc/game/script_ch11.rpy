@@ -13,15 +13,18 @@ label chapter_11:
 
     "A young, strangely dressed guy snatches up with his mother. I look closely and find out…"
 
+    play sound footsteps
     me "You!"
 
+    play sound footsteps_alt
     show kazimir ok at almost_right with dissolve
     show miriam ok at almost_left with dissolve
 
     me "You are that kid! From the train!"
     "I see a guy getting angry. It looks like he recognized me."
     mir "[FIRST_NAME], it’s Kazimir, our son."
-    "Son? Kurt said he has a son? Surely he told in letters that I never read…"
+    "Whoa, Kazimir? I remeber him as an eleven years old schoolboy."
+    "But no surprise, now he must be 17 or so. Looks like I was visiting Bachowski rarely."
     me "Hello Kazimir. My name is [FIRST_NAME], I…"
     kz "You are dad’s friend. I know. I know that you also work for these slave owners."
     show miriam sad with dissolve
@@ -34,6 +37,7 @@ label chapter_11:
     show miriam angry with dissolve
     mir "Kaz, if I find out you were rude with [FIRST_NAME]…"
     me "Everything will be all right, Miriam. I assure you."
+    play sound footsteps_out
     hide miriam with dissolve
 
     me "So. What did you want from me on the train?"
@@ -75,25 +79,36 @@ label chapter_11:
     kz "Yes! Exactly!"
     kz "Okay I have to go. Remember the promise!"
 
+    play sound footsteps_loud
     hide kazimir with dissolve
 
     pause 1.0
 
     "I drink my third glass of coffee at the machine. I digest information."
     "He said exactly “Homunculus” and Kaz remembered this word. Coincidence?…"
-    show violet interested at almost_right with dissolve
+    show violet interested at offscreenright
+    play sound footsteps_alt
+    show violet at almost_right with move
+    with hpunch
+    stop sound
     vio "Have you already talked to Kazimir? That horrible family, right?"
     "Violet appeared so unexpectedly that I almost spilled coffee from a paper cup."
     me "And you know how to make an impression, Violet."
     vio "That’s not why I’m here, to be honest. I just wanted to tell you to ask limbo tech about Morpheus and her experiments with him."
     me "What do you have in mind? Can you be more specific?"
     vio "You will find out for yourself. Good luck."
+    play sound footsteps_out
     hide violet with dissolve
 
     show screen tablet_button
     $ add_email("boris_violet_file")
     menu:
-        "Return to the patient’s room":
+        "Move to the patient’s room":
+            hide screen tablet_button
+            play sound footsteps
+            scene white
+            with dissolve
+            $ renpy.pause(delay=1.0, hard=True)
             jump chapter_12
 
 

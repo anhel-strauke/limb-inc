@@ -76,7 +76,7 @@ label email_kurt_old:
     mail "I dont’t know how to write complimentary letters, you know. Hope it’s not very pathetic."
     mail "I’m really happy for you."
     mail "Look, you should come to visit us if you finally get the vacations. Miriam will be glad too."
-    mail "There are an eco-zone construction nearby, and they promised us tickets with a corporative discount!"
+    mail "There is an eco-zone construction nearby, and they promised us tickets with a corporative discount!"
     mail "I remember you always liked my stories about my father’s farm."
     mail "You should look at the real trees after all."
     mail "Have a nice day!\nKurt"
@@ -99,7 +99,7 @@ label mail_boris_layla_file:
     mail "I’ve heard that you meet a young lady. I don’t believe she is a chosen one, but I thought you will want to know more on her."
     mail "Do not thank."
     mail "Regards,\nBoris,\nfrom the deepest caves of knowlege."
-    $ add_doc("layla_profile")
+    $ add_doc("layla_profile", silent=False)
     mail "Attached Document: Layla Anderson Profile"
     return
 
@@ -108,7 +108,7 @@ label mail_boris_sharp_profile:
     mail "What do you think about ms. Sharp?"
     mail "Don’t be quick, take a look at this document first."
     mail "Miss you.\nBoris (guess-who?)"
-    $ add_doc("violet_profile")
+    $ add_doc("violet_profile", silent=False)
     mail "Attached Document: Violet Sharp Profile"
     if THIS_MAIL_FIRST_TIME:
         "Boris is strange."

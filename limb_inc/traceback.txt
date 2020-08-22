@@ -1,22 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script_ch10.rpy", line 94, in script
-    jump chapter_11
-ScriptError: could not find label 'chapter_11'.
+  File "game/script_credits.rpy", line 294, in script
+    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
+  File "game/script_credits.rpy", line 294, in <module>
+    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
+NameError: name 'cr_credits_height' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script_ch10.rpy", line 94, in script
-    jump chapter_11
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1697, in execute
-    rv = renpy.game.script.lookup(target)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\script.py", line 898, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'chapter_11'.
+  File "game/script_credits.rpy", line 294, in script
+    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1183, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1142, in show_imspec
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2059, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2052, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script_credits.rpy", line 294, in <module>
+    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
+NameError: name 'cr_credits_height' is not defined
 
 Windows-8-6.2.9200
 Ren'Py 7.3.5.606
-Limbus inc. 1.0
-Mon Aug 10 10:12:48 2020
+Limbus inc 1.0b
+Sat Aug 22 20:05:07 2020

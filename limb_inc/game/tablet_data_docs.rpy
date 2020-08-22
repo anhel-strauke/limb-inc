@@ -53,11 +53,11 @@ init python:
             "descr": _("Official note for the diving specialists using Morpheus system."),
             "label": "doc_morpheus"
         },
-        "anderson_dive": {
-            "name": _(""),
-            "descr": _(""),
-            "label": "doc_anderson_dive"
-        },
+        # "anderson_dive": {
+        #     "name": _(""),
+        #     "descr": _(""),
+        #     "label": "doc_anderson_dive"
+        # },
         "hans_nicht": {
             "name": _("Response From Archive"),
             "descr": LIC + _("{p}{p}{size=60}RESPONSE{/size}{p}FROM THE ARCHIVE{p}{p}Search term: “Hans Nicht”{p}{p}Replied by: Boris"),
@@ -74,32 +74,35 @@ init python:
             "name": _("Miriam Bachowski Profile"),
             "descr": LIC + _("{p}{p}{size=60}Miriam Bachowski{/size}{p}{p}Personal Profile"),
             "label": "doc_miriam_profile",
+            "important": True
         },
         "layla_profile": {
             "name": _("Layla Anderson Profile"),
             "descr": LIC + _("{p}{p}{size=60}Layla Anderson{/size}{p}{p}Personal Profile"),
             "label": "doc_layla_profile",
+            "important": True
         },
         "violet_profile": {
             "name": _("Violet Sharp Profile"),
             "descr": LIC + _("{p}{p}{size=60}Violet Sharp{/size}{p}{p}Personal Profile"),
-            "label": "doc_violet_profile"
+            "label": "doc_violet_profile",
+            "important": True
         },
-        "incident": {
-            "name": _("Security Report"),
-            "descr": LIC + _("{p}{p}Report on the incident{p}{size=60}WBVS8306{/size}{p}{p}Limbus inc. Security Service."),
-            "label": "doc_incident"
-        },
-        "kurt_log": {
-            "name": _(""),
-            "descr": _(""),
-            "label": "doc_kurt_log"
-        },
-        "homunculus_map": {
-            "name": _(""),
-            "descr": _(""),
-            "label": "doc_homunculus_map"
-        }
+        # "incident": {
+        #     "name": _("Security Report"),
+        #     "descr": LIC + _("{p}{p}Report on the incident{p}{size=60}WBVS8306{/size}{p}{p}Limbus inc. Security Service."),
+        #     "label": "doc_incident"
+        # },
+        # "kurt_log": {
+        #     "name": _(""),
+        #     "descr": _(""),
+        #     "label": "doc_kurt_log"
+        # },
+        # "homunculus_map": {
+        #     "name": _(""),
+        #     "descr": _(""),
+        #     "label": "doc_homunculus_map"
+        # }
     }
 
 ## Documents Contents ####################################################################

@@ -1,104 +1,107 @@
-init python:
-    CREDITS = [
-        {
-            "title": _("Idea by Dina Griko"),
-        },
-        {
-            "title": _("Scenario by Timirlan Kenjibaev"),
-        },
-        {
-            "title": _("Special Guest"),
-            "items": [
-                _("{size=60}Andrey Zykin{/size}{p}{i}as Boris the Archivist{/i}")
-            ]
-        },
-        {
-            "title": _("Narrative"),
-            "items": [
-                _("Timirlan Kenjibaev"),
-                _("Dina Griko"),
-                _("Alexandra Pikarevskaya")
-            ]
-        },
-        {
-            "title": _("English Translation"),
-            "items": [
-                _("Alexandra Kanapina"),
-                _("Naina Kovyazina"),
-                _("Sergei Reischel"),
-                _("Darya Bocharova"),
-                _("V.M.A."),
-                _("Timirlan Kenjibaev"),
-                _("Anatoly Griko"),
-                _("Dina Griko"),
-            ]
-        },
-        {
-            "title": _("Backgrounds Art"),
-            "items": [
-                (_("Bravo"), "artstation.com/nadezhdarunova"), # ← ?
-                _("Anatoly Griko"),
-            ]
-        },
-        {
-            "title": _("Limbo Backgrounds Art"),
-            "items": [
-                (_("Vadim Zalepaev"), "vk.com/3wy3wy"),
-            ]
-        },
-        {
-            "title": _("Characters Art"),
-            "items": [
-                (_("Taya Chuiganova"), "vk.com/thekingdomofkai")
-            ]
-        },
-        {
-            "title": _("Limbo Characters Art"),
-            "items": [
-                (_("Margarita Kamushek"), "vk.com/teamochi"),
-                (_("Vadim Zalepaev"), "vk.com/3wy3wy"),
-            ]
-        },
-        {
-            "title": _("Animations"),
-            "items": [
-                _("Anatoly Griko")
-            ]
-        },
-        {
-            "title": _("Programming"),
-            "items": [
-                _("Anatoly Griko"),
-            ]
-        },
-        {
-            "title": _("Scripting"),
-            "items": [
-                _("Anatoly Griko"),
-                _("Dina Griko")
-            ]
-        },
-        {
-            "title": _("Sound Design"),
-            "items": [
-                (_("Vlad Ulrich"), "github.com/Wedmer")
-            ]
-        },
-        {
-            "title": _("Special Thanks"),
-            "items": [
-                _("Anna Bolshakova"),
-                _("Anna Kovalenko"),
-                (_("Giglemash"), "github.com/Giglemash")
-            ]
-        },
-        {
-            "title": _("Made with Ren’Py %d.%d") % (renpy.version_tuple[0], renpy.version_tuple[1]),
-            "items": [
-                "https://www.renpy.org/"
-            ]
-        },
-    ]
+init:
+    define CREDITS_STRINGS = (
+            (
+                _("Idea"),
+                (
+                    _("{size=60}Dina Griko{/size}"),
+                ),
+            ),
+            (
+                _("Scenario"),
+                (
+                    _("{size=60}Timirlan Kenjibaev{/size}"),
+                ),
+            ),
+            (
+                _("Special Guest"),
+                (
+                    _("{size=60}Andrey Zykin{/size}{p}{i}as Boris the Archivist{/i}"),
+                )
+            ),
+            (
+                _("Narrative"),
+                (
+                    _("Timirlan Kenjibaev"),
+                    _("Dina Griko"),
+                    _("Alexandra Pikarevskaya"),
+                )
+            ),
+            (
+                _("English Translation"),
+                (
+                    _("Alexandra Kanapina"),
+                    _("Naina Kovyazina"),
+                    _("Sergei Reischel"),
+                    _("Darya Bocharova"),
+                    _("V.M.A."),
+                    _("Timirlan Kenjibaev"),
+                    _("Anatoly Griko"),
+                    _("Dina Griko"),
+                )
+            ),
+            (
+                _("Backgrounds Art"),
+                (
+                    (_("Bravo"), "artstation.com/nadezhdarunova"), # ← ?
+                    _("Anatoly Griko"),
+                )
+            ),
+            (
+                _("Limbo Backgrounds Art"),
+                (
+                    (_("Vadim Zalepaev"), "vk.com/3wy3wy"),
+                )
+            ),
+            (
+                _("Characters Art"),
+                (
+                    (_("Taya Chugainova"), "vk.com/thekingdomofkai"),
+                )
+            ),
+            (
+                _("Limbo Characters Art"),
+                (
+                    (_("Margarita Kamushek"), "vk.com/teamochi"),
+                    (_("Vadim Zalepaev"), "vk.com/3wy3wy"),
+                )
+            ),
+            (
+                _("Animations"),
+                (
+                    _("Anatoly Griko"),
+                )
+            ),
+            (
+                _("Programming"),
+                (
+                    _("Anatoly Griko"),
+                )
+            ),
+            (
+                _("Scripting"),
+                (
+                    _("Anatoly Griko"),
+                    _("Dina Griko"),
+                )
+            ),
+            (
+                _("Sound Design"),
+                (
+                    (_("Vlad Ulrich"), "github.com/Wedmer"),
+                    _("Anatoly Griko"),
+                )
+            ),
+            (
+                _("Special Thanks"),
+                (
+                    _("Anna Bolshakova"),
+                    _("Anna Kovalenko"),
+                    (_("Giglemash"), "github.com/Giglemash"),
+                    _("Phil Michalski"),
+                    _("Blazze Di"),
+                )
+            ),
+        )
 
 init python:
     cr_max_w = 1300
@@ -112,42 +115,44 @@ init python:
     cr_subitem_space = 5
     cr_item_hspace = 30
     cr_y_start = 1080 + 60 + 60
-    credits_time = 60.0
+    credits_time = 66.0
+    cr_credits_height = 0
 
     def build_credits():
         cr_credits_height = 0
         cr_y = 0
         objects = []
         
-        for sindex, sect in enumerate(CREDITS):
-            title = sect.get("title", "")
-            if title:
-                sect_displayable = Text(title, slow=False, style="cr_style_section", pos=(cr_max_w / 2, cr_y))
+        for sindex, sect in enumerate(CREDITS_STRINGS):
+            if type(sect[0]) is not tuple:
+                sect_displayable = Text("[CREDITS_STRINGS[%d][0]!t]" % sindex, slow=False, style="cr_style_section", pos=(cr_max_w / 2, cr_y))
                 objects.append(sect_displayable)
                 cr_y += cr_section_height
-            items = sect.get("items", [])
+            items = tuple() if len(sect) <= 1 or type(sect[1]) is not tuple else sect[1]
             if items:
                 cr_y += cr_section_space
-                for item in items:
+                for item_index, item in enumerate(items):
                     if type(item) is unicode or type(item) is str:
-                        item_displayable = Text(item, slow=False, style="cr_style_item", pos=(cr_max_w / 2, cr_y))
+                        item_displayable = Text("[CREDITS_STRINGS[%d][1][%d]!t]" % (sindex, item_index), slow=False, style="cr_style_item", pos=(cr_max_w / 2, cr_y))
                         objects.append(item_displayable)
                         cr_y += (cr_item_height + cr_item_space)
                     else:
-                        left, right = item
-                        left_displayable = Text(left, slow=False, style="cr_style_item_left", pos=(cr_max_w / 2, cr_y))
+                        left_displayable = Text("[CREDITS_STRINGS[%d][1][%d][0]!t]" % (sindex, item_index), slow=False, style="cr_style_item_left", pos=(cr_max_w / 2, cr_y))
                         cr_y += (cr_item_height + cr_subitem_space)
-                        right_displayable = Text("%s" % right, slow=False, style="cr_style_item_right", pos=(cr_max_w / 2, cr_y))
+                        right_displayable = Text("[CREDITS_STRINGS[%d][1][%d][1]!t]" % (sindex, item_index), slow=False, style="cr_style_item_right", pos=(cr_max_w / 2, cr_y))
                         cr_y += (cr_subitem_height + cr_item_space)
                         objects.append(left_displayable)
                         objects.append(right_displayable)
                 cr_y -= cr_item_space
-            if title or items and sindex < (len(CREDITS) - 1):
+            if type(sect[0]) is not tuple or items:
                 cr_y += cr_section_margin
-            cr_credits_height = cr_y
+        
+        objects.append(Text(__("Made with Ren’Py %d.%d") % (renpy.version_tuple[0], renpy.version_tuple[1]), slow=False, style="cr_style_section", pos=(cr_max_w / 2, cr_y)))
+        cr_y += cr_section_height + cr_subitem_space
+        objects.append(Text("https://www.renpy.org/", slow=False, style="cr_style_item", pos=(cr_max_w / 2, cr_y)))
+        cr_y += cr_item_height + cr_section_margin
+        cr_credits_height = cr_y
         return (cr_credits_height, objects)
-    
-    cr_credits_height, cr_objects = build_credits()
 
 init:
     style cr_style_base:
@@ -158,6 +163,9 @@ init:
     style cr_style_game_title is cr_style_base
     style cr_style_game_title:
         size 120
+    style cr_style_game_ending is cr_style_base
+    style cr_style_game_ending:
+        size 40
     style cr_style_section is cr_style_base
     style cr_style_section:
         size cr_section_height yanchor 0.0 text_align 0.5 xfill True
@@ -188,20 +196,46 @@ init:
         xalign 0 yanchor 0 size 40 xoffset 50
 
 
-    image cr_game_subtitle = Text(_("Thanks for playing"), slow=False, style="cr_style_game_subtitle")
+init python:
+    def regenerate_credits(t1, t2):
+        global cr_credits_height, cr_max_w
+        cr_credits_height, cr_objects = build_credits()
+        return (Fixed(*cr_objects, xysize=(cr_max_w, cr_credits_height), xanchor=0.5), None)
+    
+    def regenerate_game_subtitle(t1, t2):
+        return (Text(_("Thanks for playing"), slow=False, style="cr_style_game_subtitle"), None)
+    
+    def regenerate_final_message(t1, t2):
+        return (Fixed(VBox(
+            Text(_("The rules of Limbo works in a real life."), style="cr_style_last"),
+            Null(height=5),
+            Text(_("Watch yourself and be carefull while breaking someone’s illusions."), style="cr_style_last"),
+            Null(height=299),
+            Text(_("© 2020 IT Happens"), style="cr_style_copytight"),
+            Null(height=5),
+            Text(_("© 2020 And Tak Soidet Games"), style="cr_style_copytight"),
+            Null(height=5),
+            Text(_("https://andtaksoidet.games"), style="cr_style_copytight_link"),
+            xfill=True, xminimum=cr_last_max_w
+        ), xysize=(cr_last_max_w, 515), xanchor=0.5), None)
+    
+    def regenerate_msg_good_ending(t1, t2):
+        return (Text(_("You have reached a good ending"), slow=False, style="cr_style_game_ending"), None)
+
+    def regenerate_msg_neutral_ending(t1, t2):
+        return (Text(_("You have reached a neutral ending"), slow=False, style="cr_style_game_ending"), None)
+    
+    def regenerate_msg_bad_ending(t1, t2):
+        return (Text(_("You have reached a bad ending"), slow=False, style="cr_style_game_ending"), None)
+
+init:
+    image cr_game_subtitle = DynamicDisplayable(regenerate_game_subtitle)
     image cr_game_title = Text("LIMBUS INC", slow=False, style="cr_style_game_title")
-    image cr_final = Fixed(VBox(
-        Text(_("The rules of Limbo works in a real life."), style="cr_style_last"),
-        Null(height=5),
-        Text(_("Watch yourself and be carefull while breaking someone’s illusions."), style="cr_style_last"),
-        Null(height=299),
-        Text(_("© 2020 IT Happens"), style="cr_style_copytight"),
-        Null(height=5),
-        Text(_("© 2020 And Tak Soidet Games"), style="cr_style_copytight"),
-        Null(height=5),
-        Text(_("https://andtaksoidet.games"), style="cr_style_copytight_link"),
-        xfill=True, xminimum=cr_last_max_w
-    ), xysize=(cr_last_max_w, 515), xanchor=0.5)
+    image cr_final = DynamicDisplayable(regenerate_final_message)
+    image all_credits = DynamicDisplayable(regenerate_credits)
+    image cr_msg_good_ending = DynamicDisplayable(regenerate_msg_good_ending)
+    image cr_msg_neutral_ending = DynamicDisplayable(regenerate_msg_neutral_ending)
+    image cr_msg_bad_ending = DynamicDisplayable(regenerate_msg_bad_ending)
 
     transform cr_trans_credits(yfrom, yto, t, wait_t):
         xanchor 0.5 yanchor 0.0
@@ -213,22 +247,25 @@ init:
         xpos (1920 / 2) ypos (1080 / 2) alpha 0.0
         (1.0 if wait else 0.0)
         ease 1.0 alpha 1.0
-        3.0
+        (4.5 if wait else 2.0)
         linear credits_time ypos (1080 / 2 - cr_h - 1080)
+
     transform cr_trans_game_subtitle_show(cr_h):
         xpos (1920 / 2) ypos (1080 / 2 - 120) alpha 0.0
         ease 0.5 alpha 1.0
-        2.5
-        2.0
+        6.0
         linear credits_time ypos (1080 / 2 - 120 - cr_h - 1080)
+    transform cr_trans_game_ending_show(cr_h):
+        xpos (1920 / 2) ypos (1080 / 2 + 120) alpha 0.0
+        2.5
+        ease 1.0 alpha 1.0
+        3.0
+        linear credits_time ypos (1080 / 2 + 120 - cr_h - 1080)
     
     transform trans_cr_duck_pos:
         xanchor 0.5 yanchor 0.5 xpos 1290 ypos 710
         1.0
         ease 1.0 xpos 1190
-
-    
-    image all_credits = Fixed(*cr_objects, xysize=(cr_max_w, cr_credits_height), xanchor=0.5)
 
     default IS_ENDING_CREDITS = False
 
@@ -250,21 +287,27 @@ label show_credits:
 
     if IS_ENDING_CREDITS:
         $ renpy.pause(delay=2.0, hard=True)
-        if ENDING_UNLOCKED == "good":
-            $ renpy.notify(_("Good ending unlocked. Congratulations!"))
-        elif ENDING_UNLOCKED == "norm":
-            $ renpy.notify(_("Neutral ending unlocked."))
-        elif ENDING_UNLOCKED == "bad":
-            $ renpy.notify(_("Bad ending unlocked"))
+        $ renpy.music.set_volume(1.0)
+        play music credits
 
     if IS_ENDING_CREDITS:
         show cr_game_subtitle at cr_trans_game_subtitle_show(cr_credits_height)
     show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
-    show all_credits at cr_trans_credits(1080, -cr_credits_height, credits_time, (6.0 if IS_ENDING_CREDITS else 4.0))
-    show cr_final at cr_trans_credits(1080 + cr_credits_height + 495, 495, credits_time, (6.0 if IS_ENDING_CREDITS else 4.0))
+    if IS_ENDING_CREDITS:
+        if ENDING_UNLOCKED == "good":
+            show cr_msg_good_ending at cr_trans_game_ending_show(cr_credits_height)
+        elif ENDING_UNLOCKED == "norm":
+            show cr_msg_neutral_ending at cr_trans_game_ending_show(cr_credits_height)
+        elif ENDING_UNLOCKED == "bad":
+            show cr_msg_bad_ending at cr_trans_game_ending_show(cr_credits_height)
+    show all_credits at cr_trans_credits(1080, -cr_credits_height, credits_time, (6.5 if IS_ENDING_CREDITS else 4.0))
+    show cr_final at cr_trans_credits(1080 + cr_credits_height + 495, 495, credits_time, (6.5 if IS_ENDING_CREDITS else 4.0))
 
-    $ renpy.pause(delay=10.0, hard=IS_ENDING_CREDITS)
-    pause credits_time #+ (6.0 if IS_ENDING_CREDITS else 4.0)
+    if IS_ENDING_CREDITS:
+        $ renpy.pause(delay=10.0, hard=True)
+        pause credits_time
+    else:
+        pause (credits_time + 10.0)
 
     scene black
     with dissolve
@@ -278,11 +321,17 @@ label show_credits:
         show duck silent behind duck_ovl at trans_cr_duck_pos with dissolve
         $ renpy.pause(delay=2.0, hard=True)
         show duck quack with dissolve
-        duck "Quack!"
+        play sound quack
+        $ duck(_("Quack!"), interact=False, advance=False)
+        $ renpy.pause(delay=2.0, hard=True)
+        hide window
         $ renpy.pause(delay=0.5, hard=True)
         scene black
         with dissolve
+        $ renpy.music.set_volume(0.0, delay=1.0)
         $ renpy.pause(delay=1.0, hard=True)
+        stop music
+        $ renpy.music.set_volume(1.0)
 
 
     $ quick_menu = True

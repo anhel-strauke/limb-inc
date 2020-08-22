@@ -3,6 +3,7 @@ label chapter_7:
     with dissolve
     hide screen tablet_button
 
+    play sound footsteps_alt
     show violet interested at almost_right with dissolve
 
     pause 1.0
@@ -31,6 +32,7 @@ label chapter_7:
     me "I’m sorry, ms. Sharp, it seems like now is not the time for this conversation."
     vio "Go to hell!…"
     hide violet with dissolve
+    play sound door_slam
     with hpunch
     pause 0.5
     "What a mood. How did Kurt even work with her?"
@@ -39,4 +41,9 @@ label chapter_7:
     $ add_email("boris_layla_file")
     menu:
         "Return to the patient’s room":
+            hide screen tablet_button
+            play sound footsteps
+            scene white
+            with dissolve
+            $ renpy.pause(delay=0.5, hard=True)
             jump chapter_8

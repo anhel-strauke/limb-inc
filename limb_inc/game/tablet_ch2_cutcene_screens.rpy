@@ -129,9 +129,11 @@ init python:
             if search_time_limit_pos == len(time_lim):
                 search_phase = 1
                 search_time_limit = time_lim
+                renpy.sound.play("audio/ok.ogg")
             else:
                 search_time_limit_pos += 1
                 search_time_limit = time_lim[:search_time_limit_pos] + "|"
+                renpy.sound.play("audio/kbd_tap.ogg", )
         elif search_phase < 4:
             search_text = "|"
             search_phase += 1
@@ -140,9 +142,11 @@ init python:
             if search_text_pos == len(search_txt):
                 search_phase = 5
                 search_text = search_txt
+                renpy.sound.play("audio/ok.ogg")
             else:
                 search_text_pos += 1
                 search_text = search_txt[:search_text_pos] + "|"
+                renpy.sound.play("audio/kbd_tap.ogg")
         elif search_phase < 8:
             search_phase += 1
         else:
@@ -254,7 +258,7 @@ screen tablet_receive_file():
             grid 2 1:
                 xfill True
                 textbutton _("Yes") action Return(True) xalign 0.5 text_size 60
-                textbutton _("No") action Return(False) xalign 0.5 text_size 60
+                textbutton _("No") action Return(False) xalign 0.5 text_size 60 style "tablet_button_back"
 
 
 style download_bar_left:
@@ -294,7 +298,7 @@ screen tablet_receive_file_process():
                 window style "download_bar_left" at trans_bar_left
                 window style "download_bar_right" at trans_bar_right
                 null width 40
-    timer 2.0 action Return()
+    timer 2.5 action Return()
 
 transform blinking:
     alpha 1.0

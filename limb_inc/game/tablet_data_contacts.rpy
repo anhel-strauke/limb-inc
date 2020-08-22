@@ -3,14 +3,14 @@ default TAB_CONTACTS_AVAIL = {"bella", "boris"}
 init python:
     TAB_CONTACTS = {
         "bella": {
-            "name": "Bella Rabinovich",
+            "name": _("Bella Rabinovich"),
             "image": "bella on tablet.png",
-            "descr": "CIRO Eastern Branch Limbus inc."
+            "descr": _("CIRO Eastern Branch Limbus inc.")
         },
         "boris": {
-            "name": "Boris (Archivist)",
+            "name": _("Boris (Archivist)"),
             "image": "boris on tablet",
-            "descr": "Limbus Inc Archive operator"
+            "descr": _("Limbus Inc Archive operator")
         },
     }
 

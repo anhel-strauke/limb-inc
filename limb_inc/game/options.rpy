@@ -38,6 +38,34 @@ define gui.about = _p("""This game was created in two weeks of July and August 2
 P.S. This game {u}does have{/u} a duck content.
 """)
 
+define gui.game_licenses_info = _p("""{size=20}This game uses Exo 2 font by Natanael Gama from {a=https://fonts.google.com/specimen/Exo+2}Google Fonts{/a} ({a=https://scripts.sil.org/OFL}license{/a}).
+This game uses “technological sense png” designed by {image=qian_tu_wang.png} from {a=https://pngtree.com/}pngtree.com{/a} ({a=https://pngtree.com/legal/license-terms}license{/a}).
+This game uses icons made by {a=https://www.flaticon.com/authors/freepik}Freepik{/a} from {a=https://www.flaticon.com/}www.flaticon.com{/a} ({a=https://www.freepikcompany.com/legal#nav-flaticon-agreement}license{/a}).
+This game uses image by {a=https://www.pexels.com/@pixabay}Pixabay{/a} from {a=https://www.pexels.com/}Pexels.com{/a} ({a=https://www.pexels.com/creative-commons-images/}license{/a}).
+This game contains the image by {a=https://pixabay.com/ru/users/monstreh-637659/}Anna Kulikova{/a} from Pixbay ({a=https://pixabay.com/ru/service/license/}license{/a}).
+This game uses sounds from {a=https://freesound.org}FreeSound.org{/a} by
+{a=https://freesound.org/people/nsstudios/}nsstudios{/a},
+{a=https://freesound.org/people/LoafDV/}LoafDV{/a},
+{a=https://freesound.org/people/Aysonny/}Aysonny{/a},
+{a=https://freesound.org/people/MelvinJaepel/}MelvinJaepel{/a},
+{a=https://freesound.org/people/BenjaminNelan/}BenjaminNelan{/a},
+{a=https://freesound.org/people/Anthousai/}Anthousai{/a},
+{a=https://freesound.org/people/lsestep/}lsestep{/a},
+{a=https://freesound.org/people/michorvath/}michorvath{/a},
+{a=https://freesound.org/people/copyc4t/}copyc4t{/a},
+{a=https://freesound.org/people/loudernoises/}loudernoises{/a},
+{a=https://freesound.org/people/dkiller2204/}dkiller2204{/a},
+{a=https://freesound.org/people/paulmessier/}paulmessier{/a},
+{a=https://freesound.org/people/WhaTThes/}WhaTThes{/a},
+{a=https://freesound.org/people/Sheyvan/}Sheyvan{/a},
+{a=https://freesound.org/people/DrMaysta/}DrMaysta{/a},
+{a=https://freesound.org/people/taurindb/}taurindb{/a},
+{a=https://freesound.org/people/squashy555/}squashy555{/a},
+{a=https://freesound.org/people/Robinhood76/}Robinhood76{/a},
+{a=https://freesound.org/people/the_very_Real_Horst/}the_very_Real_Horst{/a},
+and others (licensed under {a=http://creativecommons.org/publicdomain/zero/1.0/}CC0{/a} or {a=http://creativecommons.org/licenses/by/3.0/}CC-BY-3.0{/a}).
+{/size}
+""")
 
 ## A short name for the game used for executables and directories in the built
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
@@ -67,7 +95,7 @@ define config.has_voice = False
 ## the player is at the main menu. This file will continue playing into the
 ## game, until it is stopped or another file is played.
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "audio/music/main_menu.ogg"
 
 
 ## Transitions #################################################################
@@ -135,6 +163,11 @@ default preferences.text_cps = 80
 
 default preferences.afm_time = 15
 
+## Run game fullscreen by default
+
+define config.default_fullscreen = True
+
+define config.default_music_volume = 0.5
 
 ## Save directory ##############################################################
 ##
@@ -197,6 +230,8 @@ init python:
     build.classify('**/.**', None)
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
+    build.classify('**/*.rpy', None) # Clean up game sources, leave bytecode only
+    build.classify('game/**.rpyc', 'archive')
 
     ## To archive files, classify them as 'archive'.
 
@@ -220,4 +255,5 @@ init python:
 ## The username and project name associated with an itch.io project, separated
 ## by a slash.
 
-define build.itch_project = "dinajam/limbus-inc"
+# define build.itch_project = "dinajam/limbus-inc"
+

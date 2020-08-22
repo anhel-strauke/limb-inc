@@ -1,4 +1,10 @@
 label chapter_12:
+    $ renpy.sound.set_volume(0.0, delay=0, channel="fxloop1")
+    $ renpy.sound.set_volume(0.0, delay=0, channel="fxloop2")
+    play fxloop1 medical_ovl_1
+    play fxloop2 medical_ovl_2
+    $ renpy.sound.set_volume(0.7, delay=1.0, channel="fxloop1")
+    $ renpy.sound.set_volume(0.7, delay=1.0, channel="fxloop2")
     scene bg lab
     with dissolve
     hide screen tablet_button
@@ -14,7 +20,8 @@ label chapter_12:
     "You better get yourself a sedative."
     "Although she’s worth it, she’s smart. Forecasting is a rare skill in our time of carelessness."
     layla "I’m preparing Morpheus. In a minute everything will be ready to dive."
-    show leyla ok at left with move
+    play sound footsteps_alt
+    show leyla at left with move
 
     me "Kurt’s condition?"
     "I asked not for information. I see that his pulse quickened and he doesn’t breath well."
@@ -27,7 +34,8 @@ label chapter_12:
     me "Have you done any experiments with the Morpheus system?"
     "She is silent for a while, looking away. Then she turns to me."
     pause 1.0
-    show leyla ok at center with move
+    play sound footsteps_alt
+    show leyla at center with move
     layla "Did Violet tell you that?"
     "Ha-ha!"
     me "Everything is good. I’m not a cop or a security officer."
@@ -43,7 +51,6 @@ label chapter_12:
     layla "That’s it! Even Limb technicians like myself are not allowed to dismantle Morpheus."
     layla "And why? Like, shouldn’t we know {i}everything{/i} about the system we work with?"
     "Admittedly, it makes sense."
-    show leyla ok at center with move
     me "What do you think is inside the system?"
     layla "You started to understand! That’s what I’ve been thinking all this time."
     layla "What could be inside the machine which somehow keeps the consciousness of the people connected to it in a single realm? Think yourself."
@@ -60,17 +67,29 @@ label chapter_12:
     layla "My experiment proved that Violet Sharp is a bitch. She thwarted my research!"
     me "Why do you think so?"
     layla "Violet was that qualified employee. I was so upset about the failure of the experiment that I did not immediately understand why it failed."
-    layla "Later I realized thet she just disconnected that dying man from the system and made fun of me talking to myself."
+    layla "Later I realized that she just disconnected that dying man from the system and made fun of me talking to myself."
     layla "But I relized it too late."
     "Well well…"
     me "I’ve already wasted enough time. Start up the system and give a report."
+
+    $ renpy.sound.set_volume(0.6, channel="fxloop3")
+    $ renpy.sound.set_volume(0.6, channel="fxloop4")
+    $ renpy.sound.set_volume(1.0, channel="fxloop5")
+    play sound footsteps_alt
     show leyla ok at right with move
-    pause 2.0
-    
+    pause 1.0
+    play sound blip
+    play fxloop3 "<loop 18.672>audio/morpheus_1.ogg"
+    pause 1.0
+    play fxloop4 "<loop 8.050>audio/morpheus_2.ogg"
+    play fxloop5 "<loop 46.169>audio/morpheus_3.ogg"
+    pause 1.0
     layla "Get ready."
 
+    play sound footsteps_alt
     show leyla ok at center with move
     pause 1.0
+    play sound blip
     $ layla(_("Diving through Three."), interact=False, advance=False)
     $ renpy.pause(delay=1.0, hard=True)
     $ layla(_("Two."), interact=False, advance=False)
@@ -78,12 +97,23 @@ label chapter_12:
     $ layla(_("One."), interact=False, advance=False)
     $ renpy.pause(delay=1.0, hard=True)
 
+    $ renpy.sound.set_volume(0.0, delay=0.5, channel="fxloop1")
+    $ renpy.sound.set_volume(0.0, delay=0.5, channel="fxloop2")
+    $ renpy.sound.set_volume(0.0, delay=0.5, channel="fxloop3")
+    $ renpy.sound.set_volume(0.0, delay=0.5, channel="fxloop4")
+    $ renpy.sound.set_volume(0.0, delay=0.5, channel="fxloop5")
+    play sound portal
     show limb_enter_1 at trans_limb_enter_1
     show limb_enter_2 at trans_limb_enter_2
     show limb_enter_3 at trans_limb_enter_3
     show black at trans_limb_enter_black
 
     $ renpy.pause(delay=2, hard=True)
+    stop fxloop1
+    stop fxloop2
+    stop fxloop3
+    stop fxloop4
+    stop fxloop5
 
     pause 0.5
     jump chapter_13

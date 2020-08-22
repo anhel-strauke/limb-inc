@@ -115,7 +115,6 @@ screen say(who, what):
     if not renpy.variant("small"):
         add SideImage() xalign 0.0 yalign 1.0
 
-
 ## Make the namebox available for styling through the Character object.
 init python:
     config.character_id_prefixes.append('namebox')
@@ -128,14 +127,19 @@ style say_thought is say_dialogue
 style namebox is default
 style namebox_label is say_label
 
-
 style window:
     xalign 0.5
     xfill True
     yalign gui.textbox_yalign
     ysize gui.textbox_height
-
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
+
+style say_black_window:
+    xalign 0.5
+    xfill True
+    yalign gui.textbox_yalign
+    ysize gui.textbox_height
+    background Image("gui/textbox_black.png", xalign=0.5, yalign=1.0)
 
 style namebox:
     xpos gui.name_xpos
@@ -154,11 +158,9 @@ style say_label:
 
 style say_dialogue:
     properties gui.text_properties("dialogue")
-
     xpos gui.dialogue_xpos
     xsize gui.dialogue_width
     ypos gui.dialogue_ypos
-
 
 ## Input screen ################################################################
 ##
@@ -218,6 +220,9 @@ define config.narrator_menu = True
 
 style choice_vbox is vbox
 style choice_button is button
+style choice_button:
+    activate_sound "audio/iface_click.ogg"
+    hover_sound "audio/iface_hover.ogg"
 style choice_button_text is button_text
 
 style choice_vbox:
@@ -307,11 +312,13 @@ screen navigation():
 
             textbutton _("History") action ShowMenu("history")
 
-            textbutton _("Save") action ShowMenu("save")
+            textbutton _("Save ") action ShowMenu("save")
 
         textbutton _("Load") action ShowMenu("load")
 
         textbutton _("Preferences") action ShowMenu("preferences")
+
+        # textbutton _("Language") action ShowMenu("language")
 
         if _in_replay:
 
@@ -321,7 +328,8 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
+        if main_menu: ## Show About option only in main menu, because View Credits button leads to all unsaved game progress lost, it makes a jump to label
+            textbutton _("About") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
@@ -337,13 +345,17 @@ screen navigation():
 
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
+style navigation_button_text:
+    properties gui.button_text_properties("navigation_button")
+    font "Exo2"
+    color gui.opposite_color
+    hover_color gui.accent_color
+    selected_color gui.dark_accent_color
+    insensitive_color (gui.opposite_color + "7f")
 
 style navigation_button:
     size_group "navigation"
     properties gui.button_properties("navigation_button")
-
-style navigation_button_text:
-    properties gui.button_text_properties("navigation_button")
 
 
 ## Main Menu screen ############################################################
@@ -372,10 +384,10 @@ screen main_menu():
     if gui.show_name:
 
         vbox:
-            text "{b}%s{/b}" % config.name.upper():
+            text "LIMBUS inc":
                 style "main_menu_title"
 
-            text "[config.version]":
+            text "[config.version]ẞ":
                 style "main_menu_version"
 
 
@@ -393,20 +405,22 @@ style main_menu_frame:
 
 style main_menu_vbox:
     xalign 1.0
-    xoffset -30
+    xoffset -80
     xmaximum 1200
-    yalign 1.0
-    yoffset -30
+    yalign 0.0
+    yoffset 40
 
 style main_menu_text:
     properties gui.text_properties("main_menu", accent=True)
 
 style main_menu_title:
-    properties gui.text_properties("title")
-    #outlines [(1, "#ffffff", 0, 0)]
+    color gui.dark_color
+    size 100
+    font "Exo2"
 
 style main_menu_version:
     properties gui.text_properties("version")
+    color gui.dark_color
     size 20
 
 
@@ -528,8 +542,9 @@ style game_menu_label:
     ysize 180
 
 style game_menu_label_text:
+    font "Exo2"
     size gui.title_text_size
-    color gui.accent_color
+    color gui.dark_color
     yalign 0.5
 
 style return_button:
@@ -564,18 +579,11 @@ screen about():
             if gui.about:
                 text "[gui.about!t]\n"
 
-            textbutton _("View Credits") action Start("menu_credits")
+            textbutton _("View Credits") action Start("menu_credits") style "about_view_credits_button"
 
-            null height 100
+            null height 40
 
-            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n{size=20}[renpy.license!t]{/size}\n\n"
-                   "{size=20}This game uses Exo 2 font by Natanael Gama from {a=https://fonts.google.com/specimen/Exo+2}Google Fonts{/a} "
-                   "({a=https://scripts.sil.org/OFL}license{/a}). This game uses “technological sense png” designed by"
-                   " {image=qian_tu_wang.png} from {a=https://pngtree.com/}pngtree.com{/a} ({a=https://pngtree.com/legal/license-terms}license{/a})."
-                   "This game uses icons made by {a=https://www.flaticon.com/authors/freepik}Freepik{/a} from "
-                   "{a=https://www.flaticon.com/}www.flaticon.com{/a} ({a=https://www.freepikcompany.com/legal#nav-flaticon-agreement}license{/a})."
-                   "This game uses image by {a=https://www.pexels.com/@pixabay}Pixabay{/a} from {a=https://www.pexels.com/}Pexels.com{/a} "
-                   "({a=https://www.pexels.com/creative-commons-images/}license{/a}).{/size}")
+            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n{size=20}[renpy.license!t]{/size}\n\n[gui.game_licenses_info!t]")
 
 
 ## This is redefined in options.rpy to add text to the about screen.
@@ -588,6 +596,14 @@ style about_text is gui_text
 
 style about_label_text:
     size (gui.label_text_size * 1.5)
+
+style about_view_credits_button is gui_button
+style about_view_credits_button_text is gui_button_text
+style about_view_credits_button_text:
+    color gui.accent_color
+    hover_color gui.accent_color
+    underline False
+    hover_underline True
 
 
 ## Load and Save screens #######################################################
@@ -603,7 +619,7 @@ screen save():
 
     tag menu
 
-    use file_slots(_("Save"))
+    use file_slots(_("Save "))
 
 
 screen load():
@@ -756,7 +772,7 @@ screen preferences():
 
                 vbox:
                     style_prefix "check"
-                    label _("Skip")
+                    label _("Skip ")
                     textbutton _("Unseen Text") action Preference("skip", "toggle")
                     textbutton _("After Choices") action Preference("after choices", "toggle")
                     textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
@@ -774,11 +790,11 @@ screen preferences():
 
                     label _("Text Speed")
 
-                    bar value Preference("text speed")
+                    bar value Preference("text speed") hovered Play("sound", "audio/iface_hover.ogg")
 
                     label _("Auto-Forward Time")
 
-                    bar value Preference("auto-forward time")
+                    bar value Preference("auto-forward time") hovered Play("sound", "audio/iface_hover.ogg")
 
                 vbox:
 
@@ -786,14 +802,14 @@ screen preferences():
                         label _("Music Volume")
 
                         hbox:
-                            bar value Preference("music volume")
+                            bar value Preference("music volume") hovered Play("sound", "audio/iface_hover.ogg")
 
                     if config.has_sound:
 
                         label _("Sound Volume")
 
                         hbox:
-                            bar value Preference("sound volume")
+                            bar value Preference("sound volume") hovered Play("sound", "audio/iface_hover.ogg")
 
                             if config.sample_sound:
                                 textbutton _("Test") action Play("sound", config.sample_sound)
@@ -803,7 +819,7 @@ screen preferences():
                         label _("Voice Volume")
 
                         hbox:
-                            bar value Preference("voice volume")
+                            bar value Preference("voice volume") hovered Play("sound", "audio/iface_hover.ogg")
 
                             if config.sample_voice:
                                 textbutton _("Test") action Play("voice", config.sample_voice)
@@ -885,6 +901,28 @@ style slider_button_text:
 
 style slider_vbox:
     xsize 675
+
+
+## Language Screen #############################################################
+##
+## This screen allows user to choose a game language
+##
+## Made by Anhel using https://www.renpy.org/doc/html/translation.html
+
+screen language():
+
+    tag menu
+
+    predict False
+
+    use game_menu(_("Language"), scroll="viewport"):
+
+        vbox:
+            style_prefix "radio"
+            label _("Game Language")
+            for name, lang in get_languages_list():
+                textbutton name action Language(lang)
+
 
 
 ## History screen ##############################################################
@@ -1190,7 +1228,7 @@ style confirm_button is gui_medium_button
 style confirm_button_text is gui_medium_button_text
 
 style confirm_frame:
-    background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
+    background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile, )
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
@@ -1198,12 +1236,15 @@ style confirm_frame:
 style confirm_prompt_text:
     text_align 0.5
     layout "subtitle"
+    color gui.opposite_color
 
 style confirm_button:
     properties gui.button_properties("confirm_button")
 
 style confirm_button_text:
     properties gui.button_text_properties("confirm_button")
+    color gui.opposite_color
+    hover_color gui.accent_color
 
 
 ## Skip indicator screen #######################################################
@@ -1282,13 +1323,11 @@ screen notify(message):
 
 transform notify_appear:
     on show:
-        alpha 0
-        linear .25 alpha 1.0
-        block:
-            linear 0.25 alpha 0.6
-            linear 0.25 alpha 1.0
-            repeat 3
-        
+        # alpha 0
+        # linear .25 alpha 1.0
+        alpha 1.0
+        ypos (1080 + 60)
+        ease 0.4 ypos gui.notify_ypos
     on hide:
         linear .5 alpha 0.0
 
@@ -1297,7 +1336,7 @@ style notify_frame is empty
 style notify_text is gui_text
 
 style notify_frame:
-    ypos gui.notify_ypos
+    # ypos gui.notify_ypos
 
     background Frame("gui/notify.png", gui.notify_frame_borders, tile=gui.frame_tile)
     padding gui.notify_frame_borders.padding

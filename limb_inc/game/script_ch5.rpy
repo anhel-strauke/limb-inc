@@ -74,6 +74,27 @@ transform trans_limb1_bg_shake:
         ease 0.2 alpha 1.0
         ease 0.2 alpha 0.7
         repeat
+transform trans_limb1_bg_shakeout:
+    parallel:
+        linear 0.05 xoffset 4
+        linear 0.05 xoffset -12
+        linear 0.05 xoffset 12
+        linear 0.05 xoffset -36
+        linear 0.05 xoffset 36
+        linear 0.05 xoffset (-36 * 3)
+        linear 0.05 xoffset (36 * 3)
+        linear 0.05 xoffset (-36 * 9)
+        block:
+            linear 0.05 xoffset (36 * 9)
+            linear 0.05 xoffset (-36 * 9)
+            repeat
+
+transform trans_red_shroud:
+    size (1920, 1080)
+    xalign 0.5 yalign 0.5
+    alpha 0.0
+    linear 1.0 alpha 0.9
+
 transform trans_limb1_kurt_blink:
     alpha 0.0
     ease 0.3 alpha 1.0
@@ -103,6 +124,7 @@ transform trans_limb1_shoot:
     linear 0.3 alpha 0.0
 
 label chapter_5:
+    play music limbo_0 fadein 1.0
     scene black
     with dissolve
     hide screen tablet_button
@@ -117,6 +139,7 @@ label chapter_5:
     "Incredible! Every dive is like first time."
     pause 1.0
     me "Kurt! Buddy, it’s me, [FIRST_NAME]! Remember?"
+    play sound footsteps_alt
     pause 1.0
     "So cold. The whole world seems frozen. Air smells of trouble."
     "The instructions designed by the Corporation don’t provide a clear method of extracting a patient from a coma."
@@ -125,12 +148,14 @@ label chapter_5:
     pause 1.0
     kurtboy_anon "No use… It can’t be done…"
     "I don’t see him but I hear a voice. A child’s voice. Kurt Bachowski’s child unconscious is somewhere nearby."
+    play sound footsteps_alt
     me "Kurt! Do you hear me?"
     show kurt boy at trans_limb1_kurt_blink, almost_left
     kurtboy "Who’s here...? I can’t see you! Are you a ghost?"
     "Another thing is not to ruin the patient’s dream."
     "I can observe the illusions of Kurt’s dream and point his mind in the right direction."
     "But if I interfere and try to break the illusion, the fragile world of limbo will fall."
+    
     pause 1.0
     show kurt boy at trans_limb1_kurt_blink, almost_right
     kurtboy "I’ve been here for so long! There’s no way out… Ghost, do you know where I am?"
@@ -268,6 +293,8 @@ label chapter_5:
     me "Oh, God…"
     pause 1.0
 
+    $ renpy.music.set_volume(1.0, channel="fxloopm1")
+    $ renpy.music.play("audio/music/limbo_0_ol.ogg", channel="fxloopm1", loop=True)
     show bg limb1 at trans_limb1_bg_shake
 
     show kurt boy at trans_limb1_kurt_blink, center
@@ -293,6 +320,7 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "{i}*sob*{/i} Okay…"
             $ renpy.pause(delay=0.5, hard=True)
+            play sound shotgun
             $ notif(_("SHOT!"), interact=False, advance=False)
             show white at trans_limb1_shoot
             $ renpy.pause(delay=1.0, hard=True)
@@ -302,6 +330,7 @@ label chapter_5:
             show kurt boy at trans_limb1_kurt_blink, almost_right
             kurtboy "Dad…"
             $ renpy.pause(delay=0.5, hard=True)
+            play sound shotgun
             $ notif(_("SHOT!"), interact=False, advance=False)
             show white at trans_limb1_shoot
             $ renpy.pause(delay=1.0, hard=True)
@@ -310,6 +339,7 @@ label chapter_5:
     if LIMBO_1_SCORE <= 0:
         jump limb1_dropout
     
+    $ renpy.music.set_volume(0.0, delay=0.5, channel="fxloopm1")
     show bg limb1 at trans_limb1_bg_moving
 
     pause 2.0
@@ -317,6 +347,8 @@ label chapter_5:
     me "You did what you had to do. Kurt. Don’t worry about it."
     show kurt boy at trans_limb1_kurt_blink, center
     kurtboy "But it was still… alive. It was alive until I… {i}*sob*{/i}"
+
+    $ renpy.music.stop(channel="fxloopm1")
 
     menu:
         "I know what you must feel. I’m really sorry.":
@@ -339,18 +371,22 @@ label chapter_5:
     pause 1.0
     "Sometimes you can’t do anything to help. But sometimes it’s enough to just be there and listen."
     $ LIMBO_1_SUCCESS = True
+    play sound portal_out
     scene black
     with dissolve
-
     $ renpy.pause(delay=1.0, hard=True)
     jump chapter_6
 
 label limb1_dropout:
     $ LIMBO_1_SUCCESS = False
+    play sound medical_alert loop
     hide kurt
-    hide bg limb1 with dissolve
-    scene darkred
-    with dissolve
+    show bg limb1 at trans_limb1_bg_shakeout
+    $ renpy.pause(delay=0.5, hard=True)
+    show darkred at trans_red_shroud
     "Damn! I've destabilized him! Emergency eject triggered."
+    stop sound
+    play sound portal_out_emerg
+    $ renpy.pause(delay=1.5, hard=True)
     jump chapter_6
     

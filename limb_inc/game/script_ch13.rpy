@@ -27,18 +27,23 @@ init:
         zoom 0.8
 
 label chapter_13:
+    play music limbo_2 fadein 1.0
     scene black
     with dissolve
     show bg_limb3_1 at truecenter with dissolve
     $ LIMBO_3_SCORE = 3
 
+    $ renpy.pause(delay=1.0, hard=True)
     "I… This place…"
 
     pause 1.0
+    play sound footsteps_alt
     show violet limb at almost_right with dissolve
     vio "Doctor, patient is ready. We can start."
     "What patient? Am I on the operating table?"
+    play sound footsteps_loud
     show kurt limb2 at left with dissolve
+    stop sound
     kurt "Thanks, Violet."
     kurt "I thought these tough guys from the security service with their stupid briefing won’t let me in."
     "Kurt! It’s me, [FIRST_NAME]!"
@@ -57,6 +62,7 @@ label chapter_13:
 
     pause 1.0
     kurt "Well, let us see."
+    play sound ok
     kurt "Name: Hans Nicht. Age: nineteen. Gender: male. Hm-m-m…"
     vio "Something’s wrong, doc?"
     kurt "Look at him. Does not look like a “nineteen” to me. Neither I’d say he is male..."
@@ -64,6 +70,7 @@ label chapter_13:
     kurt "I seem to be falling behind the fashion. Let us proceed…"
 
     pause 1.0
+    play sound ok
     kurt "Criminal violation: misinformation and causing a property damage to the corporation."
     vio "I’ve always been amazed by your dedication to details. Does his crime make any difference to us, doc?" 
     vio "Let’s just dust off the Morpheus and nullify him. Our job is that simple."
@@ -79,10 +86,14 @@ label chapter_13:
     kurt "Violet, crack the full-face mask open. He is trying to say something."
     vio "Doctor, we have nothing to speak of with criminals."
     kurt "Violet, please remain the excellent assistant as you are and open the patient’s mask."
+    play sound footsteps_alt
     show violet limb at offscreenright with move
 
     pause 1.0
+    play sound clank_clank_chink
     notif "CLANK CLANK CHINK"
+    $ renpy.pause(delay=0.5, hard=True)
+    play sound footsteps_alt
     show violet limb at almost_right with move
     me "You must lie in here, not me, you scum!"
     vio "I’ve warned you."
@@ -146,6 +157,7 @@ label chapter_13:
     "But how is that possible?"
 
     pause 1.0
+    play sound blip
     vio "I’ve plugged in and checked the contacts. Morpheus system is entirely ready, doc. We can start."
     kurt "Thank you, Violet."
     kurt "Put a mask on him to save his teeth."
@@ -153,6 +165,7 @@ label chapter_13:
     "I wonder what happens if Kurt will complete a nullifying procedure. Is it a truth that creature had said?" 
     "If it is so, me and Kurt will be stuck at this level of Limbo forever and nobody will bring us back to the real world."
 
+    play sound footsteps_out
     show violet limb at offscreenright with move
     pause 1.0
 
@@ -174,6 +187,7 @@ label chapter_13:
     
     kurt "Violet, wait."
     $ LIMBO_3_MASK_ON = False
+    play sound footsteps_alt
     show violet limb at almost_right with move
     
     pause 1.0
@@ -276,7 +290,11 @@ label chapter_13:
     if LIMBO_3_SCORE <= 0:
         jump limb_3_dropout
     
+    $ renpy.sound.set_volume(0.0, channel="fxloopm1")
+    play fxloopm1 limbo_2_ol
+    $ renpy.sound.set_volume(1.0, delay=2.0, channel="fxloopm1")
     kurt "Nullifying is off."
+    play sound footsteps_alt
     show kurt at left_from_center with move
 
     pause 1.0
@@ -287,15 +305,26 @@ label chapter_13:
     kurt "Look at him. It’s terrifying for me to imagine what’s going on in this place they call “farms” if Hans had to escape it."
     vio "Bachowski, you are sacrificing your career for the sake of a human you even don’t know! And the “human” part is an open question."
     kurt "Maybe I’m sacrificing something more than my career. But I won’t be able to go on living after doing that."
+    play sound footsteps_out
     show kurt at offscreenleft with move
     pause 1.0
+    play sound blip
+    $ renpy.sound.set_volume(0.6, channel="fxloop3")
+    play fxloop3 "<loop 18.672>audio/morpheus_1.ogg"
     kurt "I’m ready. Fix a helmet on the patient and prepare a dive to Limbo!"
     vio "All right, doctor..."
+    play sound footsteps_alt
     show violet at center with move
     pause 1.0
+    play sound blip
     show the31 ok at almost_almost_left with dissolve
     hans "Congratulations. You made it."
     $ renpy.pause(delay=0.5, hard=True)
+    show violet limb_gun
+    $ renpy.pause(delay=0.7, hard=True)
+    stop fxloopm1
+    stop fxloop3
+    play sound single_shot
     show white at trans_limb1_shoot
     $ notif(_("{fast}BANG!"), interact=False, advance=False)
     with hpunch
@@ -314,13 +343,19 @@ label chapter_13:
     hide white
     hide window
     
+    $ renpy.sound.set_volume(0.1, channel="fxloop1")
+    play fxloop1 medical_alert
+
     hans "A-a-h!"
-    
+
     "DAMN! She shot my head at the exact moment of dive."
     "My consciousness had already been flown to Limbo, but it was not enough to make a strong connection to the system."
     "That’s why Morpheus have had a malfunction and Kurt Bachowski went into coma."
     "But I am not me…"
     "I am him. And now this is his world. Forever."
+    stop fxloop1
+    $ renpy.music.set_volume(0.0, delay=2.0)
+    $ renpy.pause(delay=4.0, hard=True)
 
     $ LIMBO_3_SUCCESS = True
 
@@ -329,14 +364,28 @@ label chapter_13:
 label limb_3_dropout:
     pause 1.0
     kurt "All right."
+    $ renpy.sound.set_volume(0.6, channel="fxloop3")
+    play fxloop3 "<loop 18.672>audio/morpheus_1.ogg"
     if not LIMBO_3_MASK_ON:
         kurt "Violet, put the mask on him."
+        play sound footsteps_out
         show violet limb at offscreenright with move
-        pause 0.5
+        $ renpy.pause(delay=1.0, hard=True)
+        play sound clank_clank_chink
     kurt "On my command, start the nullifying process phase one."
     "No, no, noooo!"
     if LIMBO_3_MASK_ON:
+        play sound footsteps_alt
         show violet limb at offscreenright with move
+    $ renpy.pause(delay=1.0, hard=True)
+    play sound blip
     kurt "Now."
+
+    play sound portal_out_emerg
+    stop fxloop3
     $ LIMBO_3_SUCCESS = False
+    scene black
+    with dissolve
+    $ renpy.music.set_volume(0.0, delay=2.0)
+    $ renpy.pause(delay=4.0, hard=True)
     jump epilogue
