@@ -1,8 +1,11 @@
 init:
     ## TODO: Add more messages when needed:
-    default LANGUAGE_SELECT_MESSAGES = ["Please choose a preferred language", "Пожалуйста, выберите предпочитаемый язык"]
+    define LANGUAGE_SELECT_MESSAGES = ["Please choose a preferred language", "Пожалуйста, выберите предпочитаемый язык"]
+    default CHARACTER_GENDER = 0
 
 init python:
+    CURRENT_LANGUAGE_NEEDS_GENDER = False # English is default and it does not need a gender of main character
+
     if persistent.language_was_selected is None:
         persistent.language_was_selected = False
 
@@ -10,6 +13,10 @@ init python:
         current = bool(old) or bool(new)
         return current
     renpy.register_persistent("language_was_selected", merge_lang_sel)
+
+    def language_is_selected():
+        persistent.language_was_selected = True
+        renpy.save_persistent()
 
     def get_languages_list():
         def default_lang_name(n):
@@ -24,6 +31,32 @@ init python:
         }
         langs = [None] + list(renpy.known_languages())
         return [(LANG_NAMES.get(i, default_lang_name(i)), i) for i in langs]
+
+    def current_language_needs_gender_selection():
+        ## TODO: Add more languages when needed
+        return _preferences.language in ("russian", )
+
+    def gender_tag(tag, argument, contents):
+        global CHARACTER_GENDER
+        results = [[]]
+        current_index = 0
+        for kind, txt in contents:
+            if kind == renpy.TEXT_TEXT:
+                bar_pos = txt.index("/")
+                if bar_pos >= 0:
+                    curr_txt = txt[:bar_pos]
+                    next_txt = txt[bar_pos + 1:]
+                    results[current_index].append((kind, curr_txt))
+                    results.append([(kind, next_txt)])
+                    current_index += 1
+                    continue
+            results[current_index].append((kind, txt))
+        if CHARACTER_GENDER < len(results):
+            return results[CHARACTER_GENDER]
+        else:
+            return results[-1]
+    
+    config.custom_text_tags["g"] = gender_tag
 
 transform blink_message_delayed(delay_shift, total_length):
     xanchor 0.5 yanchor 0.5 xpos (1920 / 2) ypos (1080 / 4 + 1080 / 8)
@@ -49,7 +82,7 @@ screen first_time_choose_language():
             at language_select_buttons
             style_prefix "first_time_choose_lang_box"
             for lang_name, lang_id in get_languages_list():
-                textbutton lang_name action [Language(lang_id), Return()]
+                textbutton lang_name action [Language(lang_id), Function(language_is_selected, _update_screens=False), Return()]
         if renpy.variant("pc"):     
             textbutton _("Quit") at language_select_quit_button action Quit(confirm=False)
 
@@ -62,14 +95,13 @@ style first_time_choose_lang_base_button:
 style first_time_choose_lang_base_button_text:
     font "Exo2" size 40 color "#a0a0a0" hover_color "#ffffff"
 transform language_select_quit_button:
-    xalign 1.0 yalign 1.0
+    xalign 1.0 yalign 1.0 xoffset -10 yoffset -10
 
 label main_menu:
-    if False and not persistent.language_was_selected:
+    if not persistent.language_was_selected:
         scene black
         with dissolve
         call screen first_time_choose_language with dissolve
-        $ persistent.language_was_selected = True
 
     $ renpy.transition(dissolve)
     jump main_menu_screen

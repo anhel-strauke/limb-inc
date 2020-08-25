@@ -4,7 +4,7 @@ translate russian strings:
 
     # game/characters.rpy:3
     old "Bella"
-    new "Белла"
+    new "Бэлла"
 
     # game/characters.rpy:6
     old "Announcement"

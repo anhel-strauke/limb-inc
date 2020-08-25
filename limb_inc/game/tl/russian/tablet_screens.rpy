@@ -28,8 +28,8 @@ translate russian strings:
     new "Здравствуйте, [FIRST_NAME]."
 
     # game/tablet_screens.rpy:240
-    old "You have a missed call from:\n\n[who]"
-    new "Пропущенный вызов от:\n\n[who]"
+    old "You have a missed call from:\n\n[who!t]"
+    new "Пропущенный вызов от:\n\n[who!t]"
 
     # game/tablet_screens.rpy:255
     old "Incoming Call"
@@ -149,7 +149,7 @@ translate russian strings:
 
     # game/tablet_screens.rpy:675
     old "New document available: %s"
-    new "Доступен новый документ: %s"
+    new "Доступен новый документ: «%s»"
 
     # game/tablet_screens.rpy:690
     old "<< Documents"

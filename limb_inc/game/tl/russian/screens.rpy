@@ -370,3 +370,27 @@ translate russian strings:
     old "Save "
     new "Сохранить"
 
+# TODO: Translation updated at 2020-08-25 02:46
+
+translate russian strings:
+
+    # game/screens.rpy:401
+    old "Endings:"
+    new "Концовки:"
+
+    # game/screens.rpy:482
+    old "{#ending_time}%b %d, %H:%M"
+    new "{#ending_time}%d %B в %H:%M"
+
+    # game/screens.rpy:491
+    old "Unlocked by [first_name] [last_name]\non [unlock_date_str]"
+    new "Открыта [unlock_date_str].\nИмя: [first_name] [last_name]."
+
+    # game/screens.rpy:493
+    old "Unlocked ending"
+    new "Открыта."
+
+    # game/screens.rpy:503
+    old "Locked ending"
+    new "Неизвестная концовка."
+

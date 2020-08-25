@@ -209,7 +209,7 @@ screen tablet_login(prompt, input_val):
     vbox:
         at trans_login_ui            
         text prompt
-        input value input_val id "input_data" length 11 allow "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890-‘’`'_ӲӳÁáÀàȂȃÂâÄäA̋a̋ÃãĆćČčĎďÉéȆȇȆȇÈèÊêËëẼẽÍíȊȋÎîÏïÌìÑñŇňǸǹÓóÒòȎȏÔôÖöÕõŐőŰűȒȓŘřŠšŤťÚúȖȗÛûÜüÙùŸÿŽžǍǎĚěǏǐǑǒǓǔĂăĔĕĬĭŎŏŬŭĞğ"
+        input value input_val id "input_data" length 11 allow "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ1234567890-‘’`'_ӲӳÁáÀàȂȃÂâÄäA̋a̋ÃãĆćČčĎďÉéȆȇȆȇÈèÊêËëẼẽÍíȊȋÎîÏïÌìÑñŇňǸǹÓóÒòȎȏÔôÖöÕõŐőŰűȒȓŘřŠšŤťÚúȖȗÛûÜüÙùŸÿŽžǍǎĚěǏǐǑǒǓǔĂăĔĕĬĭŎŏŬŭĞğ"
         hbox:
             null width 375
             textbutton _("Continue >>") action Return() text_xalign 1.0 xalign 1.0
@@ -242,16 +242,16 @@ screen tablet_iface_login_success():
 
 ## Missed Call cutscene ##################################################################
 
-screen tablet_iface_missed_call(who):
+screen tablet_iface_missed_call(FIRST_NAME, who):
     style_prefix "tablet"
     tag tablet_interface
     use tablet_interface:
         vbox:
             pos (40, 40) xsize 700
             null height 40
-            text _("Hello, [FIRST_NAME].") text_align 0.5 xalign 0.5 size 60
+            text __("Hello, [FIRST_NAME].") text_align 0.5 xalign 0.5 size 60
             null height 40
-            text _("You have a missed call from:\n\n[who]") text_align 0.5 xalign 0.5
+            text _("You have a missed call from:\n\n[who!t]") text_align 0.5 xalign 0.5
 
 transform trans_tablet_incoming_call_image:
     alpha 1.0
@@ -270,7 +270,7 @@ screen tablet_iface_incoming_call(who, who_image):
             null height 40
             add who_image xalign 0.5 at trans_tablet_incoming_call_image
             null height 40
-            text who text_align 0.5 xalign 0.5 
+            text "[who!t]" text_align 0.5 xalign 0.5 
             null height 40
             hbox:
                 xalign 0.5
@@ -349,6 +349,9 @@ init python:
         TAB_DIARY_CURRENT_LABEL = ""
         tablet_current_app = app_name
         if not app_name:
+            tab_email_reset()
+            tab_diary_reset()
+            tab_document_reset()
             renpy.show_screen("tablet_desktop")
         elif app_name == "tablet_app_browser":
             if not tablet_current_site:
@@ -562,7 +565,19 @@ init python:
             TAB_EMAIL_RECEIVED.append(mail_id)
             if not silent:
                 renpy.sound.play(snd_tab_notification)
-                renpy.notify(_("New message from %s") % TAB_EMAILS[mail_id]["from"])
+                renpy.notify(__("New message from %s") % __(TAB_EMAILS[mail_id]["from"]))
+    
+    TAB_LAST_EMAIL = ""
+
+    def tab_email_read(mail_id):
+        global TAB_LAST_EMAIL
+        if mail_id != TAB_LAST_EMAIL:
+            TAB_LAST_EMAIL = mail_id
+            renpy.call("tablet_email_read", mail_id, from_current=True)
+
+    def tab_email_reset():
+        global TAB_LAST_EMAIL
+        TAB_LAST_EMAIL = ""
 
 style mail_icon_base:
     xsize 32
@@ -592,14 +607,14 @@ screen tablet_app_email():
             null height 10
             textbutton _("<< E-Mail") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)] style "tablet_button_back"
             text _("Inbox for [FIRST_NAME] [LAST_NAME]") size 26
-            text _("%d unread") % (len(TAB_EMAIL_RECEIVED) - len(TAB_EMAIL_READ)) size 20
+            text __("%d unread") % (len(TAB_EMAIL_RECEIVED) - len(TAB_EMAIL_READ)) size 20
             null height 20
             viewport:
                 ysize 690
                 mousewheel True
                 vbox:
                     for mail_id in reversed(TAB_EMAIL_RECEIVED):
-                        button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_email_read", mail_id, from_current=True)] style "tablet_app_contacts_button":
+                        button action [SensitiveIf(not TABLET_IS_DISABLED), Function(tab_email_read, mail_id)] style "tablet_app_contacts_button":
                             style_prefix "tablet_app_contacts_button"
                             hbox:
                                 if mail_id in TAB_EMAIL_READ:
@@ -608,11 +623,12 @@ screen tablet_app_email():
                                     window style "mail_icon" at trans_unread_mail_icon
                                 null width 40
                                 vbox:
-                                    text _("From: %s") % TAB_EMAILS[mail_id]["from"] size 20 bold (mail_id not in TAB_EMAIL_READ)
+                                    text __("From: %s") % __(TAB_EMAILS[mail_id]["from"]) size 20 bold (mail_id not in TAB_EMAIL_READ)
                                     text TAB_EMAILS[mail_id]["subj"] size 40 #bold (mail_id not in TAB_EMAIL_READ)
                     if not TAB_EMAIL_RECEIVED:
                         null width 700 height 230
                         text _("Mail Inbox is Empty") size 40 xalign 0.5
+        timer 0.7 action Function(tab_email_reset)
 
 screen tablet_app_email_read(mail_id):
     style_prefix "tablet"
@@ -684,7 +700,7 @@ screen tablet_app_browser_site_title(title):
     use tablet_desktop_base:
         vbox:
             null height 10
-            textbutton ("<< %s" % title) action FunctionIfNoSay(tablet_return_to_browser) style "tablet_button_back"
+            textbutton "<< [title!t]" action FunctionIfNoSay(tablet_return_to_browser) style "tablet_button_back"
             null height 10
 
 screen tablet_app_browser_site():
@@ -702,13 +718,24 @@ screen tablet_app_browser_site():
 ## Docs App ################################################################################
 
 init python:
+    TAB_LAST_DOCUMENT = ""
     def add_doc(doc_id, silent=True):
         global TAB_DOCS_AVAIL
         if doc_id not in TAB_DOCS_AVAIL:
             TAB_DOCS_AVAIL.append(doc_id)
             if not silent:
                 renpy.sound.play(snd_tab_notification)
-                renpy.notify(_("New document available: %s") % TAB_DOCS[doc_id]["name"])
+                renpy.notify(__("New document available: %s") % __(TAB_DOCS[doc_id]["name"]))
+
+    def tab_document_read(doc_id):
+        global TAB_LAST_DOCUMENT
+        if TAB_LAST_DOCUMENT != doc_id:
+            TAB_LAST_DOCUMENT = doc_id
+            renpy.call("tablet_doc_read", doc_id, from_current=True)
+
+    def tab_document_reset():
+        global TAB_LAST_DOCUMENT
+        TAB_LAST_DOCUMENT = ""
 
 style document_icon:
     xsize 32
@@ -725,11 +752,11 @@ screen tablet_app_docs():
             null height 10
             textbutton _("<< Documents") action [SensitiveIf(not TABLET_IS_DISABLED), Function(tablet_end_app)] style "tablet_button_back"
             if len(TAB_DOCS_AVAIL) == 0:
-                text _("%d documents") % 0 size 26
+                text __("%d documents") % 0 size 26
             elif len(TAB_DOCS_AVAIL) == 1:
-                text _("1 document") size 26
+                text __("1 document") size 26
             else:
-                text _("%d documents") % len(TAB_DOCS_AVAIL) size 26
+                text __("%d documents") % len(TAB_DOCS_AVAIL) size 26
             null height 20
             viewport:
                 xfill True
@@ -739,7 +766,7 @@ screen tablet_app_docs():
                     style_prefix "tablet"
                     xfill True
                     for doc_id in TAB_DOCS_AVAIL:
-                        button action [SensitiveIf(not TABLET_IS_DISABLED), Call("tablet_doc_read", doc_id, from_current=True)] style "tablet_button":
+                        button action [SensitiveIf(not TABLET_IS_DISABLED), Function(tab_document_read, doc_id)] style "tablet_button":
                             style_prefix "tablet_app_contacts_button"
                             hbox:
                                 if doc_id not in TAB_DOCS_READ and TAB_DOCS[doc_id].get("important", False):
@@ -748,6 +775,7 @@ screen tablet_app_docs():
                                     window style "document_icon"
                                 null width 20
                                 text TAB_DOCS[doc_id]["name"] size 40
+        timer 0.7 action Function(tab_document_reset)
 
 screen tablet_app_docs_read(doc_id):
     style_prefix "tablet"
@@ -777,8 +805,16 @@ transform trans_tablet_diary_current_item:
     repeat
 
 init python:
+    TAB_LAST_DIARY = ""
+
     def tab_diary_play(lbl):
-        renpy.call("tablet_app_diary_play", lbl, from_current=True)
+        global TAB_LAST_DIARY
+        if lbl != TAB_LAST_DIARY:
+            renpy.call("tablet_app_diary_play", lbl, from_current=True)
+    
+    def tab_diary_reset():
+        global TAB_LAST_DIARY
+        TAB_LAST_DIARY = ""
 
 screen tablet_app_diary():
     style_prefix "tablet"

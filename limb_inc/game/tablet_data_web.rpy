@@ -2,11 +2,12 @@ init:
     default TAB_WEB_AVAIL = {"cyberherald", "weather"}
     default TAB_WEB_VISITED = {"cyberherald", "weather"}
     default CYBERHERALD_VISITED = {"a1"}
-    default CYBERHERALD_AVAIL = ["a1", "cyberdog", "landfill"]
+    default CYBERHERALD_AVAIL = ["a1", "psychic", "cyberdog", "landfill"]
     default SOCNET_AVAIL = set()
     default SOCNET_VISITED = set()
+    default CURRENT_WEB_SITE = ""
 
-define w = Character()
+define w = DynamicCharacter("CURRENT_WEB_SITE", color="#4d13d1")
 
 init python:
     def tab_websites_ordered():
@@ -103,11 +104,6 @@ init python:
             "text": _("A novelty on the market among approved antipsychotics!"),
             "label": "ch_psychic"
         },
-        "limbus_ai": {
-            "title": _(""),
-            "text": _(""),
-            "label": "ch_limbus_ai"
-        }
     }
 
     TAB_SOCNET_PROFILES = {
@@ -157,11 +153,25 @@ screen website_weather():
             text _("Sunny and clear") xalign 0.5
 
 label web_weather:
+    $ CURRENT_WEB_SITE = TAB_WEB_SITES["weather"]["name"]
     show screen website_weather
     me "Good news, no rain today."
     return
 
 ## The Cyber Herald ##########################################################
+init python:
+    TAB_CYBERHERALD_LAST_ARTICLE = ""
+
+    def tab_cyberherald_view_article(art_id):
+        global TAB_CYBERHERALD_LAST_ARTICLE
+        if TAB_CYBERHERALD_LAST_ARTICLE != art_id:
+            TAB_CYBERHERALD_LAST_ARTICLE = art_id
+            renpy.call("web_cyberherald_article", art_id, from_current=True)
+
+    def tab_cyberherald_reset():
+        global TAB_CYBERHERALD_LAST_ARTICLE
+        TAB_CYBERHERALD_LAST_ARTICLE = ""
+
 screen website_cyberherald():
     tag tablet_web_page
     style_prefix "tablet"
@@ -181,7 +191,8 @@ screen website_cyberherald():
                     else:
                         text "•"
                     null width 20
-                    textbutton TAB_CYBERHERALD_ARTICLES[art]["title"] action Call("web_cyberherald_article", art, from_current=True) text_hover_underline True
+                    textbutton TAB_CYBERHERALD_ARTICLES[art]["title"] action Function(tab_cyberherald_view_article, art) text_hover_underline True
+        timer 0.7 action Function(tab_cyberherald_reset)
 
 screen website_cyberherald_read(title, txt):
     tag tablet_web_page
@@ -202,7 +213,9 @@ label web_cyberherald:
 
 label web_cyberherald_article(art_id):
     show screen website_cyberherald_read(TAB_CYBERHERALD_ARTICLES[art_id]["title"], TAB_CYBERHERALD_ARTICLES[art_id]["text"])
+    $ CURRENT_WEB_SITE = TAB_WEB_SITES["cyberherald"]["name"]
     $ CYBERHERALD_VISITED = CYBERHERALD_VISITED | {art_id}
+    $ renpy.retain_after_load()
     $ renpy.call(TAB_CYBERHERALD_ARTICLES[art_id]["label"])
     show screen website_cyberherald
     return

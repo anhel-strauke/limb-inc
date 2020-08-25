@@ -21,7 +21,11 @@ label chapter_12:
     "Although she’s worth it, she’s smart. Forecasting is a rare skill in our time of carelessness."
     layla "I’m preparing Morpheus. In a minute everything will be ready to dive."
     play sound footsteps_alt
-    show leyla at left with move
+    show leyla at right with move
+    play sound blip
+    stop fxloop3
+    $ renpy.sound.set_volume(0.6, channel="fxloop3")
+    play fxloop3 "<loop 18.672>audio/morpheus_1.ogg"
 
     me "Kurt’s condition?"
     "I asked not for information. I see that his pulse quickened and he doesn’t breath well."
@@ -72,18 +76,19 @@ label chapter_12:
     "Well well…"
     me "I’ve already wasted enough time. Start up the system and give a report."
 
-    $ renpy.sound.set_volume(0.6, channel="fxloop3")
     $ renpy.sound.set_volume(0.6, channel="fxloop4")
     $ renpy.sound.set_volume(1.0, channel="fxloop5")
     play sound footsteps_alt
     show leyla ok at right with move
     pause 1.0
     play sound blip
-    play fxloop3 "<loop 18.672>audio/morpheus_1.ogg"
-    pause 1.0
     play fxloop4 "<loop 8.050>audio/morpheus_2.ogg"
+    pause 1.0    
     play fxloop5 "<loop 46.169>audio/morpheus_3.ogg"
-    pause 1.0
+    play sound footsteps_alt
+    show leyla at left with move    
+    play sound liquide
+    pause 2.0
     layla "Get ready."
 
     play sound footsteps_alt

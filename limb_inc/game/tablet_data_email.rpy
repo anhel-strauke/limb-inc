@@ -20,8 +20,8 @@ label tablet_email_read(mail_id):
         THIS_MAIL_FIRST_TIME = mail_id not in TAB_EMAIL_READ
         renpy.pause(delay=0.7, hard=True)
         TAB_EMAIL_READ = TAB_EMAIL_READ | {mail_id}
+        renpy.retain_after_load()
         renpy.call(TAB_EMAILS[mail_id]["label"])
-        renpy.pause(delay=1.0, hard=True)
     return
 
 ## List of E-Mails ###############################################################################
@@ -38,7 +38,7 @@ init python:
         },
         "kurt-old": {
             "from": ADDR_KURT,
-            "subj": _("Letter from Kurt"),
+            "subj": _("Congratulations!"),
             "label": "email_kurt_old"
         },
         "boris_hans_nicht": {

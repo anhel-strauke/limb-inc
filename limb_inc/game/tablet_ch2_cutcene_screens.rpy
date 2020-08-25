@@ -122,8 +122,8 @@ default search_text_pos = 0
 init python:
     def tablet_ch2_update_search():
         global search_time_limit, search_text, search_phase, search_time_limit_pos, search_text_pos
-        time_lim = _("3 years ago")
-        search_txt = _("Kurt Bachowski")
+        time_lim = __("3 years ago")
+        search_txt = __("Kurt Bachowski")
         if search_phase == 0:
             timer_delay = 0.1 + renpy.random.random() * 0.2
             if search_time_limit_pos == len(time_lim):

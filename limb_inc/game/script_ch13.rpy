@@ -2,6 +2,7 @@ init:
     default LIMBO_3_SCORE = 3
     default LIMBO_3_MASK_ON = False
     default LIMBO_3_SUCCESS = False
+    default L3_TOLD_ABOUT_ARTIFICIAL_HUMANS = False
 
     transform trans_bg_alpha0:
         alpha 0.0
@@ -200,9 +201,14 @@ label chapter_13:
     kurt "What’s the problem, Hans?"
     show bg_limb3_3 at trans_bg_alpha100
 
+    $ L3_TOLD_ABOUT_ARTIFICIAL_HUMANS = False
     menu:
-        "I’m not a regular human. I am an artificially grown homunculus":
+        "I’m not a regular human. I am an artificially grown homunculus!" if L2_HEARD_HOMUNCULUS:
             kurt "Ho-munculus?… I’ve heard that before somewhere."
+            $ L3_TOLD_ABOUT_ARTIFICIAL_HUMANS = True
+        "I’m not a regular human. I am an artificially grown Gorukula!" if not L2_HEARD_HOMUNCULUS:
+            kurt "Go-ru-what? You’re kidding me, right?"
+            $ LIMBO_3_SCORE -= 3
         "I have some highly important information!":
             $ LIMBO_3_SCORE -= 1
             vio "Yes-yes, some info of a global importance. You should call for the corporation CEO right now…"
@@ -224,8 +230,14 @@ label chapter_13:
     hide the31 with dissolve
     
     pause 1.0
-    kurt "Artificial human… Yes, there was something like that."
-    kurt "Which explains that strange appearance of yours and a lack of sexual identity…"
+
+    if L3_TOLD_ABOUT_ARTIFICIAL_HUMANS:
+        kurt "Artificial human… Yes, there was something like that."
+        kurt "Which explains that strange appearance of yours and a lack of sexual identity…"
+    else:
+        kurt "Hm-m-m… I’ve just remembered something."
+        kurt "He looks like an artificial human… Yes, there was something like that."
+        kurt "Which explains his strange appearance and a lack of sexual identity…"
     vio "You are not going to believe in that rumour, doc."
     kurt "I remember an informational explosion about ten years ago. They were writing about some farms that days… Homunculus protection movement was forming…"
     kurt "Yes, that’s how they were called."
@@ -376,7 +388,7 @@ label limb_3_dropout:
     "No, no, noooo!"
     if LIMBO_3_MASK_ON:
         play sound footsteps_alt
-        show violet limb at offscreenright with move
+        show violet limb at almost_right with move
     $ renpy.pause(delay=1.0, hard=True)
     play sound blip
     kurt "Now."

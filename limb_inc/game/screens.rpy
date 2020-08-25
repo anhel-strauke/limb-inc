@@ -318,7 +318,8 @@ screen navigation():
 
         textbutton _("Preferences") action ShowMenu("preferences")
 
-        # textbutton _("Language") action ShowMenu("language")
+        if main_menu:
+            textbutton _("Language") action ShowMenu("language")
 
         if _in_replay:
 
@@ -364,6 +365,14 @@ style navigation_button:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
+init python:
+    def show_ending_descr(unlocked, name=""):
+        scr = "ending_description_unlocked" if unlocked else "ending_description_locked"
+        if unlocked:
+            renpy.show_screen(scr, name)
+        else:
+            renpy.show_screen(scr)
+
 screen main_menu():
 
     ## This ensures that any other menu screen is replaced.
@@ -386,10 +395,15 @@ screen main_menu():
         vbox:
             text "LIMBUS inc":
                 style "main_menu_title"
-
-            text "[config.version]ẞ":
-                style "main_menu_version"
-
+        fixed:
+            style_prefix "endings"
+            hbox:
+                text _("Endings:")
+                for e in ["bad", "norm", "good"]:
+                    if e in persistent.endings:
+                        button action NullAction() sensitive True hovered Function(show_ending_descr, True, e) unhovered Hide("ending_description") style "ending_button_unlocked"
+                    else:
+                        button action NullAction() sensitive True hovered Function(show_ending_descr, False) unhovered Hide("ending_description") style "ending_button_locked"
 
 style main_menu_frame is empty
 style main_menu_vbox is vbox
@@ -423,6 +437,100 @@ style main_menu_version:
     color gui.dark_color
     size 20
 
+style endings_hbox:
+    xalign 1.0
+    yalign 1.0
+    xoffset -80
+    yoffset -40
+    spacing 20
+
+style endings_text:
+    color "#999999"
+    size 30
+    text_align 1.0
+    yalign 1.0
+    xalign 1.0
+
+style ending_button:
+    activate_sound ""
+    xsize 34
+    ysize 38
+    xalign 1.0
+    yalign 1.0
+    yoffset -5
+
+
+style ending_button_unlocked is ending_button
+style ending_button_locked is ending_button
+
+style ending_button_unlocked:
+    background "gui/ending_unlocked.png"
+    hover_background "gui/ending_unlocked_hover.png"
+
+style ending_button_locked:
+    background "gui/ending_locked.png"
+    hover_background "gui/ending_locked_hover.png"
+
+
+## Ending description hover
+
+screen ending_description_unlocked(name):
+    style_prefix "ending_description"
+    tag ending_description
+    python:
+        unlock_date, first_name, last_name = persistent.endings_dates.get(name, (None, None, None))
+        unlock_date_str = _strftime(__("{#ending_time}%b %d, %H:%M"), unlock_date.timetuple()) if unlock_date is not None else ""
+        title = ENDING_TITLES.get(name, "???")
+    frame:
+        at trans_ending_description
+        hbox:
+            add ("images/end_%s.png" % name)
+            vbox:
+                text "[title!t]" style "ending_description_title"
+                if unlock_date:
+                    text _("Unlocked by [first_name] [last_name]\non [unlock_date_str]")
+                else:
+                    text _("Unlocked ending")
+
+screen ending_description_locked():
+    style_prefix "ending_description"
+    tag ending_description
+    frame:
+        at trans_ending_description
+        hbox:
+            add "images/end_locked.png"
+            vbox:
+                text _("Locked ending") style "ending_description_title"
+
+transform trans_ending_description:
+    xalign 1.0 yalign 1.0 xoffset -80 yoffset -85
+    on show:
+        alpha 0.0
+        ease 0.3 alpha 1.0
+    on hide:
+        alpha 1.0
+        ease 0.3 alpha 0.0
+
+style ending_description_frame:
+    background Frame("gui/ending_descr_frame.png", gui.ending_frame_borders, tile=gui.frame_tile)
+    xpadding 40
+    ypadding 30
+
+style ending_description_hbox:
+    spacing 30
+
+style ending_description_vbox:
+    spacing 10
+
+style ending_description_title:
+    size 40
+    text_align 0.0
+    color gui.opposite_color
+
+style ending_description_text is gui_text
+style ending_description_text:
+    size 20
+    color gui.opposite_color    
 
 ## Game Menu screen ############################################################
 ##

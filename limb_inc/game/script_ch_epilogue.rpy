@@ -1,12 +1,40 @@
 init python:
+    import datetime
+
     if persistent.endings is None:
         persistent.endings = set()
+    
+    if persistent.endings_dates is None:
+        persistent.endings_dates = {}
     
     def merge_endings(old, new, current):
         current.update(old)
         current.update(new)
         return current
+
+    def merge_endings_dates(old, new, current):
+        current.update(old)
+        current.update(new)
+        return current
+
     renpy.register_persistent("endings", merge_endings)
+    renpy.register_persistent("endings_dates", merge_endings_dates)
+
+    def register_ending_if_not_registered(ending):
+        global NEW_ENDING_TITLE
+        if ending not in persistent.endings_dates:
+            persistent.endings_dates[ending] = (datetime.datetime.today(), FIRST_NAME[:], LAST_NAME[:])
+            persistent.endings.add(ending)
+            NEW_ENDING_TITLE = ENDING_TITLES.get(ending, "???")
+            renpy.save_persistent()
+    
+    ENDING_TITLES = {
+        "bad": _("They’ll Send Someone To Us"),
+        "norm": _("See You Soon"),
+        "good": _("Cognosce te Ipsum")
+    }
+
+    NEW_ENDING_TITLE = ""
 
 init:
     default ENDING_UNLOCKED = ""
@@ -75,6 +103,7 @@ label epilogue:
     show the31 ok at trans_epilogue_kurt
     show kurt limb2 at trans_epilogue_kurt
     $ renpy.pause(delay=3.0, hard=True)
+    $ NEW_ENDING_TITLE = ""
 
     kurt "[FIRST_NAME], friend! I am so happy to see you!"
     me "Kurt! Your consciousness is stable at last!"
@@ -158,8 +187,10 @@ label good_end:
     with dissolve
     layla "OPEN YOUR EYES."
     play sound portal_out
-    $ ENDING_UNLOCKED = "good"
-    $ persistent.endings.add("good")
+    python:
+        ENDING_UNLOCKED = "good"
+        register_ending_if_not_registered(ENDING_UNLOCKED)
+
     jump the_end
 
 label normal_end:
@@ -223,7 +254,7 @@ label normal_end:
     layla "OPEN YOUR EYES."
     play sound portal_out
     $ ENDING_UNLOCKED = "norm"
-    $ persistent.endings.add("norm")
+    $ register_ending_if_not_registered(ENDING_UNLOCKED)
     jump the_end
 
 label bad_end:
@@ -261,6 +292,7 @@ label bad_end:
     "The Thirty-one appears before us."
     "His touch is like an electric shock."
     "He grabbed both of our hands and dropped them."
+    kurt "A-a-ah!"
     me "What the hell!"
     layla "Return in FIVE. What? What’s going on, doc?"
     kurt "He’s here, he won’t let us go!" 
@@ -310,7 +342,7 @@ label bad_end:
     narr_b "Leila, get me out. Please…"
     hans_b "CALM DOWN. THEY’LL SEND SOMEONE TO US SOON."
     $ ENDING_UNLOCKED = "bad"
-    $ persistent.endings.add("bad")
+    $ register_ending_if_not_registered(ENDING_UNLOCKED)
     jump the_end
 
 label the_end:

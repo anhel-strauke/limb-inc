@@ -301,6 +301,9 @@ define gui.notify_frame_borders = Borders(24, 8, 60, 8)
 ## Should frame backgrounds be tiled?
 define gui.frame_tile = False
 
+## Frame used as part of ending description
+define gui.ending_frame_borders = Borders(2, 2, 2, 2, 30, 30, 30, 30)
+
 
 ## Bars, Scrollbars, and Sliders ###############################################
 ##

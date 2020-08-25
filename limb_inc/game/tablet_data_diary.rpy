@@ -85,7 +85,10 @@ label tablet_app_diary_play(lbl):
     $ renpy.restart_interaction()
     $ renpy.call(lbl)
     $ TAB_DIARY_CURRENT_LABEL = ""
+    $ TAB_LAST_DIARY = lbl
     $ renpy.restart_interaction()
+    $ renpy.pause(delay=0.7, hard=True)
+    $ TAB_LAST_DIARY = ""
     return
 
 ## Diary Records ##########################################################################

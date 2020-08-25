@@ -73,15 +73,19 @@ transform trans_move_almost_left:
     
 
 init:
-    default LIMBO_2_SCORE = 3
+    default LIMBO_2_SCORE = 2
     default LIMBO_2_SUCCESS = False
+    default L2_WAS_MIGRAINE = False
+    default L2_HEARD_HOMUNCULUS = False
 
 label chapter_9:
     play music limbo_1 fadein 1.0
     scene black
     with dissolve
     hide screen tablet_button
-    $ LIMBO_2_SCORE = 3
+    $ LIMBO_2_SCORE = 2
+    $ L2_WAS_MIGRAINE = False
+    $ L2_HEARD_HOMUNCULUS = False
 
     show bg limb2 at trans_limb2_bg_appear
 
@@ -186,6 +190,8 @@ label chapter_9:
             ahans "WRONG"
         "The dream?":
             ahans "RIGHT"
+    if LIMBO_2_SCORE <= 0:
+        jump limb2_dropout
     
     play sound door_open
     ahans "You people cannot learn to control the dreams. This makes you helpless in the world of illusions."
@@ -223,6 +229,7 @@ label chapter_9:
     ahans "Eternal Darkness."
     ahans "From the darkness I came out into the light and the man became my God. He gave me a name…"
     ahans "HOMUNKULUS."
+    $ L2_HEARD_HOMUNCULUS = True
 
     "What did he say? Homunculus?"
 
@@ -233,6 +240,7 @@ label chapter_9:
     show kurt at almost_right, trans_kurt_sliding_wall
     "Bachowski holds his head. Leaning back, he slowly slides down the wall."
     me "Kurt! What’s happened?"
+    $ L2_WAS_MIGRAINE = True
     kurt "…my head is exploding! Ah!"
     "He covers his ears with his hands, then releases them and looks at his hands. Kurt's palms are covered in blood."
     "He looks at me and I see tears in his eyes."
@@ -267,11 +275,14 @@ label chapter_9:
 label limb2_dropout:
     $ LIMBO_2_SUCCESS = False
     play sound medical_alert loop
+    hide kurt with moveoutbottom
+    show bg limb2 at trans_limb2_bg_moving_crazy
     show darkred at trans_red_shroud
     $ renpy.pause(delay=0.5, hard=True)
     kurt "[FIRST_NAME], where are you? [FIRST_NAME]!…"
     stop sound
     play sound portal_out_emerg
+    show bg limb2 at trans_limb2_bg_leaving
     $ renpy.pause(delay=1.5, hard=True)
     jump chapter_10
 

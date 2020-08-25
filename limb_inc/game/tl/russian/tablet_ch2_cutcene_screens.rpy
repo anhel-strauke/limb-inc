@@ -100,7 +100,7 @@ translate russian strings:
 
     # game/tablet_ch2_cutcene_screens.rpy:289
     old "Downloading File..."
-    new "Загружается файл…"
+    new "Загрузка файла…"
 
     # game/tablet_ch2_cutcene_screens.rpy:314
     old "Download Finished"

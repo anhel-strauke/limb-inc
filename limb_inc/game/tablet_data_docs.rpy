@@ -20,6 +20,7 @@ label tablet_doc_read(doc_id):
         THIS_DOC_FIRST_TIME = doc_id not in TAB_DOCS_READ
         renpy.pause(delay=0.7, hard=True)
         TAB_DOCS_READ = TAB_DOCS_READ | {doc_id}
+        renpy.retain_after_load()
         renpy.call(TAB_DOCS[doc_id]["label"])
     return
 
@@ -29,7 +30,7 @@ init python:
     TAB_DOCS = {
         "report": {
             "name": _("Incident Report"),
-            "descr": LIC + _("{p}{p}{size=60}Report{/size}{p}from Violet Sharp{p}{p}On the incident WBVS8306"),
+            "descr": _("[LIC]{p}{p}{size=60}Report{/size}{p}from Violet Sharp{p}{p}On the incident WBVS8306"),
             "label": "doc_report",
             "important": True
         },
@@ -40,7 +41,7 @@ init python:
         },
         "contract": {
             "name": _("Limbus Inc Contract"),
-            "descr": LIC + (_("{p}{p}Employment Contract{p}{p}%s %s") % ("[FIRST_NAME]", "[LAST_NAME]")),
+            "descr": _("[LIC]{p}{p}Employment Contract{p}{p}[FIRST_NAME] [LAST_NAME]"),
             "label": "doc_contract"
         },
         "medicine": {
@@ -60,31 +61,31 @@ init python:
         # },
         "hans_nicht": {
             "name": _("Response From Archive"),
-            "descr": LIC + _("{p}{p}{size=60}RESPONSE{/size}{p}FROM THE ARCHIVE{p}{p}Search term: “Hans Nicht”{p}{p}Replied by: Boris"),
+            "descr": _("[LIC]{p}{p}{size=60}RESPONSE{/size}{p}FROM THE ARCHIVE{p}{p}Search term: “Hans Nicht”{p}{p}Replied by: Boris"),
             "label": "doc_hans_nicht",
             "important": True
         },
         "kurt_profile": {
             "name": _("Kurt Bachowski Profile"),
-            "descr": LIC + _("{p}{p}{size=60}Kurt Bachowski{/size}{p}{p}Personal Profile"),
+            "descr": _("[LIC]{p}{p}{size=60}Kurt Bachowski{/size}{p}{p}Personal Profile"),
             "label": "doc_kurt_profile",
             "important": True
         },
         "miriam_profile": {
             "name": _("Miriam Bachowski Profile"),
-            "descr": LIC + _("{p}{p}{size=60}Miriam Bachowski{/size}{p}{p}Personal Profile"),
+            "descr": _("[LIC]{p}{p}{size=60}Miriam Bachowski{/size}{p}{p}Personal Profile"),
             "label": "doc_miriam_profile",
             "important": True
         },
         "layla_profile": {
             "name": _("Layla Anderson Profile"),
-            "descr": LIC + _("{p}{p}{size=60}Layla Anderson{/size}{p}{p}Personal Profile"),
+            "descr": _("[LIC]{p}{p}{size=60}Layla Anderson{/size}{p}{p}Personal Profile"),
             "label": "doc_layla_profile",
             "important": True
         },
         "violet_profile": {
             "name": _("Violet Sharp Profile"),
-            "descr": LIC + _("{p}{p}{size=60}Violet Sharp{/size}{p}{p}Personal Profile"),
+            "descr": _("[LIC]{p}{p}{size=60}Violet Sharp{/size}{p}{p}Personal Profile"),
             "label": "doc_violet_profile",
             "important": True
         },

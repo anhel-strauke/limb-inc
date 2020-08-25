@@ -1,6 +1,8 @@
 ﻿default GAME_SCORE = 0
-default FIRST_NAME = "Alex"
-default LAST_NAME = "Smith"
+define DEFAULT_FIRST_NAME = _("Alex")
+define DEFAULT_LAST_NAME = _("Smith")
+default FIRST_NAME = ""
+default LAST_NAME = ""
 default BELLA_TOLD_ABOUT_CYBER_HERALD = False
 
 transform trans_bg_hero_house_1:
@@ -38,7 +40,14 @@ label start:
     pause 1.0
 
     play music corporation fadein 2.0
-    "Was it a nightmare...?"
+    if current_language_needs_gender_selection():
+        menu:
+            "Looks like I saw a nightmare.{#female}":
+                $ CHARACTER_GENDER = 0
+            "Looks like I saw a nightmare.{#male}":
+                $ CHARACTER_GENDER = 1
+    else:
+        "Was it a nightmare...?"
     "I thought I saw Kurt, he needed help."
     "Kurt’s an old friend, haven’t seen him for a while."
     "I thought I heard the phone ring…?"
@@ -55,16 +64,21 @@ label start:
 
     play sound ok
 label tablet_log_in:
+    $ FIRST_NAME = __(DEFAULT_FIRST_NAME)
+    $ LAST_NAME = __(DEFAULT_LAST_NAME)
     call screen tablet_login(_("Enter First Name:"), VariableInputValue("FIRST_NAME", returnable=True))
     call screen tablet_login(_("Enter Last Name:"), VariableInputValue("LAST_NAME", returnable=True))
     call screen tablet_yesno(_("[FIRST_NAME]\n[LAST_NAME]\nInformation Correct?"))
+
     if not _return:
         jump tablet_log_in
+
+    $ renpy.retain_after_load()
 
     show screen tablet_iface_login_success
     pause 1.0
     play sound ok
-    show screen tablet_iface_missed_call(_("Bella Rabinovich"))
+    show screen tablet_iface_missed_call(FIRST_NAME, _("Bella Rabinovich"))
     $ renpy.restart_interaction()
     pause 0.5
 
@@ -84,7 +98,7 @@ label tablet_log_in:
     play sound call_answer
     pause 1.0
 
-    bella "[FIRST_NAME], you're awake! Finally!" 
+    bella "[FIRST_NAME], you’re awake! Finally!" 
     bella "No time to lose, you have an urgent case."
 
     menu:

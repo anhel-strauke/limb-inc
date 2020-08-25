@@ -29,6 +29,7 @@ label chapter_11:
     kz "You are dad’s friend. I know. I know that you also work for these slave owners."
     show miriam sad with dissolve
     mir "Kaz, stop it!"
+    kz "What? It’s true! Let everyone know!"
     "Youthful maximalism… I miss this time."
     "But it’s time to end the concert. The security guards started throwing unkind glances in our direction."
     me "Miriam, could you leave Kazimir and me for a minute?"
@@ -75,8 +76,12 @@ label chapter_11:
     kz "My friends mention in the ancient news about strange farms in different parts of the country, where they found superhumans, or something. But this is one hundred percent fake."
     me "Superhumans?"
     kz "Something like that. There was such a strange name mentioned… Gorukula or murkola, something like that."
-    me "Homunculi?"
-    kz "Yes! Exactly!"
+    if L2_HEARD_HOMUNCULUS:
+        me "Homunculi?"
+        kz "Yes! Exactly!"
+    else:
+        me "Gorukula?"
+        kz "I don’t remember. Maybe."
     kz "Okay I have to go. Remember the promise!"
 
     play sound footsteps_loud
@@ -85,7 +90,10 @@ label chapter_11:
     pause 1.0
 
     "I drink my third glass of coffee at the machine. I digest information."
-    "He said exactly “Homunculus” and Kaz remembered this word. Coincidence?…"
+    if L2_HEARD_HOMUNCULUS:
+        "He said exactly “Homunculus” and Kaz remembered this word. Coincidence?…"
+    else:
+        "Superhuman farms? “Gorukula”?…"
     show violet interested at offscreenright
     play sound footsteps_alt
     show violet at almost_right with move
@@ -103,7 +111,7 @@ label chapter_11:
     show screen tablet_button
     $ add_email("boris_violet_file")
     menu:
-        "Move to the patient’s room":
+        "Return to the patient’s room":
             hide screen tablet_button
             play sound footsteps
             scene white

@@ -60,8 +60,12 @@ label chapter_10:
     me "Don’t! Just bring me some water."
     show leyla ok at offscreenleft with move
 
-    "While Layla went to the lobby for water, I’m trying to collect my thoughts. Kurt and that… Homunculus? Is that what they called themselves?"
-    "Who are they? What is it?"
+    if L2_HEARD_HOMUNCULUS:
+        "While Layla went to the lobby for water, I’m trying to collect my thoughts. Kurt and that… Homunculus? Is that what they called themselves?"
+        "Who are they? What is it?"
+    else:
+        "While Layla went to the lobby for water, I’m trying to collect my thoughts. Kurt and that… Creature?"
+        "What is it?"
     show dark_shroud at trans_dark_shroud_2
     $ renpy.sound.set_volume(0.5, delay=5.0, channel="fxloop3")
     "Some part of Kurt’s mind? A distinct personality? Maybe a result of Morpheus malfunctions?"
@@ -103,7 +107,9 @@ label chapter_10:
     bella "What?.. It’s not possible."
     me "That’s what I’m thinking as well."
     "But I felt it. That tension, like a dark cloud hanging over me. It feels like this cloud is still here."
-    me "This… something opened and closed portals between the layers of limbo. Somehow it caused Kurt to suffer from severe migraines."
+    me "This… something opened and closed portals between the layers of limbo."
+    if L2_WAS_MIGRAINE:
+        me "Somehow it caused Kurt to suffer from severe migraines."
     me "It kicked me out of limbo. I still don’t understand {i}HOW{/i}…"
     bella "Listen to me. I understand that you had to go through a very hard dive."
     bella "But Kurt is still there. With this… whatever it is."
@@ -148,6 +154,7 @@ label chapter_10:
             scene white
             with dissolve
             $ renpy.pause(delay=0.5, hard=True)
-            $ renpy.music.stop(channel="fxloop1")
-            $ renpy.music.stop(channel="fxloop2")
+            stop fxloop1
+            stop fxloop2
+            stop fxloop3
             jump chapter_11

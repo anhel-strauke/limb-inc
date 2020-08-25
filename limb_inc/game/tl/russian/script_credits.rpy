@@ -1,11 +1,5 @@
 ﻿# TODO: Translation updated at 2020-08-18 00:17
 
-# game/script_credits.rpy:281
-translate russian show_credits_ea460ff3:
-
-    # duck "Quack!"
-    duck "Кря!"
-
 translate russian strings:
     # game/script_credits.rpy:2
     old "Idea"
@@ -21,7 +15,7 @@ translate russian strings:
 
     # game/script_credits.rpy:2
     old "{size=60}Timirlan Kenjibaev{/size}"
-    new "{size=60}Тимирлан Кенджибаев{/size}"
+    new "{size=60}Тимирлан Кенжибаев{/size}"
 
     # game/script_credits.rpy:2
     old "Special Guest"
@@ -37,7 +31,7 @@ translate russian strings:
 
     # game/script_credits.rpy:2
     old "Timirlan Kenjibaev"
-    new "Тимирлан Кенджибаев"
+    new "Тимирлан Кенжибаев"
 
     # game/script_credits.rpy:2
     old "Dina Griko"
@@ -85,7 +79,7 @@ translate russian strings:
 
     # game/script_credits.rpy:2
     old "Limbo Backgrounds Art"
-    new "Фоны в лимбе"
+    new "Фоны в Лимбе"
 
     # game/script_credits.rpy:2
     old "Vadim Zalepaev"
@@ -101,7 +95,7 @@ translate russian strings:
 
     # game/script_credits.rpy:2
     old "Limbo Characters Art"
-    new "Персонажи в лимбе"
+    new "Персонажи в Лимбе"
 
     # game/script_credits.rpy:2
     old "Margarita Kamushek"
@@ -121,7 +115,7 @@ translate russian strings:
 
     # game/script_credits.rpy:2
     old "Sound Design"
-    new "Дизайн звука"
+    new "Звук"
 
     # game/script_credits.rpy:2
     old "Vlad Ulrich"
@@ -171,14 +165,38 @@ translate russian strings:
     old "https://andtaksoidet.games"
     new "https://andtaksoidet.games"
 
-    # game/script_credits.rpy:254
-    old "Good ending unlocked. Congratulations!"
-    new "Это хорошая концовка. Поздравления!"
+    # game/script_credits.rpy:2
+    old "Phil Michalski"
+    new "Phil Michalski"
 
-    # game/script_credits.rpy:256
-    old "Neutral ending unlocked."
-    new "Это нейтральная концовка."
+    # game/script_credits.rpy:2
+    old "Blazze Di"
+    new "Blazze Di"
 
-    # game/script_credits.rpy:258
-    old "Bad ending unlocked"
-    new "Это плохая концовка."
+    # game/script_credits.rpy:325
+    old "Quack!"
+    new "Кря!"
+# TODO: Translation updated at 2020-08-25 03:19
+
+translate russian strings:
+
+    # game/script_credits.rpy:2
+    old "Editors"
+    new "Редакторы"
+
+    # game/script_credits.rpy:2
+    old "Oksana Melnikova"
+    new "Оксана Мельникова"
+
+    # game/script_credits.rpy:2
+    old "Andrew “Prol” Ponomarev"
+    new "Андрей «Prol» Пономарёв"
+
+    # game/script_credits.rpy:230
+    old "New ending: “[NEW_ENDING_TITLE!t]”"
+    new "Новая концовка: «[NEW_ENDING_TITLE!t]»"
+
+    # game/script_credits.rpy:233
+    old "again"
+    new "снова"
+

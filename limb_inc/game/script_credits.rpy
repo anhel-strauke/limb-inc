@@ -40,9 +40,16 @@ init:
                 )
             ),
             (
+                _("Editors"),
+                (
+                    _("Oksana Melnikova"),
+                    (_("Andrew “Prol” Ponomarev"), "author.today/u/andrewponomarev"),
+                )
+            ),
+            (
                 _("Backgrounds Art"),
                 (
-                    (_("Bravo"), "artstation.com/nadezhdarunova"), # ← ?
+                    (_("Bravo"), "artstation.com/nadezhdarunova"),
                     _("Anatoly Griko"),
                 )
             ),
@@ -115,7 +122,7 @@ init python:
     cr_subitem_space = 5
     cr_item_hspace = 30
     cr_y_start = 1080 + 60 + 60
-    credits_time = 66.0
+    credits_time = 72.0
     cr_credits_height = 0
 
     def build_credits():
@@ -219,23 +226,19 @@ init python:
             xfill=True, xminimum=cr_last_max_w
         ), xysize=(cr_last_max_w, 515), xanchor=0.5), None)
     
-    def regenerate_msg_good_ending(t1, t2):
-        return (Text(_("You have reached a good ending"), slow=False, style="cr_style_game_ending"), None)
+    def regenerate_msg_new_ending(t1, t2):
+        return (Text(_("New ending: “[NEW_ENDING_TITLE!t]”"), slow=False, style="cr_style_game_ending"), None)
 
-    def regenerate_msg_neutral_ending(t1, t2):
-        return (Text(_("You have reached a neutral ending"), slow=False, style="cr_style_game_ending"), None)
-    
-    def regenerate_msg_bad_ending(t1, t2):
-        return (Text(_("You have reached a bad ending"), slow=False, style="cr_style_game_ending"), None)
+    def regenerate_msg_again(t1, ts):
+        return (Text(_("again"), slow=False, style="cr_style_game_ending"), None)
 
 init:
     image cr_game_subtitle = DynamicDisplayable(regenerate_game_subtitle)
     image cr_game_title = Text("LIMBUS INC", slow=False, style="cr_style_game_title")
     image cr_final = DynamicDisplayable(regenerate_final_message)
     image all_credits = DynamicDisplayable(regenerate_credits)
-    image cr_msg_good_ending = DynamicDisplayable(regenerate_msg_good_ending)
-    image cr_msg_neutral_ending = DynamicDisplayable(regenerate_msg_neutral_ending)
-    image cr_msg_bad_ending = DynamicDisplayable(regenerate_msg_bad_ending)
+    image cr_msg_new_ending = DynamicDisplayable(regenerate_msg_new_ending)
+    image cr_msg_again = DynamicDisplayable(regenerate_msg_again)
 
     transform cr_trans_credits(yfrom, yto, t, wait_t):
         xanchor 0.5 yanchor 0.0
@@ -294,12 +297,10 @@ label show_credits:
         show cr_game_subtitle at cr_trans_game_subtitle_show(cr_credits_height)
     show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
     if IS_ENDING_CREDITS:
-        if ENDING_UNLOCKED == "good":
-            show cr_msg_good_ending at cr_trans_game_ending_show(cr_credits_height)
-        elif ENDING_UNLOCKED == "norm":
-            show cr_msg_neutral_ending at cr_trans_game_ending_show(cr_credits_height)
-        elif ENDING_UNLOCKED == "bad":
-            show cr_msg_bad_ending at cr_trans_game_ending_show(cr_credits_height)
+        if NEW_ENDING_TITLE:
+            show cr_msg_new_ending at cr_trans_game_ending_show(cr_credits_height)
+        else:
+            show cr_msg_again at cr_trans_game_ending_show(cr_credits_height)
     show all_credits at cr_trans_credits(1080, -cr_credits_height, credits_time, (6.5 if IS_ENDING_CREDITS else 4.0))
     show cr_final at cr_trans_credits(1080 + cr_credits_height + 495, 495, credits_time, (6.5 if IS_ENDING_CREDITS else 4.0))
 

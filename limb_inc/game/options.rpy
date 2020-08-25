@@ -167,6 +167,7 @@ default preferences.afm_time = 15
 
 define config.default_fullscreen = True
 
+## Default music volume is 50%
 define config.default_music_volume = 0.5
 
 ## Save directory ##############################################################
@@ -183,7 +184,7 @@ define config.default_music_volume = 0.5
 ## This generally should not be changed, and if it is, should always be a
 ## literal string, not an expression.
 
-define config.save_directory = "limb_inc-1595676802"
+define config.save_directory = "limbus_inc_by_ithappens_and_atsg"
 
 
 ## Icon ########################################################################
@@ -244,7 +245,6 @@ init python:
     build.documentation('*.html')
     build.documentation('*.txt')
 
-
 ## A Google Play license key is required to download expansion files and perform
 ## in-app purchases. It can be found on the "Services & APIs" page of the Google
 ## Play developer console.
@@ -256,4 +256,3 @@ init python:
 ## by a slash.
 
 # define build.itch_project = "dinajam/limbus-inc"
-

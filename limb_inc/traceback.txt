@@ -1,30 +1,34 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script_credits.rpy", line 294, in script
-    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
-  File "game/script_credits.rpy", line 294, in <module>
-    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
-NameError: name 'cr_credits_height' is not defined
+  File "game/tablet_screens.rpy", line 325, in script
+    init python:
+  File "game/tablet_screens.rpy", line 329, in <module>
+    renpy.watch("tablet_current_app")
+  File "renpy/common/00console.rpy", line 617, in renpy_watch
+    watch(l)
+  File "renpy/common/00console.rpy", line 601, in watch
+    traced_expressions.append(expr)
+NameError: global name 'traced_expressions' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script_credits.rpy", line 294, in script
-    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1183, in execute
-    show_imspec(self.imspec, atl=getattr(self, "atl", None))
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 1142, in show_imspec
-    at_list = [ renpy.python.py_eval(i) for i in at_list ]
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2059, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2052, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script_credits.rpy", line 294, in <module>
-    show cr_game_title at cr_trans_game_title_show(cr_credits_height, IS_ENDING_CREDITS)
-NameError: name 'cr_credits_height' is not defined
+  File "game/tablet_screens.rpy", line 325, in script
+    init python:
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\ast.py", line 914, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Software\RenPy\renpy-7.3.5-sdk\renpy\python.py", line 2028, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/tablet_screens.rpy", line 329, in <module>
+    renpy.watch("tablet_current_app")
+  File "renpy/common/00console.rpy", line 617, in renpy_watch
+    watch(l)
+  File "renpy/common/00console.rpy", line 601, in watch
+    traced_expressions.append(expr)
+NameError: global name 'traced_expressions' is not defined
 
 Windows-8-6.2.9200
 Ren'Py 7.3.5.606
-Limbus inc 1.0b
-Sat Aug 22 20:05:07 2020
+Limbus inc 1.0
+Wed Aug 26 00:12:57 2020
